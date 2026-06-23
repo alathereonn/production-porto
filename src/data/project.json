@@ -1,0 +1,61 @@
+{
+  "projects": [
+    {
+      "title": "Alathereonn: a Portfolio Website",
+      "description": "Personal portfolio of Zakaria Fattawari, as known as Alathereonn that is built with modern web technologies. Features smooth scroll, dynamic typing effects, and custom CSS animations.",
+      "image": "src/images/github3.png", 
+      "tags": ["Vue 3", "Tailwind CSS", "JavaScript"], 
+      "github": "https://github.com/alathereonn/web-porto",
+      "demo": "#" 
+    },
+    {
+      "title": "ECHOES: The Undying Follower",
+      "description": "ECHOES: The Undying Follower is a retro-inspired survival horror game set inside St. Mercy Asylum, a psychiatric hospital hidden in Eden’s Gloria, a town that was abandoned and erased from maps after its residents vanished without a trace.",
+      "image": "src/images/github4.jpg", 
+      "tags": ["Aseprite", "Godot", "GDScript", "Pixel Art"], 
+      "github": "https://github.com/alathereonn/echoes--the-undying-follower",
+      "itchio": "https://alathereonn.itch.io/echoes-the-undying-follower-demo",
+      "demo": "#" 
+    },
+    {
+      "title": "Connect 4 AI Game",
+      "description": "Implementation and Comparative Study of Alpha-Beta Pruning, Transposition Tables, and MTD(F) for Minimax Algorithm in a Two-Player Connect Four Game. A team project from ntroduction to Artificial Intelligence course.",
+      "image": "src/images/github5.png", 
+      "tags": ["React","TypeScript", "JavaScript"],
+      "github": "https://github.com/NotHydra/connect-4-game",
+      "demo": "https://connect-4-game-id.vercel.app/"
+    },
+    {
+      "title": "ECHOES: The Undying Follower WIKI",
+      "description": "Echoes Wiki is a digital encyclopedia platform designed to systematically archive, organize, and manage information related to the indie game ECHOES: The Undying Follower.",
+      "image": "src/images/github1.png", 
+      "tags": ["Vue", "JavaScript", "Tailwind CSS"],
+      "github": "https://github.com/alathereonn/echoes-wiki-real",
+      "demo": "https://echoes-wiki.vercel.app/"
+    },
+    {
+      "title": "Distributed Sync System",
+      "description": "A distributed synchronization system based on the Raft Consensus Algorithm. It simulates real-world scenarios, effectively handling multiple nodes to communicate and synchronize data consistently.",
+      "image": "src/images/github2.png", 
+      "tags": ["Docker","Docker Compose", "Python"], 
+      "github": "https://github.com/alathereonn/distributed-sync-system",
+      "demo": "https://www.youtube.com/watch?v=smnjEYT1LxM&feature=youtu.be" 
+    },
+    {
+      "title": "Pub-Sub Log Aggregator with Idempotent Consumer and Deduplication",
+      "description": "A Publish–Subscribe (Pub-Sub) log aggregation service that ingests events from publishers and distributes them to idempotent consumers, ensuring each event is processed only once through built-in deduplication.",
+      "image": "src/images/github6.jpg",
+      "tags": ["Docker","Docker Compose", "Python"], 
+      "github": "https://github.com/alathereonn/uts-pubsub-aggregator?tab=readme-ov-file",
+      "demo": "https://www.youtube.com/watch?v=5IFNaC8BkKE&feature=youtu.be" 
+    },
+    {
+      "title": "test1",
+      "description": "A Publish–Subscribe (Pub-Sub) log aggregation service that ingests events from publishers and distributes them to idempotent consumers, ensuring each event is processed only once through built-in deduplication.",
+      "image": "",
+      "tags": ["Docker","Docker Compose", "Python"], 
+      "github": "https://github.com/alathereonn/uts-pubsub-aggregator?tab=readme-ov-file",
+      "demo": "https://www.youtube.com/watch?v=5IFNaC8BkKE&feature=youtu.be" 
+    }
+  ]
+}

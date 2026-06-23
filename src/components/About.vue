@@ -47,80 +47,52 @@
 
       <div class="text-gray-300 leading-relaxed space-y-6 text-left md:text-justify">
 
-      <h2 class="text-3xl md:text-5xl font-bold leading-tight">
-        <span class="text-primary">
-          {{ displayAbout }}
-        </span>
-        <span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">
-          |
-        </span>
-      </h2>
+        <h2 class="text-3xl md:text-5xl font-bold leading-tight">
+          <span class="text-primary">
+            {{ displayAbout }}
+          </span>
+          <span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">
+            |
+          </span>
+        </h2>
 
-        <p>
-          My name is Zakaria Fattawari, a third-year
-          <a href="https://if.itk.ac.id/" target="_blank" rel="noopener noreferrer" 
-             class="text-primary font-bold hover:text-white transition-colors underline decoration-primary/30 underline-offset-4"> 
-          Computer Science 
-          </a> student at 
-          <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-             class="text-primary font-bold hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-            Kalimantan Institute of Technology
-          </a>.
-          I have a strong interest in Web Development, Artificial Intelligence, and
-          Machine Learning. I am currently deepening my knowledge in database systems 
-          and full-stack development to strengthen my technical foundation and broaden my expertise.
-        </p>
-
-        <p>
-          What I do is transform ideas into functional digital solutions.
-          I design and develop responsive web applications, build backend systems,
-          and explore intelligent systems using AI and Machine Learning.
-          I enjoy working across the full development cycle from planning,
-          designing system architecture, developing features, to testing.
-        </p>
-
-        <p>
-          Despite starting without a technical background, I continuously challenge
-          myself to grow and adapt in the field of Informatics. This journey has
-          strengthened my problem-solving mindset, analytical thinking, and
-          ability to learn independently. I am currently strengthening my foundation
-          in databases, API development, and system architecture to become a
-          well-rounded full-stack developer.
-        </p>
-
-        <p>
-          Beyond technical development, I am also active as a facilitator or a Guider in
-          Student Managerial Skills Training (LKMM), contributing to leadership
-          and organizational development among students. Through this role,
-          I develop communication, teamwork, and project coordination skills
-          that complement my technical expertise.
-        </p>
+        <p 
+          v-for="(paragraph, index) in aboutData.about.paragraphs" 
+          :key="'p-' + index" 
+          v-html="paragraph"
+        ></p>
       </div>
 
       <div class="space-y-6 md:space-y-8">
+        
         <div class="info-card bg-card p-6 rounded-2xl border border-white/5 shadow-xl">
           <h3 class="text-xl font-bold text-primary mb-3">Education</h3>
           <p class="text-gray-300 text-sm md:text-base space-y-2">
-            <span class="block">> Undergraduate Computer Science Student</span>
-            <span class="block">> Kalimantan Institute of Technology</span>
-            <span class="block">> Faculty of Science & Information Technology</span>
+            <span 
+              v-for="(edu, index) in aboutData.about.educationSummary" 
+              :key="'edu-' + index" 
+              class="block"
+            >
+              {{ edu }}
+            </span>
           </p>
         </div>
 
         <div class="info-card bg-card p-6 rounded-2xl border border-white/5 shadow-xl">
           <h3 class="text-xl font-bold text-primary mb-3">Interest / Skills</h3>
           <ul class="list-disc list-inside space-y-1 text-gray-300 text-sm md:text-base">
-            <li>Web Development</li>
-            <li>Game Development</li>
-            <li>Computer Networks</li>
-            <li>Artificial Intelligence</li>
-            <li>Machine Learning</li>
+            <li 
+              v-for="(skill, index) in aboutData.about.skills" 
+              :key="'skill-' + index"
+            >
+              {{ skill }}
+            </li>
           </ul>
         </div>
 
         <div class="info-card bg-card p-6 rounded-2xl border border-white/5 shadow-xl">
           <p class="italic text-gray-400 text-sm md:text-base">
-            "Even if the world ends and disappears, it will be just two of us, alone in the memory."
+            {{ aboutData.about.quote }}
           </p>
         </div>
       </div>
@@ -153,24 +125,24 @@
 </template>
 
 <script>
+// Import file JSON
+import aboutData from '../data/about.json'
+
 export default {
   data() {
     return {
+      aboutData, // Daftarkan JSON agar bisa dibaca template
       images: [
         'src/images/1.jpeg',
         'src/images/2.jpeg',
         'src/images/3.jpeg'
       ],
-
       currentIndex: 1,
       slideWidth: 0,
       isDragging: false,
       startX: 0,
       dragOffset: 0,
       autoSlideInterval: null,
-
-      // ===== TYPING DATA =====
-      aboutTexts: ["WHO AM I", "GET TO KNOW ME", "WHAT DO I DO?"],
       displayAbout: ""
     };
   },
@@ -195,8 +167,8 @@ export default {
       this.slideTo(this.currentIndex + 1);
     }, 5000);
 
-    // START TYPING
-    this.createTypingEffect(this.aboutTexts, 120, 60, 1500);
+    // Ambil teks typing dari JSON
+    this.createTypingEffect(this.aboutData.about.typingTexts, 120, 60, 1500);
   },
 
   beforeUnmount() {
@@ -205,8 +177,6 @@ export default {
   },
 
   methods: {
-
-    // ===== TYPING EFFECT =====
     createTypingEffect(texts, typingSpeed, deletingSpeed, delay) {
       let textIndex = 0;
       let charIndex = 0;
@@ -234,7 +204,6 @@ export default {
       type();
     },
 
-    // ===== CAROUSEL METHODS =====
     updateSlideWidth() {
       const container = this.$el.querySelector('.overflow-hidden');
       if (container) {

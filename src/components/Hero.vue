@@ -3,7 +3,6 @@
     <div class="w-full max-w-6xl mx-auto px-6">
       <div class="flex flex-col md:flex-row items-center md:items-start gap-16 lg:gap-24">
         
-        <!-- IMAGE -->
         <div class="relative w-52 h-52 md:w-80 md:h-80 flex-shrink-0 opacity-0 translate-y-10 animate-fadeUp">
           <div class="absolute inset-0 rounded-full bg-primary blur-3xl opacity-20 animate-pulseGlow"></div>
           <img 
@@ -17,7 +16,6 @@
           />
         </div>
 
-        <!-- TEXT -->
         <div class="text-justify md:ml-6 lg:ml-40 max-w-xl">
 
           <p class="text-lg text-gray-400">
@@ -35,40 +33,34 @@
             <span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">|</span>
           </p>
 
-          <p class="mt-6 text-gray-400 leading-relaxed">
-            Third-year Computer Science student at Kalimantan Institute of Technology,
-            passionate about building modern web applications,
-            game systems, and AI-driven solutions.
+          <p 
+            v-for="(paragraph, index) in heroData.aboutParagraphs" 
+            :key="index" 
+            class="mt-6 text-gray-400 leading-relaxed"
+          >
+            {{ paragraph }}
           </p>
 
-          <p class="mt-6 text-gray-400 leading-relaxed">
-            Loves watching films and series (Breaking Bad, Better Call Saul,
-            DC and Marvel Universe, etc.), playing games (God of War,
-            Ghost of Tsushima, Souls games such as Elden Ring, etc.),
-            and exploring new technologies.
-          </p>
-
-          <!-- PREMIUM BUTTON -->
           <div class="mt-8">
             <button 
               @click="scrollToAbout"
               class="group relative px-10 py-4 rounded-xl
-                    font-semibold tracking-wide
-                    border border-primary
-                    text-primary
-                    bg-transparent
-                    transition-all duration-300
-                    transform
+                     font-semibold tracking-wide
+                     border border-primary
+                     text-primary
+                     bg-transparent
+                     transition-all duration-300
+                     transform
 
-                    shadow-[0_8px_0_0_var(--color-primary)]
-                    
-                    hover:bg-primary
-                    hover:text-black
-                    hover:-translate-y-1
-                    hover:shadow-[0_12px_25px_var]
+                     shadow-[0_8px_0_0_var(--color-primary)]
+                     
+                     hover:bg-primary
+                     hover:text-black
+                     hover:-translate-y-1
+                     hover:shadow-[0_12px_25px_var]
 
-                    active:translate-y-2
-                    active:shadow-[0_4px_0_0_var(--color-primary)]"
+                     active:translate-y-2
+                     active:shadow-[0_4px_0_0_var(--color-primary)]"
             >
               About Me
             </button>
@@ -81,18 +73,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-
-const names = [
-  "Zakaria Fattawari",
-  "Alathereonn"
-]
-
-const interests = [
-  "Web Development",
-  "Game Development",
-  "Computer Networks",
-  "AI & Machine Learning"
-]
+// 1. Import file JSON (sesuaikan path lokasinya)
+import heroData from '../data/hero.json'
 
 const displayName = ref("")
 const displayInterest = ref("")
@@ -129,7 +111,6 @@ const scrollToAbout = () => {
   if (!target) return
 
   const start = window.pageYOffset
-  // Gunakan -100 agar sama dengan navbar yang sudah diperbaiki
   const end = target.getBoundingClientRect().top + start - 100
   
   window.scrollTo({
@@ -139,7 +120,7 @@ const scrollToAbout = () => {
 }
 
 onMounted(() => {
-  createTypingEffect(names, displayName, 150, 40, 1500)
-  createTypingEffect(interests, displayInterest, 100, 50, 1000)
+  createTypingEffect(heroData.names, displayName, 150, 40, 1500)
+  createTypingEffect(heroData.interests, displayInterest, 100, 50, 1000)
 })
 </script>

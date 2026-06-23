@@ -1,0 +1,28 @@
+{
+  "about": {
+    "typingTexts": [
+      "WHO AM I", 
+      "GET TO KNOW ME", 
+      "WHAT DO I DO?"
+    ],
+    "paragraphs": [
+      "My name is Zakaria Fattawari, a third-year <a href='https://if.itk.ac.id/' target='_blank' rel='noopener noreferrer' class='text-primary font-bold hover:text-white transition-colors underline decoration-primary/30 underline-offset-4'>Computer Science</a> student at <a href='https://itk.ac.id' target='_blank' rel='noopener noreferrer' class='text-primary font-bold hover:text-white transition-colors underline decoration-primary/30 underline-offset-4'>Kalimantan Institute of Technology</a>. I have a strong interest in Web Development, Artificial Intelligence, and Machine Learning. I am currently deepening my knowledge in database systems and full-stack development to strengthen my technical foundation and broaden my expertise.",
+      "What I do is transform ideas into functional digital solutions. I design and develop responsive web applications, build backend systems, and explore intelligent systems using AI and Machine Learning. I enjoy working across the full development cycle from planning, designing system architecture, developing features, to testing.",
+      "Despite starting without a technical background, I continuously challenge myself to grow and adapt in the field of Informatics. This journey has strengthened my problem-solving mindset, analytical thinking, and ability to learn independently. I am currently strengthening my foundation in databases, API development, and system architecture to become a well-rounded full-stack developer.",
+      "Beyond technical development, I am also active as a facilitator or a Guider in Student Managerial Skills Training (LKMM), contributing to leadership and organizational development among students. Through this role, I develop communication, teamwork, and project coordination skills that complement my technical expertise."
+    ],
+    "educationSummary": [
+      "> Undergraduate Computer Science Student",
+      "> Kalimantan Institute of Technology",
+      "> Faculty of Science & Information Technology"
+    ],
+    "skills": [
+      "Web Development",
+      "Game Development",
+      "Computer Networks",
+      "Artificial Intelligence",
+      "Machine Learning"
+    ],
+    "quote": "\"Even if the world ends and disappears, it will be just two of us, alone in the memory.\""
+  }
+}

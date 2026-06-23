@@ -38,11 +38,11 @@
             />
             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 md:gap-6">
               
-              <a v-if="project.github !== '#'" :href="project.github" target="_blank" class="p-2.5 md:p-3 bg-primary text-black rounded-full hover:scale-110 transition">
+              <a v-if="project.github && project.github !== '#'" :href="project.github" target="_blank" class="p-2.5 md:p-3 bg-primary text-black rounded-full hover:scale-110 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
               </a>
 
-              <a v-if="project.demo !== '#'" :href="project.demo" target="_blank" class="p-2.5 md:p-3 bg-primary text-black rounded-full hover:scale-110 transition">
+              <a v-if="project.demo && project.demo !== '#'" :href="project.demo" target="_blank" class="p-2.5 md:p-3 bg-primary text-black rounded-full hover:scale-110 transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               </a>
 
@@ -136,12 +136,14 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
+// PERBAIKAN 1: Import data dari file project.json yang baru
+import projectData from '../data/project.json'
 
 const sliderRef = ref(null)
 let autoScrollTimer = null
 let isTransitioning = false 
 
-// MAPPER STYLING & ICON 
+// MAPPER STYLING & ICON (Dibiarkan di sini karena ini fungsionalitas UI, bukan sekadar data teks)
 const getTechConfig = (tech) => {
   const config = {
     "Tailwind CSS": { bg: "bg-[#38bdf8]", text: "text-white", icon: "tailwindcss", iconColor: "white" },
@@ -167,71 +169,24 @@ const getTechConfig = (tech) => {
   return config[tech] || { bg: "bg-gray-800", text: "text-gray-200", icon: null };
 }
 
-const originalProjects = [
-  {
-    title: "Alathereonn: a Portfolio Website",
-    description: "Personal portfolio of Zakaria Fattawari, as known as Alathereonn that is built with modern web technologies. Features smooth scroll, dynamic typing effects, and custom CSS animations.",
-    image: 'src/images/github3.png', 
-    tags: ["Vue 3", "Tailwind CSS", "JavaScript"], 
-    github: "https://github.com/alathereonn/web-porto",
-    demo: "#" 
-  },
-    {
-    title: "ECHOES: The Undying Follower",
-    description: "ECHOES: The Undying Follower is a retro-inspired survival horror game set inside St. Mercy Asylum, a psychiatric hospital hidden in Eden’s Gloria, a town that was abandoned and erased from maps after its residents vanished without a trace.",
-    image: 'src/images/github4.jpg', 
-    tags: ["Aseprite", "Godot", "GDScript", "Pixel Art"], 
-    github: "https://github.com/alathereonn/echoes--the-undying-follower",
-    itchio: "https://alathereonn.itch.io/echoes-the-undying-follower-demo",
-    demo: "#" 
-  },
-  {
-    title: "Connect 4 AI Game",
-    description: "Implementation and Comparative Study of Alpha-Beta Pruning, Transposition Tables, and MTD(F) for Minimax Algorithm in a Two-Player Connect Four Game. A team project from ntroduction to Artificial Intelligence course.",
-    image: 'src/images/github5.png', 
-    tags: ["React","TypeScript", "JavaScript"],
-    github: "https://github.com/NotHydra/connect-4-game",
-    demo: "https://connect-4-game-id.vercel.app/"
-  },
-  {
-    title: "ECHOES: The Undying Follower WIKI",
-    description: "Echoes Wiki is a digital encyclopedia platform designed to systematically archive, organize, and manage information related to the indie game ECHOES: The Undying Follower.",
-    image: 'src/images/github1.png', 
-    tags: ["Vue", "JavaScript", "Tailwind CSS"],
-    github: "https://github.com/alathereonn/echoes-wiki-real",
-    demo: "https://echoes-wiki.vercel.app/"
-  },
-  {
-    title: "Distributed Sync System",
-    description: "A distributed synchronization system based on the Raft Consensus Algorithm. It simulates real-world scenarios, effectively handling multiple nodes to communicate and synchronize data consistently.",
-    image: 'src/images/github2.png', 
-    tags: ["Docker","Docker Compose", "Python"], 
-    github: "https://github.com/alathereonn/distributed-sync-system",
-    demo: "https://www.youtube.com/watch?v=smnjEYT1LxM&feature=youtu.be" 
-  },
-  {
-    title: "Pub-Sub Log Aggregator with Idempotent Consumer and Deduplication",
-    description: "A Publish–Subscribe (Pub-Sub) log aggregation service that ingests events from publishers and distributes them to idempotent consumers, ensuring each event is processed only once through built-in deduplication.",
-    image: 'src/images/github6.jpg',
-    tags: ["Docker","Docker Compose", "Python"], 
-    github: "https://github.com/alathereonn/uts-pubsub-aggregator?tab=readme-ov-file",
-    demo: "https://www.youtube.com/watch?v=5IFNaC8BkKE&feature=youtu.be" 
-  }
-]
-
+// Menghubungkan logika infinite scroll dengan data dari JSON
 const infiniteProjectList = computed(() => {
-  const firstItems = originalProjects.slice(0, 2) 
-  const lastItems = originalProjects.slice(-2)    
-  return [...lastItems, ...originalProjects, ...firstItems]
+  // PERBAIKAN 2: Mengambil array dari projectData.list
+  const dataProjects = projectData.projects; 
+  
+  if (!dataProjects || dataProjects.length === 0) return [];
+  
+  const firstItems = dataProjects.slice(0, 2) 
+  const lastItems = dataProjects.slice(-2)    
+  return [...lastItems, ...dataProjects, ...firstItems]
 })
 
-// Fungsi bantu untuk mendapatkan GAP (margin sela) responsif agar infinite scroll mulus di Mobile
 const getGap = () => {
-  return window.innerWidth >= 768 ? 48 : 24; // md:gap-12 = 48px, mobile gap-6 = 24px
+  return window.innerWidth >= 768 ? 48 : 24; 
 }
 
 const setInitialPosition = () => {
-  if (sliderRef.value) {
+  if (sliderRef.value && sliderRef.value.children.length > 0) {
     const cardWidth = sliderRef.value.children[0].offsetWidth + getGap() 
     sliderRef.value.scrollLeft = cardWidth * 2 
   }
@@ -240,6 +195,10 @@ const setInitialPosition = () => {
 const handleScroll = () => {
   if (!sliderRef.value || isTransitioning) return
   const slider = sliderRef.value
+  
+  // Mencegah error jika belum ada child element
+  if (slider.children.length === 0) return;
+
   const cardWidth = slider.children[0].offsetWidth + getGap() 
   const maxScroll = slider.scrollWidth - slider.clientWidth
 

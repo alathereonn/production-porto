@@ -1,6 +1,5 @@
 <template>
   <section id="qualification" class="qualification-section scroll-mt-24 pt-20 md:pt-32">
-    
     <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">
       Featured <span class="text-primary">Qualifications</span>
     </h2>
@@ -13,46 +12,48 @@
     </div>
 
     <div class="timeline">
-      <div class="timeline-item left">
+      <div 
+        v-for="(cert, index) in qualificationData.certifications" 
+        :key="'cert-' + index"
+        :class="['timeline-item', index % 2 === 0 ? 'left' : 'right']"
+      >
         <div class="timeline-content">
-          <h3>MikroTik Certified Network Associate</h3>
+          <h3>{{ cert.title }}</h3>
 
           <p class="heldby">
             Held by 
-            <a href="https://mikrotik.com" target="_blank" rel="noopener noreferrer" 
+            <a :href="cert.issuerLink" target="_blank" rel="noopener noreferrer" 
                class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Mikrotik
-            </a>, and <br>
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
+              {{ cert.issuer }}
             </a>
+            
+            <template v-if="cert.institution">
+              , and <br>
+              <a :href="cert.institutionLink" target="_blank" rel="noopener noreferrer" 
+                 class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
+                {{ cert.institution }}
+              </a>
+            </template>
           </p>    
 
-          <p class="description">
-            Foundational certification focusing on basic configuration,
-            troubleshooting, and management of RouterOS and RouterBOARD.
-          </p>
+          <p class="description">{{ cert.description }}</p>
 
-          <span class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          <div class="date">
+            <svg xmlns="http://www.w3.org/2000/svg" class="calendar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            May 19, 2025 - May 20, 2025
-          </span>
+            
+            <div v-if="cert.dates.length > 1" class="date-text">
+              <p v-for="(date, dIndex) in cert.dates" :key="'d-' + dIndex">{{ date }}</p>
+            </div>
+            <span v-else>{{ cert.dates[0] }}</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <section class="qualification-section">
-
     <div class="w-full flex justify-center mt-32 mb-10">
       <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
         <span class="text-primary">{{ typedTeach }}</span><span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">|</span>
@@ -60,107 +61,41 @@
     </div>
 
     <div class="timeline">
-
-      <div class="timeline-item left">
+      <div 
+        v-for="(teach, index) in qualificationData.teaching" 
+        :key="'teach-' + index"
+        :class="['timeline-item', index % 2 === 0 ? 'left' : 'right']"
+      >
         <div class="timeline-content">
-          <h3>Laboratory Assistant for Basic Physics Subject</h3>
+          <h3>{{ teach.title }}</h3>
 
           <p class="heldby">
             Held by 
-            <a href="https://labterpadu.itk.ac.id/" target="_blank" rel="noopener noreferrer" 
+            <a :href="teach.issuerLink" target="_blank" rel="noopener noreferrer" 
                class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Integrated Laboratory of Kalimantan Institute of Technology
-            </a>, and
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
+              {{ teach.issuer }}
             </a>
+            
+            <template v-if="teach.institution">
+              , and <br>
+              <a :href="teach.institutionLink" target="_blank" rel="noopener noreferrer" 
+                 class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
+                {{ teach.institution }}
+              </a>
+            </template>
           </p>  
 
-          <p class="description">
-            Participate in becoming a Laboratory Assistant for the 
-            Practical Courses of Basic Physics I and General Physics Subject.
-          </p>
-
-          <span class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            August 21, 2024 - December 20, 2024
-          </span>
-        </div>
-      </div>
-
-      <div class="timeline-item right">
-        <div class="timeline-content">
-          <h3>Laboratory Assistant for Digital System Subject</h3>
-
-          <p class="heldby">
-            Held by 
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
-            </a>
-          </p>  
-
-          <p class="description">
-            Assistant for the Digital Systems course, focusing on combinational logic circuits, 
-            sequential circuits, and Boolean algebra.
-          </p>
+          <p class="description">{{ teach.description }}</p>
 
           <div class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="calendar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
 
-            <div class="date-text">
-              <p>February 20, 2025 - June 4, 2025</p>
-              <p>August 23, 2025 - December 26, 2025</p>
+            <div v-if="teach.dates.length > 1" class="date-text">
+              <p v-for="(date, dIndex) in teach.dates" :key="'td-' + dIndex">{{ date }}</p>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item left">
-        <div class="timeline-content">
-          <h3>Laboratory Assistant for Human Computer Interaction Subject</h3>
-
-          <p class="heldby">
-            Held by 
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
-            </a>
-          </p>  
-
-          <p class="description">
-            Assistant for the Human Computer Interaction course, focusing on user interface design, 
-            usability testing, and interaction design principles.
-          </p>
-
-          <div class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            September 12, 2025 - December 9, 2025
+            <span v-else>{{ teach.dates[0] }}</span>
           </div>
         </div>
       </div>
@@ -168,7 +103,6 @@
   </section>
 
   <section class="qualification-section pb-24">
-
     <div class="w-full flex justify-center mt-32 mb-10">
       <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
         <span class="text-primary">{{ typedEdu }}</span><span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">|</span>
@@ -176,281 +110,48 @@
     </div>
 
     <div class="timeline">
-      <div class="timeline-item left">
+      <div 
+        v-for="(edu, index) in qualificationData.education" 
+        :key="'edu-' + index"
+        :class="['timeline-item', index % 2 === 0 ? 'left' : 'right']"
+      >
         <div class="timeline-content">
-          <h3>First Semester</h3>
+          <h3>{{ edu.title }}</h3>
 
           <p class="heldby">
-            Undergraduate
-            <a href="https://if.itk.ac.id/" target="_blank" rel="noopener noreferrer" 
+            {{ edu.level }}
+            <a :href="edu.majorLink" target="_blank" rel="noopener noreferrer" 
                class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Computer Science 
+              {{ edu.major }} 
             </a> Student at<br>
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
+            <a :href="edu.institutionLink" target="_blank" rel="noopener noreferrer" 
                class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
-            </a>
-          </p>  
-
-            <p class="description">
-              GPA Semester: 3.33 <br>
-              Relevant Courses:
-            </p>
-
-          <ul class="course-list">
-            <li>Algorithm and Programming</li>
-            <li>Introduction to Informatics</li>
-          </ul>
-
-          <div class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            August 2023 - November 2023
-          </div>
-        </div>  
-      </div>
-
-      <div class="timeline-item right">
-        <div class="timeline-content">
-          <h3>Second Semester</h3>
-
-          <p class="heldby">
-            Undergraduate
-            <a href="https://if.itk.ac.id/" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Computer Science 
-            </a> Student at<br>
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
+              {{ edu.institution }}
             </a>
           </p>  
 
           <p class="description">
-            GPA Semester: 3.5 <br>
+            GPA Semester: {{ edu.gpa }} <br>
             Relevant Courses:
           </p>
 
           <ul class="course-list">
-            <li>Digital Systems</li>
-            <li>Discrete Mathematics</li>
-            <li>Object Oriented Programming</li>
+            <li v-for="(course, cIndex) in edu.courses" :key="'c-' + cIndex">
+              {{ course }}
+            </li>
           </ul>
 
           <div class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="calendar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-
-            <div class="date-text">
-              <p>January 2024 - June 2024</p>
+            
+            <div v-if="edu.dates.length > 1" class="date-text">
+              <p v-for="(date, dIndex) in edu.dates" :key="'ed-' + dIndex">{{ date }}</p>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item left">
-        <div class="timeline-content">
-          <h3>Third Semester</h3>
-
-          <p class="heldby">
-            Undergraduate
-            <a href="https://if.itk.ac.id/" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Computer Science 
-            </a> Student at<br>
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
-            </a>
-          </p>    
-
-          <p class="description">
-            GPA Semester: 3.84 <br>
-            Relevant Courses:
-          </p>
-
-          <ul class="course-list">
-            <li>Computer Architecture</li>
-            <li>Data Structure</li>
-            <li>Introduction to Probability and Optimization</li>
-            <li>Linear Algebra and Geometry</li>
-            <li>Operation System</li>
-            <li>Digital Startup</li>
-          </ul>
-
-          <div class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            August 2024 - December 2024
+            <span v-else>{{ edu.dates[0] }}</span>
           </div>
         </div>  
-      </div>
-
-      <div class="timeline-item right">
-        <div class="timeline-content">
-          <h3>Fourth Semester</h3>
-
-          <p class="heldby">
-            Undergraduate
-            <a href="https://if.itk.ac.id/" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Computer Science 
-            </a> Student at<br>
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
-            </a>
-          </p>   
-
-          <p class="description">
-            GPA Semester: 3.81 <br>
-            Relevant Courses:
-          </p>
-
-          <ul class="course-list">
-            <li>Advance DIgital Startup</li>
-            <li>Algorithm Planning and Analysis</li>
-            <li>Computer Network</li>
-            <li>Database Systems</li>
-            <li>General Insights and Ideas in Informatics</li>
-            <li>Graph Theory and Automata</li>
-            <li>Graphics Computer</li>
-          </ul>
-
-          <div class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-
-            <div class="date-text">
-              <p>February 2025 - July 2025</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item left">
-        <div class="timeline-content">
-          <h3>Fifth Semester</h3>
-
-          <p class="heldby">
-            Undergraduate
-            <a href="https://if.itk.ac.id/" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Computer Science 
-            </a> Student at<br>
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
-            </a>
-          </p>   
-
-          <p class="description">
-            GPA Semester: 3.5 <br>
-            Relevant Courses:
-          </p>
-
-          <ul class="course-list">
-            <li>Database Management</li>
-            <li>Digital Image Processing</li>
-            <li>Functional Programming</li>
-            <li>Human and Computer Interaction</li>
-            <li>Introduction to Artificial Intelligence</li>
-            <li>Parallel and Distributed Systems</li>
-            <li>Software Implementation and Testing</li>
-            <li>Web Design</li>
-          </ul>
-
-          <div class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            August 2025 - December 2025
-          </div>
-        </div>  
-      </div>
-
-      <div class="timeline-item right">
-        <div class="timeline-content">
-          <h3>Sixth Semester</h3>
-
-          <p class="heldby">
-            Undergraduate
-            <a href="https://if.itk.ac.id/" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Computer Science 
-            </a> Student at<br>
-            <a href="https://itk.ac.id" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
-              Kalimantan Institute of Technology
-            </a>
-          </p>  
-
-          <p class="description">
-            GPA Semester: ? <br>
-            Relevant Courses:
-          </p>
-
-          <ul class="course-list">
-            <li>Capita Selecta</li>
-            <li>Data Mining</li>
-            <li>Deep Learning</li>
-            <li>Digital Game Programming</li>
-            <li>Machine Learning</li>
-            <li>Resource Management</li>
-            <li>Social Innovation</li>
-            <li>Web Based Application Development</li>
-          </ul>
-
-          <div class="date">
-            <svg xmlns="http://www.w3.org/2000/svg"
-              class="calendar-icon"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-
-            <div class="date-text">
-              <p>February 2026 - Now</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -478,13 +179,15 @@
       See My Projects!
     </button>
   </div>
-      
 </template>
 
 <script>
+import qualificationData from '../data/qualification.json'
+
 export default {
   data() {
     return {
+      qualificationData, 
       certText: ["PROFESSIONAL CERTIFICATION"],
       teachText: ["TEACHING EXPERIENCES"],
       eduText: ["EDUCATION"],
