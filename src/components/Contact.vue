@@ -8,11 +8,11 @@
 
     <div class="relative z-10 w-full max-w-7xl text-center mb-12 md:mb-20">
       <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">
-        Interested? <span class="text-primary">Call Me!</span>
+        {{ contactData.header.titleStart }}<span class="text-primary">{{ contactData.header.titleHighlight }}</span>
       </h2>
       <div class="w-24 h-1 bg-primary mx-auto mb-6 shadow-[0_0_10px_var(--color-primary)]"></div>
       <p class="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
-        Send your signal through the digital network. Let's collaborate to build the digital future together.
+        {{ contactData.header.subtitle }}
       </p>
     </div>
 
@@ -22,7 +22,7 @@
         
         <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-10 rounded-2xl shadow-2xl relative overflow-hidden group flex flex-col flex-1">
           <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="text-xl font-bold text-primary mb-6">Send a Message</h3>
+          <h3 class="text-xl font-bold text-primary mb-6">{{ contactData.form.heading }}</h3>
           
           <form @submit.prevent="sendMessage" class="flex flex-col h-full gap-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -31,7 +31,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                   Name
                 </label>
-                <input type="text" required placeholder="John Doe" class="w-full bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base">
+                <input type="text" name="name" required placeholder="John Doe" class="w-full bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base">
               </div>
 
               <div>
@@ -39,7 +39,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                   Email
                 </label>
-                <input type="email" required placeholder="john@example.com" class="w-full bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base">
+                <input type="email" name="email" required placeholder="john@example.com" class="w-full bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base">
               </div>
             </div>
 
@@ -48,39 +48,27 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                 Message
               </label>
-              <textarea required rows="6" placeholder="Describe your project or collaboration idea..." class="w-full flex-1 bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base resize-none"></textarea>
+              <textarea name="message" required rows="6" placeholder="Describe your project or collaboration idea..." class="w-full flex-1 bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base resize-none"></textarea>
             </div>
 
-            <button type="submit" class="w-full mt-4 group relative px-8 py-4 rounded-xl font-bold tracking-wide text-base border border-primary text-primary bg-transparent hover:bg-primary hover:text-black transition-all duration-300 flex justify-center items-center gap-3 shadow-[0_6px_0_0_var(--color-primary)] hover:translate-y-1 hover:shadow-none active:translate-y-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-              Send Message
+            <button type="submit" :disabled="isSending" class="w-full mt-4 group relative px-8 py-4 rounded-xl font-bold tracking-wide text-base border border-primary text-primary bg-transparent hover:bg-primary hover:text-black transition-all duration-300 flex justify-center items-center gap-3 shadow-[0_6px_0_0_var(--color-primary)] hover:translate-y-1 hover:shadow-none active:translate-y-2 disabled:opacity-50 disabled:cursor-not-allowed">
+              <svg v-if="!isSending" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              {{ isSending ? 'Sending...' : 'Send Message' }}
             </button>
           </form>
         </div>
 
         <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
           <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="text-xl font-bold text-primary mb-6">Social Networks</h3>
+          <h3 class="text-xl font-bold text-primary mb-6">{{ contactData.socials.heading }}</h3>
           
           <div class="flex flex-wrap gap-4">
-            <a href="https://github.com/alathereonn" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-white hover:text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(190,24,93,0.4)] border border-white/5 hover:border-transparent">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-            </a>
-            <a href="https://www.linkedin.com/in/zakaria-fattawari" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#0A66C2] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(10,102,194,0.4)] border border-white/5 hover:border-transparent">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-            <a href="https://instagram.com/alathereonn_" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#E1306C] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(225,48,108,0.4)] border border-white/5 hover:border-transparent">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-            <a href="https://web.facebook.com/profile.php?id=100055464836367" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#1877F2] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(24,119,242,0.4)] border border-white/5 hover:border-transparent">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-            </a>
-            <a href="https://steamcommunity.com/id/alathereonn/" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#2a475e] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(102,192,244,0.4)] border border-white/5 hover:border-transparent">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16.5 5a4.5 4.5 0 1 1 -.653 8.953l-4.347 3.009l0 .038a3 3 0 0 1 -2.824 2.995l-.176 .005a3 3 0 0 1 -2.94 -2.402l-2.56 -1.098v-3.5l3.51 1.755a2.989 2.989 0 0 1 2.834 -.635l2.727 -3.546a4.5 4.5 0 0 1 4.429 -5.572z"></path>
-                  <circle cx="16.5" cy="9.5" r="1">
-                  </circle>
-              </svg>
+            <a :href="contactData.socials.github" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-white hover:text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(190,24,93,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+            <a :href="contactData.socials.linkedin" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#0A66C2] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(10,102,194,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            <a :href="contactData.socials.instagram" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#E1306C] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(225,48,108,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            <a :href="contactData.socials.facebook" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#1877F2] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(24,119,242,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+            <a :href="contactData.socials.steam" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#2a475e] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(102,192,244,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 5a4.5 4.5 0 1 1 -.653 8.953l-4.347 3.009l0 .038a3 3 0 0 1 -2.824 2.995l-.176 .005a3 3 0 0 1 -2.94 -2.402l-2.56 -1.098v-3.5l3.51 1.755a2.989 2.989 0 0 1 2.834 -.635l2.727 -3.546a4.5 4.5 0 0 1 4.429 -5.572z"></path><circle cx="16.5" cy="9.5" r="1"></circle></svg></a>
+            <a :href="contactData.socials.discord" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#5865F2] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(88,101,242,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
             </a>
           </div>
         </div>
@@ -91,26 +79,26 @@
         
         <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
           <div class="absolute top-0 right-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="text-xl font-bold text-primary mb-6">Contact Protocols</h3>
+          <h3 class="text-xl font-bold text-primary mb-6">{{ contactData.contactInfo.heading }}</h3>
           
           <div class="space-y-6">
-            <a href="mailto:zakriafattawari@gmail.com" class="flex items-center gap-5 group/item">
+            <a :href="'mailto:' + contactData.contactInfo.email" class="flex items-center gap-5 group/item">
               <div class="p-4 bg-primary/10 text-primary rounded-xl group-hover/item:bg-primary group-hover/item:text-black transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
               </div>
               <div>
                 <p class="text-sm text-gray-500 mb-1">Email Address</p>
-                <p class="text-gray-200 group-hover/item:text-primary transition-colors text-base md:text-lg font-medium break-all">zakriafattawari@gmail.com</p>
+                <p class="text-gray-200 group-hover/item:text-primary transition-colors text-base md:text-lg font-medium break-all">{{ contactData.contactInfo.email }}</p>
               </div>
             </a>
             
-            <a href="https://wa.me/6281288814966" target="_blank" class="flex items-center gap-5 group/item">
+            <a :href="contactData.contactInfo.whatsappLink" target="_blank" class="flex items-center gap-5 group/item">
               <div class="p-4 bg-primary/10 text-primary rounded-xl group-hover/item:bg-primary group-hover/item:text-black transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               </div>
               <div>
                 <p class="text-sm text-gray-500 mb-1">WhatsApp</p>
-                <p class="text-gray-200 group-hover/item:text-primary transition-colors text-base md:text-lg font-medium">+62 856-5114-9430</p>
+                <p class="text-gray-200 group-hover/item:text-primary transition-colors text-base md:text-lg font-medium">{{ contactData.contactInfo.whatsappDisplay }}</p>
               </div>
             </a>
           </div>
@@ -122,7 +110,7 @@
           <div class="flex justify-between items-center mb-6">
             <h3 class="text-xl font-bold text-primary flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-              My Playlists
+              {{ contactData.playlists.heading }}
             </h3>
             <div class="flex gap-2">
               <button @click="prevPlaylist" class="p-1.5 bg-darkbg rounded-lg hover:text-primary hover:bg-white/10 transition-all border border-white/5">
@@ -137,7 +125,7 @@
           <div ref="playlistSliderRef" class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar flex-1 rounded-xl scroll-smooth gap-6 md:gap-8">
             
             <div 
-              v-for="(item, index) in myPlaylists" 
+              v-for="(item, index) in contactData.playlists.list" 
               :key="item.id" 
               class="w-full flex-shrink-0 snap-center relative bg-darkbg overflow-hidden border border-white/5 aspect-square md:aspect-auto rounded-xl flex flex-col"
             >
@@ -186,10 +174,10 @@
 
     <div class="absolute bottom-0 w-full border-t border-white/5 pt-6 pb-6 text-center bg-darkbg/90 backdrop-blur-md z-20">
       <p class="text-gray-400 text-sm tracking-wide">
-        Designed & Built by <span class="text-primary font-bold">Zakaria Fattawari</span>
+        Designed & Built by <span class="text-primary font-bold">{{ contactData.footer.designer }}</span>
       </p>
       <p class="text-gray-600 text-xs mt-2">
-        © 2026 — All Rights Reserved.
+        {{ contactData.footer.copyright }}
       </p>
     </div>
 
@@ -198,26 +186,38 @@
 
 <script setup>
 import { ref } from 'vue'
+import contactData from '../data/contact.json'
 
-import coverImage1 from '../images/moodyblues.png' 
-import coverImage2 from '../images/ger.png' 
+const isSending = ref(false)
 
-const sendMessage = () => {
-  alert("Message sent! I will get back to you soon.");
-}
+const sendMessage = async (e) => {
+  const FORMSPREE_URL = "https://formspree.io/f/xlgydpev" 
+  
+  isSending.value = true;
+  const form = e.target;
+  const data = new FormData(form);
 
-const myPlaylists = [
-  {
-    name: "Moody Blues",
-    id: "PL51LO2h2cDWex4_SXzqILTqRcsOil-9lh",
-    cover: coverImage1
-  },
-  {
-    name: "Golden Experience - Requiem", 
-    id: "PL51LO2h2cDWfteGHVk-W9_c-wQV8p-aDZ",
-    cover: coverImage2
+  try {
+    const response = await fetch(FORMSPREE_URL, {
+      method: "POST",
+      body: data,
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      alert("Message sent! I will get back to you soon.");
+      form.reset(); 
+    } else {
+      alert("Oops! There was a problem submitting your form.");
+    }
+  } catch (error) {
+    alert("Error sending message. Please try again later.");
+  } finally {
+    isSending.value = false;
   }
-]
+}
 
 const playingIndex = ref(null)
 

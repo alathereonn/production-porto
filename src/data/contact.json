@@ -1,0 +1,44 @@
+{
+  "header": {
+    "titleStart": "Interested? ",
+    "titleHighlight": "Call Me!",
+    "subtitle": "Send your signal through the digital network. Let's collaborate to build the digital future together."
+  },
+  "form": {
+    "heading": "Send a Message"
+  },
+  "socials": {
+    "heading": "Social Networks",
+    "github": "https://github.com/alathereonn",
+    "linkedin": "https://www.linkedin.com/in/zakaria-fattawari",
+    "instagram": "https://instagram.com/alathereonn_",
+    "facebook": "https://web.facebook.com/profile.php?id=100055464836367",
+    "steam": "https://steamcommunity.com/id/alathereonn/",
+    "discord": "https://discordapp.com/users/alathereon"
+  },
+  "contactInfo": {
+    "heading": "Contact Protocols",
+    "email": "zakriafattawari@gmail.com",
+    "whatsappLink": "https://wa.me/6281288814966",
+    "whatsappDisplay": "+62 856-5114-9430"
+  },
+  "playlists": {
+    "heading": "My Playlists",
+    "list": [
+      {
+        "name": "Moody Blues",
+        "id": "PL51LO2h2cDWex4_SXzqILTqRcsOil-9lh",
+        "cover": "src/images/moodyblues.png"
+      },
+      {
+        "name": "Golden Experience Requiem",
+        "id": "PL51LO2h2cDWfteGHVk-W9_c-wQV8p-aDZ",
+        "cover": "src/images/ger.png"
+      }
+    ]
+  },
+  "footer": {
+    "designer": "Zakaria Fattawari",
+    "copyright": "© 2026 — All Rights Reserved."
+  }
+}
