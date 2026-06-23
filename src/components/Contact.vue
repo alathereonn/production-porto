@@ -1,17 +1,17 @@
 <template>
-  <section id="contact" class="relative min-h-screen flex flex-col items-center py-20 md:py-32 px-4 md:px-8 scroll-mt-24 overflow-hidden bg-darkbg">
+  <section id="contact" class="contact-section">
     
     <div class="absolute inset-0 pointer-events-none opacity-20">
       <div class="absolute top-0 left-1/4 w-[40rem] h-[40rem] bg-primary/20 blur-[120px] rounded-full mix-blend-screen"></div>
       <div class="absolute bottom-0 right-1/4 w-[30rem] h-[30rem] bg-red-900/10 blur-[100px] rounded-full mix-blend-screen"></div>
     </div>
 
-    <div class="relative z-10 w-full max-w-7xl text-center mb-12 md:mb-20">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">
+    <div class="contact-header">
+      <h2 class="section-title">
         {{ contactData.header.titleStart }}<span class="text-primary">{{ contactData.header.titleHighlight }}</span>
       </h2>
-      <div class="w-24 h-1 bg-primary mx-auto mb-6 shadow-[0_0_10px_var(--color-primary)]"></div>
-      <p class="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed">
+      <div class="section-divider section-divider--compact"></div>
+      <p class="contact-subtitle">
         {{ contactData.header.subtitle }}
       </p>
     </div>
@@ -31,7 +31,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                   Name
                 </label>
-                <input type="text" name="name" required placeholder="John Doe" class="w-full bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base">
+                <input type="text" name="name" required placeholder="John Doe" class="contact-input">
               </div>
 
               <div>
@@ -39,7 +39,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                   Email
                 </label>
-                <input type="email" name="email" required placeholder="john@example.com" class="w-full bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base">
+                <input type="email" name="email" required placeholder="john@example.com" class="contact-input">
               </div>
             </div>
 
@@ -48,11 +48,11 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                 Message
               </label>
-              <textarea name="message" required rows="6" placeholder="Describe your project or collaboration idea..." class="w-full flex-1 bg-darkbg border border-white/10 rounded-xl px-5 py-4 text-gray-200 placeholder-gray-600 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-base resize-none"></textarea>
+              <textarea name="message" required rows="6" placeholder="Describe your project or collaboration idea..." class="contact-input contact-textarea"></textarea>
             </div>
 
-            <button type="submit" :disabled="isSending" class="w-full mt-4 group relative px-8 py-4 rounded-xl font-bold tracking-wide text-base border border-primary text-primary bg-transparent hover:bg-primary hover:text-black transition-all duration-300 flex justify-center items-center gap-3 shadow-[0_6px_0_0_var(--color-primary)] hover:translate-y-1 hover:shadow-none active:translate-y-2 disabled:opacity-50 disabled:cursor-not-allowed">
-              <svg v-if="!isSending" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <button type="submit" :disabled="isSending" class="primary-button primary-button--full contact-submit-button">
+              <svg v-if="!isSending" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-submit-icon"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
               {{ isSending ? 'Sending...' : 'Send Message' }}
             </button>
           </form>
@@ -153,14 +153,13 @@
 
               <iframe 
                 v-if="playingIndex === index"
-                style="border-radius:12px" 
                 :src="`https://www.youtube.com/embed/videoseries?list=${item.id}&autoplay=1`" 
                 width="100%" 
                 height="100%" 
                 frameBorder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                 allowfullscreen 
-                class="absolute inset-0 z-10">
+                class="playlist-iframe">
               </iframe>
 
             </div>
@@ -188,6 +187,10 @@
 import { ref } from 'vue'
 import contactData from '../data/contact.json'
 
+defineOptions({
+  name: 'PortfolioContact',
+})
+
 const isSending = ref(false)
 
 const sendMessage = async (e) => {
@@ -212,7 +215,7 @@ const sendMessage = async (e) => {
     } else {
       alert("Oops! There was a problem submitting your form.");
     }
-  } catch (error) {
+  } catch {
     alert("Error sending message. Please try again later.");
   } finally {
     isSending.value = false;
@@ -249,13 +252,3 @@ const prevPlaylist = () => {
   }
 }
 </script>
-
-<style scoped>
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
-}
-</style>

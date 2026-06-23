@@ -1,13 +1,13 @@
 <template>
   <section id="qualification" class="qualification-section scroll-mt-24 pt-20 md:pt-32">
-    <h2 class="text-4xl md:text-5xl font-bold text-center mb-6">
+    <h2 class="section-title">
       Featured <span class="text-primary">Qualifications</span>
     </h2>
-    <div class="w-24 h-1 bg-primary mx-auto mb-16 shadow-[0_0_10px_var(--color-primary)] rounded-full"></div>
+    <div class="section-divider section-divider--large"></div>
 
     <div class="w-full flex justify-center mb-10">
       <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedCert }}</span><span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">|</span>
+        <span class="text-primary">{{ typedCert }}</span><span class="typing-cursor">|</span>
       </h2>
     </div>
 
@@ -22,15 +22,13 @@
 
           <p class="heldby">
             Held by 
-            <a :href="cert.issuerLink" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
+            <a :href="cert.issuerLink" target="_blank" rel="noopener noreferrer" class="timeline-link">
               {{ cert.issuer }}
             </a>
             
             <template v-if="cert.institution">
               , and <br>
-              <a :href="cert.institutionLink" target="_blank" rel="noopener noreferrer" 
-                 class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
+              <a :href="cert.institutionLink" target="_blank" rel="noopener noreferrer" class="timeline-link">
                 {{ cert.institution }}
               </a>
             </template>
@@ -56,7 +54,7 @@
   <section class="qualification-section">
     <div class="w-full flex justify-center mt-32 mb-10">
       <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedTeach }}</span><span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">|</span>
+        <span class="text-primary">{{ typedTeach }}</span><span class="typing-cursor">|</span>
       </h2>
     </div>
 
@@ -71,15 +69,13 @@
 
           <p class="heldby">
             Held by 
-            <a :href="teach.issuerLink" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
+            <a :href="teach.issuerLink" target="_blank" rel="noopener noreferrer" class="timeline-link">
               {{ teach.issuer }}
             </a>
             
             <template v-if="teach.institution">
               , and <br>
-              <a :href="teach.institutionLink" target="_blank" rel="noopener noreferrer" 
-                 class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
+              <a :href="teach.institutionLink" target="_blank" rel="noopener noreferrer" class="timeline-link">
                 {{ teach.institution }}
               </a>
             </template>
@@ -105,7 +101,7 @@
   <section class="qualification-section pb-24">
     <div class="w-full flex justify-center mt-32 mb-10">
       <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedEdu }}</span><span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">|</span>
+        <span class="text-primary">{{ typedEdu }}</span><span class="typing-cursor">|</span>
       </h2>
     </div>
 
@@ -120,12 +116,10 @@
 
           <p class="heldby">
             {{ edu.level }}
-            <a :href="edu.majorLink" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
+            <a :href="edu.majorLink" target="_blank" rel="noopener noreferrer" class="timeline-link">
               {{ edu.major }} 
             </a> Student at<br>
-            <a :href="edu.institutionLink" target="_blank" rel="noopener noreferrer" 
-               class="text-primary font-medium hover:text-white transition-colors underline decoration-primary/30 underline-offset-4">
+            <a :href="edu.institutionLink" target="_blank" rel="noopener noreferrer" class="timeline-link">
               {{ edu.institution }}
             </a>
           </p>  
@@ -159,22 +153,7 @@
   <div class="flex justify-center pb-32 relative z-10">
     <button
       @click="scrollToProject"
-      class="group relative px-10 py-4 rounded-xl
-            font-semibold tracking-wide
-            border border-primary
-            text-primary
-            bg-transparent
-            transition-all duration-300
-            transform
-            shadow-[0_6px_0_0_var(--color-primary)]
-            
-            hover:bg-primary
-            hover:text-black
-            hover:-translate-y-1
-            hover:shadow-[0_12px_25px_rgba(190,24,93,0.4)]
-
-            active:translate-y-2
-            active:shadow-[0_3px_0_0_var(--color-primary)]"
+      class="primary-button"
     >
       See My Projects!
     </button>
@@ -185,6 +164,8 @@
 import qualificationData from '../data/qualification.json'
 
 export default {
+  name: 'PortfolioQualification',
+
   data() {
     return {
       qualificationData, 
@@ -196,7 +177,8 @@ export default {
       typedEdu: "",
       typingSpeed: 100,
       deletingSpeed: 50,
-      delay: 1500
+      delay: 1500,
+      typingTimeouts: []
     };
   },
 
@@ -206,7 +188,17 @@ export default {
     this.createTyping(this.eduText, "typedEdu");
   },
 
+  beforeUnmount() {
+    this.typingTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
+  },
+
   methods: {
+    scheduleTypingTimeout(callback, delay) {
+      const timeoutId = setTimeout(callback, delay);
+      this.typingTimeouts.push(timeoutId);
+      return timeoutId;
+    },
+
     createTyping(textArray, target) {
       let textIndex = 0;
       let charIndex = 0;
@@ -218,7 +210,9 @@ export default {
         if (!isDeleting) {
           this[target] = current.substring(0, charIndex++);
           if (charIndex > current.length) {
-            setTimeout(() => isDeleting = true, this.delay);
+            this.scheduleTypingTimeout(() => {
+              isDeleting = true;
+            }, this.delay);
           }
         } else {
           this[target] = current.substring(0, charIndex--);
@@ -228,7 +222,7 @@ export default {
           }
         }
 
-        setTimeout(loop, isDeleting ? this.deletingSpeed : this.typingSpeed);
+        this.scheduleTypingTimeout(loop, isDeleting ? this.deletingSpeed : this.typingSpeed);
       };
 
       loop();

@@ -1,19 +1,19 @@
 <template>
-  <section id="project" class="min-h-screen py-20 md:py-32 px-4 md:px-8 scroll-mt-24">
-    <h2 class="text-3xl md:text-5xl font-bold text-center mb-4">
+  <section id="project" class="project-section">
+    <h2 class="section-title">
       Featured <span class="text-primary">Projects</span>
     </h2>
-    <div class="w-24 h-1 bg-primary mx-auto mb-12 md:mb-20 shadow-[0_0_10px_var(--color-primary)]"></div>
+    <div class="section-divider"></div>
 
     <div 
-      class="relative max-w-6xl mx-auto group"
+      class="project-carousel group"
       @mouseenter="pauseAutoScroll"
       @mouseleave="resumeAutoScroll"
     >
       
       <button 
         @click="scrollPrev" 
-        class="absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-10 p-4 bg-darkbg border border-primary text-primary rounded-full shadow-[0_0_15px_var(--color-primary)] hover:bg-primary hover:text-black transition-all duration-300 opacity-0 group-hover:opacity-100 hidden md:flex"
+        class="project-nav-button project-nav-button--prev"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
       </button>
@@ -21,32 +21,31 @@
       <div 
         ref="sliderRef" 
         @scroll="handleScroll"
-        class="flex overflow-x-auto gap-6 md:gap-12 snap-x snap-mandatory pb-6 md:pb-10 hide-scrollbar items-stretch"
-        style="scroll-behavior: auto;" 
+        class="project-slider hide-scrollbar"
       >
         
         <div 
           v-for="(project, index) in infiniteProjectList" 
           :key="`${project.title}-${index}`"
-          class="snap-start flex-none w-full md:w-[calc(50%-1.5rem)] group/card bg-card rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-500 shadow-xl flex flex-col"
+          class="project-card group/card"
         >
-          <div class="relative overflow-hidden aspect-video shrink-0">
+          <div class="project-image-wrap">
             <img 
               :src="project.image" 
               :alt="project.title"
-              class="w-full h-full object-cover transition duration-500 group-hover/card:scale-110 opacity-80 group-hover/card:opacity-100"
+              class="project-image"
             />
-            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 md:gap-6">
+            <div class="project-overlay">
               
-              <a v-if="project.github && project.github !== '#'" :href="project.github" target="_blank" class="p-2.5 md:p-3 bg-primary text-black rounded-full hover:scale-110 transition">
+              <a v-if="project.github && project.github !== '#'" :href="project.github" target="_blank" class="project-action-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
               </a>
 
-              <a v-if="project.demo && project.demo !== '#'" :href="project.demo" target="_blank" class="p-2.5 md:p-3 bg-primary text-black rounded-full hover:scale-110 transition">
+              <a v-if="project.demo && project.demo !== '#'" :href="project.demo" target="_blank" class="project-action-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
               </a>
 
-              <a v-if="project.itchio && project.itchio !== '#'" :href="project.itchio" target="_blank" title="Play on Itch.io" class="p-2.5 md:p-3 bg-primary text-black rounded-full hover:scale-110 transition">
+              <a v-if="project.itchio && project.itchio !== '#'" :href="project.itchio" target="_blank" title="Play on Itch.io" class="project-action-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6">
                   <line x1="6" y1="12" x2="10" y2="12"></line>
                   <line x1="8" y1="10" x2="8" y2="14"></line>
@@ -59,19 +58,19 @@
             </div>
           </div>
 
-          <div class="p-6 md:p-8 flex flex-col flex-1 justify-between">
-            <div class="mb-6 md:mb-8">
-              <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 group-hover/card:text-primary transition-colors">
+          <div class="project-card-body">
+            <div class="project-card-copy">
+              <h3 class="project-card-title">
                 {{ project.title }}
               </h3>
-              <p class="text-sm md:text-base text-gray-400 leading-relaxed line-clamp-4 md:line-clamp-none">
+              <p class="project-card-description">
                 {{ project.description }}
               </p>
             </div>
 
-            <div class="mt-auto">
-              <p class="text-[10px] md:text-xs font-bold text-primary mb-2 md:mb-3 uppercase tracking-widest">Tech Stack</p>
-              <div class="flex flex-wrap gap-1.5 md:gap-2">
+            <div class="project-tech">
+              <p class="project-tech-label">Tech Stack</p>
+              <div class="project-tech-list">
                 <span 
                   v-for="tech in project.tags" 
                   :key="tech"
@@ -98,7 +97,7 @@
 
       <button 
         @click="scrollNext" 
-        class="absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-10 p-4 bg-darkbg border border-primary text-primary rounded-full shadow-[0_0_15px_var(--color-primary)] hover:bg-primary hover:text-black transition-all duration-300 opacity-0 group-hover:opacity-100 hidden md:flex"
+        class="project-nav-button project-nav-button--next"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
@@ -110,22 +109,7 @@
         href="https://github.com/alathereonn"
         target="_blank"
         rel="noopener noreferrer"
-        class="group relative px-8 py-3 md:px-10 md:py-4 rounded-xl
-              text-sm md:text-base font-semibold tracking-wide
-              border border-primary
-              text-primary
-              bg-transparent
-              transition-all duration-300
-              transform
-              shadow-[0_6px_0_0_var(--color-primary)]
-              
-              hover:bg-primary
-              hover:text-black
-              hover:-translate-y-1
-              hover:shadow-[0_12px_25px_rgba(190,24,93,0.4)]
-
-              active:translate-y-2
-              active:shadow-[0_3px_0_0_var(--color-primary)]"
+        class="primary-button primary-button--compact"
       >
         See More on my GitHub
       </a>
@@ -138,6 +122,10 @@
 import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
 // PERBAIKAN 1: Import data dari file project.json yang baru
 import projectData from '../data/project.json'
+
+defineOptions({
+  name: 'PortfolioProject',
+})
 
 const sliderRef = ref(null)
 let autoScrollTimer = null
@@ -250,6 +238,7 @@ const scrollPrev = () => {
 }
 
 const startAutoScroll = () => {
+  pauseAutoScroll()
   autoScrollTimer = setInterval(() => {
     scrollNext()
   }, 10000)
@@ -277,13 +266,3 @@ onUnmounted(() => {
 })
 
 </script>
-
-<style scoped>
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
-}
-</style>
