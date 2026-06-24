@@ -22,20 +22,20 @@
         
         <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-10 rounded-2xl shadow-2xl relative overflow-hidden group flex flex-col flex-1">
           <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="text-xl font-bold text-primary mb-6">{{ contactData.form.heading }}</h3>
+          <h3 class="contact-card-heading contact-form-heading">{{ contactData.form.heading }}</h3>
           
           <form @submit.prevent="sendMessage" class="flex flex-col h-full gap-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label class="flex items-center gap-2 text-sm text-gray-400 mb-2">
+              <div class="contact-field">
+                <label class="contact-label flex items-center gap-2 text-sm text-gray-400">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                   Name
                 </label>
                 <input type="text" name="name" required placeholder="John Doe" class="contact-input">
               </div>
 
-              <div>
-                <label class="flex items-center gap-2 text-sm text-gray-400 mb-2">
+              <div class="contact-field">
+                <label class="contact-label flex items-center gap-2 text-sm text-gray-400">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                   Email
                 </label>
@@ -43,8 +43,8 @@
               </div>
             </div>
 
-            <div class="flex-1 flex flex-col">
-              <label class="flex items-center gap-2 text-sm text-gray-400 mb-2">
+            <div class="contact-field flex-1 flex flex-col">
+              <label class="contact-label flex items-center gap-2 text-sm text-gray-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                 Message
               </label>
@@ -60,9 +60,9 @@
 
         <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
           <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="text-xl font-bold text-primary mb-6">{{ contactData.socials.heading }}</h3>
+          <h3 class="contact-card-heading contact-social-heading">{{ contactData.socials.heading }}</h3>
           
-          <div class="flex flex-wrap gap-4">
+          <div class="contact-social-list">
             <a :href="contactData.socials.github" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-white hover:text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(190,24,93,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
             <a :href="contactData.socials.linkedin" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#0A66C2] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(10,102,194,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
             <a :href="contactData.socials.instagram" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#E1306C] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(225,48,108,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
@@ -79,9 +79,9 @@
         
         <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
           <div class="absolute top-0 right-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="text-xl font-bold text-primary mb-6">{{ contactData.contactInfo.heading }}</h3>
+          <h3 class="contact-card-heading contact-protocol-heading">{{ contactData.contactInfo.heading }}</h3>
           
-          <div class="space-y-6">
+          <div class="contact-info-list">
             <a :href="'mailto:' + contactData.contactInfo.email" class="flex items-center gap-5 group/item">
               <div class="p-4 bg-primary/10 text-primary rounded-xl group-hover/item:bg-primary group-hover/item:text-black transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
@@ -104,10 +104,10 @@
           </div>
         </div>
 
-        <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 rounded-2xl shadow-xl relative overflow-hidden group flex flex-col p-6 md:p-8 flex-1 min-h-[350px]">
+        <div class="contact-playlist-card bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 rounded-2xl shadow-xl relative overflow-hidden group flex flex-col p-6 md:p-8 flex-1">
           <div class="absolute top-0 right-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500 z-10 pointer-events-none"></div>
           
-          <div class="flex justify-between items-center mb-6">
+          <div class="playlist-header flex justify-between items-center">
             <h3 class="text-xl font-bold text-primary flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
               {{ contactData.playlists.heading }}

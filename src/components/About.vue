@@ -1,9 +1,10 @@
 <template>
   <section id="about" class="about-section">
-    <h2 class="section-title">
+    
+    <h2 class="about-title">
       About <span class="text-primary">Me!</span>
     </h2>
-    <div class="section-divider"></div>
+    <div class="about-divider"></div>
 
     <div class="about-nebula" aria-hidden="true">
       <div class="nebula-layer layer1"></div>
@@ -11,31 +12,15 @@
       <div class="nebula-layer layer3"></div>
     </div>
 
-    <div
-      class="about-carousel cursor-grab"
-      @mousedown="onDragStart"
-      @mousemove="onDragMove"
-      @mouseup="onDragEnd"
-      @mouseleave="onDragEnd"
-      @touchstart="onDragStart"
-      @touchmove="onDragMove"
-      @touchend="onDragEnd"
-    >
-      <div
-        ref="slider"
-        class="about-slider-track"
-        :class="{ 'is-dragging': isDragging }"
-        :style="sliderStyle"
-      >
+    <div class="about-gallery-wrap">
+      <div class="about-gallery">
         <div
-          v-for="(img, i) in loopImages"
-          :key="i"
-          class="about-slide"
-          :style="{ width: slideWidth + 'px' }"
+          v-for="(img, index) in images"
+          :key="index"
+          @mouseenter="activeCard = index"
+          :class="['expanding-card', { 'active': activeCard === index }]"
         >
-          <div class="about-image-frame">
-            <img :src="img" class="carousel-image" alt="" />
-          </div>
+          <img :src="img" class="about-gallery-image" alt="Gallery Image" />
         </div>
       </div>
     </div>
@@ -46,35 +31,40 @@
           <span class="text-primary">
             {{ displayAbout }}
           </span>
-          <span class="typing-cursor">|</span>
+          <span class="animate-pulse text-primary drop-shadow-[0_0_8px_var(--color-primary)]">
+            |
+          </span>
         </h2>
 
-        <p
-          v-for="(paragraph, index) in aboutData.about.paragraphs"
-          :key="'p-' + index"
+        <p 
+          v-for="(paragraph, index) in aboutData.about.paragraphs" 
+          :key="'p-' + index" 
           v-html="paragraph"
         ></p>
       </div>
 
-      <div class="about-card-stack">
-        <div class="info-card">
-          <h3 class="card-title">Education</h3>
-          <p class="info-card-text">
-            <span
-              v-for="(edu, index) in aboutData.about.educationSummary"
-              :key="'edu-' + index"
+      <div class="flex flex-col gap-6 md:gap-8">
+        
+        <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
+          <h3 class="text-xl font-bold text-primary mb-4">Education</h3>
+          <p class="text-gray-300 text-sm md:text-base space-y-2">
+            <span 
+              v-for="(edu, index) in aboutData.about.educationSummary" 
+              :key="'edu-' + index" 
               class="block"
             >
-              {{ edu }}
+              > {{ edu }}
             </span>
           </p>
         </div>
 
-        <div class="info-card">
-          <h3 class="card-title">Interest / Skills</h3>
-          <ul class="about-skill-list">
-            <li
-              v-for="(skill, index) in aboutData.about.skills"
+        <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
+          <h3 class="text-xl font-bold text-primary mb-4">Interest / Skills</h3>
+          <ul class="list-disc list-inside space-y-1 text-gray-300 text-sm md:text-base">
+            <li 
+              v-for="(skill, index) in aboutData.about.skills" 
               :key="'skill-' + index"
             >
               {{ skill }}
@@ -82,16 +72,18 @@
           </ul>
         </div>
 
-        <div class="info-card">
-          <p class="info-card-quote">
-            {{ aboutData.about.quote }}
+        <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
+          <p class="italic text-gray-400 text-sm md:text-base leading-relaxed">
+            "{{ aboutData.about.quote }}"
           </p>
         </div>
+
       </div>
     </div>
 
-    <div class="section-action">
-      <button @click="scrollToQualification" class="primary-button">
+    <div class="about-more-action">
+      <button @click="scrollToQualification" class="group relative px-10 py-4 rounded-xl font-semibold tracking-wide border border-primary text-primary bg-transparent transition-all duration-300 transform shadow-[0_6px_0_0_var(--color-primary)] hover:bg-primary hover:text-black hover:-translate-y-1 hover:shadow-[0_12px_25px_var] active:translate-y-2 active:shadow-[0_3px_0_0_var(--color-primary)]">
         More
       </button>
     </div>
@@ -109,43 +101,23 @@ export default {
       aboutData,
       images: [
         'src/images/1.jpeg',
-        'src/images/2.jpeg',
+        'src/images/2.jpg',
         'src/images/3.jpeg',
+        'src/images/4.jpg', 
+        'src/images/5.jpg',
+        'src/images/6.jpeg',
       ],
-      currentIndex: 1,
-      slideWidth: 0,
-      isDragging: false,
-      startX: 0,
-      dragOffset: 0,
-      autoSlideInterval: null,
-      slideResetTimeout: null,
+      activeCard: 0, 
       typingTimeouts: [],
       displayAbout: '',
     }
   },
 
-  computed: {
-    loopImages() {
-      return [this.images[this.images.length - 1], ...this.images, this.images[0]]
-    },
-    sliderStyle() {
-      return {
-        transform: `translateX(${-this.currentIndex * this.slideWidth + this.dragOffset}px)`,
-      }
-    },
-  },
-
   mounted() {
-    this.updateSlideWidth()
-    window.addEventListener('resize', this.updateSlideWidth)
-    this.startAutoSlide()
     this.createTypingEffect(this.aboutData.about.typingTexts, 120, 60, 1500)
   },
 
   beforeUnmount() {
-    window.removeEventListener('resize', this.updateSlideWidth)
-    clearInterval(this.autoSlideInterval)
-    clearTimeout(this.slideResetTimeout)
     this.typingTimeouts.forEach((timeoutId) => clearTimeout(timeoutId))
   },
 
@@ -183,71 +155,6 @@ export default {
       }
 
       type()
-    },
-
-    startAutoSlide() {
-      clearInterval(this.autoSlideInterval)
-      this.autoSlideInterval = setInterval(() => {
-        this.slideTo(this.currentIndex + 1)
-      }, 5000)
-    },
-
-    updateSlideWidth() {
-      const container = this.$el.querySelector('.about-carousel')
-      if (container) {
-        this.slideWidth = container.offsetWidth
-      }
-    },
-
-    getClientX(e) {
-      return e.type.includes('mouse') ? e.clientX : e.touches[0].clientX
-    },
-
-    onDragStart(e) {
-      this.isDragging = true
-      this.startX = this.getClientX(e)
-      clearInterval(this.autoSlideInterval)
-    },
-
-    onDragMove(e) {
-      if (!this.isDragging) return
-      this.dragOffset = this.getClientX(e) - this.startX
-    },
-
-    onDragEnd() {
-      if (!this.isDragging) return
-
-      const threshold = 10
-
-      if (this.dragOffset < -threshold) {
-        this.slideTo(this.currentIndex + 1)
-      } else if (this.dragOffset > threshold) {
-        this.slideTo(this.currentIndex - 1)
-      } else {
-        this.slideTo(this.currentIndex)
-      }
-
-      this.dragOffset = 0
-      this.isDragging = false
-      this.startAutoSlide()
-    },
-
-    slideTo(index) {
-      this.currentIndex = index
-
-      clearTimeout(this.slideResetTimeout)
-      this.slideResetTimeout = setTimeout(() => {
-        const slider = this.$refs.slider
-        if (!slider) return
-        slider.style.transition = 'none'
-
-        if (this.currentIndex === 0) this.currentIndex = this.images.length
-        if (this.currentIndex === this.images.length + 1) this.currentIndex = 1
-
-        slider.style.transform = `translateX(${-this.currentIndex * this.slideWidth}px)`
-        void slider.offsetWidth
-        slider.style.transition = 'transform 0.5s ease-in-out'
-      }, 500)
     },
 
     scrollToQualification() {

@@ -58,6 +58,14 @@ const displayName = ref('')
 const displayInterest = ref('')
 const typingCleanups = []
 
+const getNavbarOffset = () => {
+  const value = getComputedStyle(document.documentElement).getPropertyValue('--navbar-height')
+  const numericValue = Number.parseFloat(value)
+  const rootFontSize = Number.parseFloat(getComputedStyle(document.documentElement).fontSize)
+
+  return value.trim().endsWith('rem') ? numericValue * rootFontSize : numericValue
+}
+
 const createTypingEffect = (texts, outputRef, typingSpeed = 100, deletingSpeed = 50, delay = 1000) => {
   let textIndex = 0
   let charIndex = 0
@@ -103,7 +111,7 @@ const scrollToAbout = () => {
   if (!target) return
 
   const start = window.pageYOffset
-  const end = target.getBoundingClientRect().top + start - 100
+  const end = target.getBoundingClientRect().top + start - getNavbarOffset()
 
   window.scrollTo({
     top: end,
