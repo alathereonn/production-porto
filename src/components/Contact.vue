@@ -51,7 +51,7 @@
               <textarea name="message" required rows="6" placeholder="Describe your project or collaboration idea..." class="contact-input contact-textarea"></textarea>
             </div>
 
-            <button type="submit" :disabled="isSending" class="primary-button primary-button--full contact-submit-button">
+            <button ref="submitButtonRef" type="submit" :disabled="isSending" class="primary-button primary-button--full contact-submit-button">
               <svg v-if="!isSending" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contact-submit-icon"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
               {{ isSending ? 'Sending...' : 'Send Message' }}
             </button>
@@ -181,10 +181,19 @@
     </div>
 
   </section>
+
+  <FeedbackModal
+    :is-open="isFeedbackModalOpen"
+    :title="feedbackModalTitle"
+    :message="feedbackModalMessage"
+    :variant="feedbackModalVariant"
+    @close="closeFeedbackModal"
+  />
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
+import FeedbackModal from './FeedbackModal.vue'
 import contactData from '../data/contact.json'
 
 defineOptions({
@@ -192,6 +201,24 @@ defineOptions({
 })
 
 const isSending = ref(false)
+const isFeedbackModalOpen = ref(false)
+const feedbackModalTitle = ref('')
+const feedbackModalMessage = ref('')
+const feedbackModalVariant = ref('success')
+const submitButtonRef = ref(null)
+
+const openFeedbackModal = ({ title, message, variant }) => {
+  feedbackModalTitle.value = title
+  feedbackModalMessage.value = message
+  feedbackModalVariant.value = variant
+  isFeedbackModalOpen.value = true
+}
+
+const closeFeedbackModal = async () => {
+  isFeedbackModalOpen.value = false
+  await nextTick()
+  submitButtonRef.value?.focus()
+}
 
 const sendMessage = async (e) => {
   const FORMSPREE_URL = "https://formspree.io/f/xlgydpev" 
@@ -210,13 +237,25 @@ const sendMessage = async (e) => {
     });
 
     if (response.ok) {
-      alert("Message sent! I will get back to you soon.");
+      openFeedbackModal({
+        title: 'Message Sent!',
+        message: 'Thank you for reaching out. I will get back to you as soon as possible.',
+        variant: 'success',
+      })
       form.reset(); 
     } else {
-      alert("Oops! There was a problem submitting your form.");
+      openFeedbackModal({
+        title: 'Message Not Sent',
+        message: 'Something went wrong. Please try again later or contact me through WhatsApp.',
+        variant: 'error',
+      })
     }
   } catch {
-    alert("Error sending message. Please try again later.");
+    openFeedbackModal({
+      title: 'Message Not Sent',
+      message: 'Something went wrong. Please try again later or contact me through WhatsApp.',
+      variant: 'error',
+    })
   } finally {
     isSending.value = false;
   }

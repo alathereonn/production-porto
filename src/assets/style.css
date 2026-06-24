@@ -1313,6 +1313,141 @@ section[id] {
   border-radius: var(--radius-md);
 }
 
+.feedback-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(5px);
+}
+
+.feedback-modal {
+  position: relative;
+  width: min(100%, 28rem);
+  padding: 2rem;
+  border: 1px solid rgba(190, 24, 93, 0.45);
+  border-radius: 1.25rem;
+  background: #15151f;
+  box-shadow:
+    0 0 35px rgba(190, 24, 93, 0.22),
+    0 24px 70px rgba(0, 0, 0, 0.55);
+  text-align: center;
+}
+
+.feedback-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border-mid);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-muted);
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.feedback-modal-close:hover {
+  border-color: rgba(190, 24, 93, 0.5);
+  background: rgba(190, 24, 93, 0.12);
+  color: var(--color-primary);
+}
+
+.feedback-modal-icon {
+  display: inline-flex;
+  width: 4rem;
+  height: 4rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  border-radius: 9999px;
+  background: rgba(190, 24, 93, 0.12);
+  color: var(--color-primary);
+  box-shadow: 0 0 22px rgba(190, 24, 93, 0.25);
+}
+
+.feedback-modal--error {
+  border-color: rgba(248, 113, 113, 0.42);
+  box-shadow:
+    0 0 35px rgba(248, 113, 113, 0.16),
+    0 24px 70px rgba(0, 0, 0, 0.55);
+}
+
+.feedback-modal--error .feedback-modal-icon {
+  background: rgba(248, 113, 113, 0.12);
+  color: #f87171;
+  box-shadow: 0 0 22px rgba(248, 113, 113, 0.2);
+}
+
+.feedback-modal-title {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.feedback-modal-message {
+  margin-top: 0.75rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.feedback-modal-action {
+  display: inline-flex;
+  min-height: 2.75rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.75rem;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: #000;
+  padding: 0.75rem 1.75rem;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.feedback-modal-action:hover {
+  box-shadow: var(--shadow-primary-soft);
+  transform: translateY(-0.125rem);
+}
+
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.22s ease;
+}
+
+.modal-enter-active .feedback-modal,
+.modal-leave-active .feedback-modal {
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-from .feedback-modal,
+.modal-leave-to .feedback-modal {
+  opacity: 0;
+  transform: translateY(0.5rem) scale(0.96);
+}
+
 /* ========================================
    11. Shared Components / Utilities
 ======================================== */
@@ -1550,9 +1685,12 @@ section[id] {
     padding-top: 8rem;
   }
 
-  .project-section,
-  .contact-section {
+  .project-section {
     padding: 8rem 2rem;
+  }
+
+  .contact-section {
+    padding: 3.5rem 2rem 8rem;
   }
 
   .project-slider {

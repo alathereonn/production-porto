@@ -104,7 +104,7 @@ export default {
         'src/images/2.jpg',
         'src/images/3.jpeg',
         'src/images/4.jpg', 
-        'src/images/5.jpg',
+        'src/images/5.jpeg',
         'src/images/6.jpeg',
       ],
       activeCard: 0, 

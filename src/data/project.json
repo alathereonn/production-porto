@@ -72,7 +72,7 @@
       "image": "src/images/github2.png", 
       "tags": ["Docker","Docker Compose", "Python"], 
       "github": "https://github.com/alathereonn/distributed-sync-system",
-      "demo": "https://www.youtube.com/watch?v=smnjEYT1LxM&feature=youtu.be" 
+      "demo": "https://www.youtube.com/watch?v=smnjEYT1LxM&feature=youtu.be"
     },
     {
       "title": "Pub-Sub Log Aggregator with Idempotent Consumer and Deduplication",
