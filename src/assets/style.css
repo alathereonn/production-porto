@@ -276,12 +276,29 @@ section[id] {
 }
 
 .brand-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
   cursor: pointer;
   border: 0;
   background: transparent;
   color: var(--color-primary);
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+.brand-logo {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease;
+}
+
+.brand-name {
+  line-height: 1;
 }
 
 .nav-links {
@@ -401,6 +418,13 @@ section[id] {
 .mobile-navigation-link.is-active {
   background: rgba(190, 24, 93, 0.12);
   color: var(--color-primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .brand-button:hover .brand-logo {
+    filter: drop-shadow(0 0 8px rgba(190, 24, 93, 0.45));
+    transform: scale(1.06);
+  }
 }
 
 /* ========================================
@@ -1557,6 +1581,15 @@ section[id] {
 @media (max-width: 767px) {
   :root {
     --navbar-height: 7rem;
+  }
+
+  .brand-button {
+    gap: 0.5rem;
+  }
+
+  .brand-logo {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   .hero-section {

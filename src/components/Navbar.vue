@@ -1,8 +1,14 @@
 <template>
   <nav ref="navbarRef" class="navbar">
     <div class="navbar-inner">
-      <button class="brand-button" @click="scrollTo('home')">
-        ALATHEREONN
+      <button class="brand-button" type="button" aria-label="Go to Home" @click="scrollTo('home')">
+        <img
+          class="brand-logo"
+          src="/alathereonn-logo-transparent.png"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="brand-name">ALATHEREONN</span>
       </button>
 
       <div class="nav-links">

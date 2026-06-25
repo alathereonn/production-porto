@@ -22,10 +22,10 @@
     },
     {
       "title": "Laboratory Assistant for Digital System Subject",
-      "issuer": "Kalimantan Institute of Technology",
-      "issuerLink": "https://itk.ac.id",
-      "institution": "",
-      "institutionLink": "",
+      "issuer": "Computer Science Department of Kalimantan Institute of Technology",
+      "issuerLink": "https://if.itk.ac.id/",
+      "institution": "Kalimantan Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
       "description": "Assistant for the Digital Systems course, focusing on combinational logic circuits, sequential circuits, and Boolean algebra.",
       "dates": [
         "February 20, 2025 - June 4, 2025",
@@ -34,11 +34,20 @@
     },
     {
       "title": "Laboratory Assistant for Human Computer Interaction Subject",
-      "issuer": "Kalimantan Institute of Technology",
-      "issuerLink": "https://itk.ac.id",
-      "institution": "",
-      "institutionLink": "",
+      "issuer": "Computer Science Department of Kalimantan Institute of Technology",
+      "issuerLink": "https://if.itk.ac.id/",
+      "institution": "Kalimantan Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
       "description": "Assistant for the Human Computer Interaction course, focusing on user interface design, usability testing, and interaction design principles.",
+      "dates": ["September 12, 2025 - December 9, 2025"]
+    },
+    {
+      "title": "Tutor Beraktif HMIF ITK",
+      "issuer": "HMIF ITK",
+      "issuerLink": "https://www.instagram.com/hmif.itk/",
+      "institution": "Kalimantan Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
+      "description": "Served as a 'Teacher' in Tutor Beraktif for HMIF ITK, teaching the Digital Systems course.",
       "dates": ["September 12, 2025 - December 9, 2025"]
     }
   ],
@@ -51,7 +60,7 @@
       "institution": "Kalimantan Institute of Technology",
       "institutionLink": "https://itk.ac.id",
       "gpa": "3.33",
-      "courses": ["Algorithm and Programming", "Introduction to Informatics"],
+      "courses": ["Algorithm and Programming", "Introduction to Computer Science"],
       "dates": ["August 2023 - November 2023"]
     },
     {
@@ -63,7 +72,7 @@
       "institutionLink": "https://itk.ac.id",
       "gpa": "3.5",
       "courses": ["Digital Systems", "Discrete Mathematics", "Object Oriented Programming"],
-      "dates": ["January 2024 - June 2024"]
+      "dates": ["January 2024 - June 2024"] 
     },
     {
       "title": "Third Semester",
@@ -84,7 +93,7 @@
       "institution": "Kalimantan Institute of Technology",
       "institutionLink": "https://itk.ac.id",
       "gpa": "3.81",
-      "courses": ["Advance DIgital Startup", "Algorithm Planning and Analysis", "Computer Network", "Database Systems", "General Insights and Ideas in Informatics", "Graph Theory and Automata", "Graphics Computer"],
+      "courses": ["Advance Digital Startup", "Algorithm Planning and Analysis", "Computer Network", "Database Systems", "General Insights and Ideas in Computer Science", "Graph Theory and Automata", "Graphics Computer", "Software Analysis and Design"],
       "dates": ["February 2025 - July 2025"]
     },
     {
@@ -106,7 +115,7 @@
       "institution": "Kalimantan Institute of Technology",
       "institutionLink": "https://itk.ac.id",
       "gpa": "?",
-      "courses": ["Capita Selecta", "Data Mining", "Deep Learning", "Digital Game Programming", "Machine Learning", "Resource Management", "Social Innovation", "Web Based Application Development"],
+      "courses": ["Capita Selecta", "Data Mining", "Deep Learning", "Digital Game Programming", "Machine Learning", "Web Based Application Development"],
       "dates": ["February 2026 - Now"]
     }
   ]
