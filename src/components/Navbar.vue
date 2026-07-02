@@ -1,5 +1,12 @@
 <template>
   <nav ref="navbarRef" class="navbar">
+    <div class="navbar-scroll-progress" aria-hidden="true">
+      <span
+        class="navbar-scroll-progress__fill"
+        :style="{ transform: `scaleX(${scrollProgress / 100})` }"
+      ></span>
+    </div>
+
     <div class="navbar-inner">
       <button class="brand-button" type="button" aria-label="Go to Home" @click="scrollTo('home')">
         <img
@@ -74,7 +81,9 @@ const navLinks = [
 
 const active = ref('home')
 const isMobileMenuOpen = ref(false)
+const scrollProgress = ref(0)
 const navbarRef = ref(null)
+let scrollFrameId = 0
 
 const closeMobileMenu = () => {
   isMobileMenuOpen.value = false
@@ -108,7 +117,7 @@ const scrollTo = (id) => {
   })
 }
 
-const handleScroll = () => {
+const updateActiveNavigation = () => {
   navLinks.forEach((link) => {
     const el = document.getElementById(link.target)
     if (!el) return
@@ -120,6 +129,27 @@ const handleScroll = () => {
     if (top >= offset && top < offset + height) {
       active.value = link.target
     }
+  })
+}
+
+const updateScrollProgress = () => {
+  const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight
+  const rawProgress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0
+
+  scrollProgress.value = Math.min(100, Math.max(0, rawProgress))
+}
+
+const updateScrollState = () => {
+  updateScrollProgress()
+  updateActiveNavigation()
+}
+
+const handleScroll = () => {
+  if (scrollFrameId) return
+
+  scrollFrameId = window.requestAnimationFrame(() => {
+    updateScrollState()
+    scrollFrameId = 0
   })
 }
 
@@ -135,14 +165,18 @@ const handleDocumentPointerDown = (event) => {
 }
 
 onMounted(() => {
+  updateScrollState()
   window.addEventListener('scroll', handleScroll)
+  window.addEventListener('resize', handleScroll)
   window.addEventListener('keydown', handleKeydown)
   document.addEventListener('pointerdown', handleDocumentPointerDown)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', handleScroll)
   window.removeEventListener('keydown', handleKeydown)
   document.removeEventListener('pointerdown', handleDocumentPointerDown)
+  if (scrollFrameId) window.cancelAnimationFrame(scrollFrameId)
 })
 </script>

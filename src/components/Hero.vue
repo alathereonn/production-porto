@@ -2,7 +2,10 @@
   <section id="home" class="hero-section">
     <div class="section-container section-container--narrow">
       <div class="hero-layout">
-        <div class="hero-portrait-wrap animate-fadeUp">
+        <div
+          class="hero-portrait-wrap hero-reveal hero-reveal--image"
+          :class="{ 'is-visible': isHeroRevealed }"
+        >
           <div class="hero-portrait-glow animate-pulseGlow"></div>
           <img
             src="/profile.jpg"
@@ -12,16 +15,25 @@
         </div>
 
         <div class="hero-copy">
-          <p class="eyebrow-text">
+          <p
+            class="eyebrow-text hero-reveal hero-reveal--greeting"
+            :class="{ 'is-visible': isHeroRevealed }"
+          >
             Hi, my name is
           </p>
 
-          <h1 class="hero-title">
+          <h1
+            class="hero-title hero-reveal hero-reveal--name"
+            :class="{ 'is-visible': isHeroRevealed }"
+          >
             <span class="text-primary">{{ displayName }}</span>
             <span class="typing-cursor">|</span>
           </h1>
 
-          <p class="hero-interest">
+          <p
+            class="hero-interest hero-reveal hero-reveal--headline"
+            :class="{ 'is-visible': isHeroRevealed }"
+          >
             Interested in
             <span class="text-primary">{{ displayInterest }}</span>
             <span class="typing-cursor">|</span>
@@ -30,12 +42,16 @@
           <p
             v-for="(paragraph, index) in heroData.aboutParagraphs"
             :key="index"
-            class="body-copy"
+            class="body-copy hero-reveal hero-reveal--description"
+            :class="{ 'is-visible': isHeroRevealed }"
           >
             {{ paragraph }}
           </p>
 
-          <div class="hero-action">
+          <div
+            class="hero-action hero-reveal hero-reveal--cta"
+            :class="{ 'is-visible': isHeroRevealed }"
+          >
             <button @click="scrollToAbout" class="primary-button">
               About Me
             </button>
@@ -56,7 +72,9 @@ defineOptions({
 
 const displayName = ref('')
 const displayInterest = ref('')
+const isHeroRevealed = ref(false)
 const typingCleanups = []
+let heroRevealFrameId = 0
 
 const getNavbarOffset = () => {
   const value = getComputedStyle(document.documentElement).getPropertyValue('--navbar-height')
@@ -120,11 +138,16 @@ const scrollToAbout = () => {
 }
 
 onMounted(() => {
+  heroRevealFrameId = window.requestAnimationFrame(() => {
+    isHeroRevealed.value = true
+  })
+
   typingCleanups.push(createTypingEffect(heroData.names, displayName, 150, 40, 1500))
   typingCleanups.push(createTypingEffect(heroData.interests, displayInterest, 100, 50, 1000))
 })
 
 onUnmounted(() => {
+  if (heroRevealFrameId) window.cancelAnimationFrame(heroRevealFrameId)
   typingCleanups.forEach((cleanup) => cleanup())
 })
 </script>
