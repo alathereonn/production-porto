@@ -41,6 +41,7 @@
 
 :root {
   --color-primary: #BE185D;
+  --color-primary-hover: #DB2777;
   --color-darkbg: #0F0F14;
   --color-card: #18181F;
   --color-text: #f8f8f8;
@@ -71,6 +72,42 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--navbar-height);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) var(--color-darkbg);
+}
+
+/* ========================================
+   Global Scrollbar
+======================================== */
+
+::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-darkbg);
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 3rem;
+  border: 0.1875rem solid var(--color-darkbg);
+  border-radius: 999px;
+  background-color: var(--color-primary);
+  background-clip: padding-box;
+  box-shadow: 0 0 0.5rem rgba(190, 24, 93, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: 0 0 0.75rem rgba(190, 24, 93, 0.6);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-primary);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--color-darkbg);
 }
 
 body {
