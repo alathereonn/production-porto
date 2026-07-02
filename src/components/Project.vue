@@ -1,42 +1,50 @@
 <template>
   <section id="project" class="project-section">
-    <h2 class="section-title">
-      Featured <span class="text-primary">Projects</span>
-    </h2>
-    <div class="section-divider"></div>
+    <ScrollReveal>
+      <h2 class="section-title">
+        Featured <span class="text-primary">Projects</span>
+      </h2>
+      <div class="section-divider"></div>
+    </ScrollReveal>
 
-    <div 
+    <ScrollReveal
+      as="div"
       class="project-carousel group"
+      :delay="100"
       @mouseenter="pauseAutoScroll"
       @mouseleave="resumeAutoScroll"
     >
-      
-      <button 
-        @click="scrollPrev" 
+
+      <ScrollReveal
+        as="button"
+        type="button"
+        :delay="180"
+        @click="scrollPrev"
         class="project-nav-button project-nav-button--prev"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-      </button>
+      </ScrollReveal>
 
-      <div 
-        ref="sliderRef" 
+      <div
+        ref="sliderRef"
         @scroll="handleScroll"
         class="project-slider hide-scrollbar"
       >
-        
-        <div 
-          v-for="(project, index) in infiniteProjectList" 
+
+        <ScrollReveal
+          v-for="(project, index) in infiniteProjectList"
           :key="`${project.title}-${index}`"
           class="project-card group/card"
+          :delay="Math.min((index % 4) * 70, 210)"
         >
           <div class="project-image-wrap">
-            <img 
-              :src="project.image" 
+            <img
+              :src="project.image"
               :alt="project.title"
               class="project-image"
             />
             <div class="project-overlay">
-              
+
               <a v-if="project.github && project.github !== '#'" :href="project.github" target="_blank" class="project-action-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
               </a>
@@ -71,8 +79,8 @@
             <div class="project-tech">
               <p class="project-tech-label">Tech Stack</p>
               <div class="project-tech-list">
-                <span 
-                  v-for="tech in project.tags" 
+                <span
+                  v-for="tech in project.tags"
                   :key="tech"
                   :class="[
                     'text-[9px] md:text-xs font-bold px-2 py-1 md:px-2.5 md:py-1.5 rounded-sm uppercase tracking-widest flex items-center gap-1.5 md:gap-2 shadow-sm',
@@ -80,9 +88,9 @@
                     getTechConfig(tech).text
                   ]"
                 >
-                  <img 
-                    v-if="getTechConfig(tech).icon" 
-                    :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`" 
+                  <img
+                    v-if="getTechConfig(tech).icon"
+                    :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
                     class="w-3 h-3 md:w-3.5 md:h-3.5 object-contain"
                     alt=""
                   />
@@ -91,20 +99,23 @@
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
       </div>
 
-      <button 
-        @click="scrollNext" 
+      <ScrollReveal
+        as="button"
+        type="button"
+        :delay="180"
+        @click="scrollNext"
         class="project-nav-button project-nav-button--next"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </button>
+      </ScrollReveal>
 
-    </div>
+    </ScrollReveal>
 
-    <div class="flex justify-center mt-12 md:mt-12 relative z-10">
+    <ScrollReveal as="div" class="flex justify-center mt-12 md:mt-12 relative z-10" :delay="200">
       <a
         href="https://github.com/alathereonn"
         target="_blank"
@@ -113,7 +124,7 @@
       >
         See More on my GitHub
       </a>
-    </div>
+    </ScrollReveal>
 
   </section>
 </template>
@@ -122,6 +133,7 @@
 import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
 // PERBAIKAN 1: Import data dari file project.json yang baru
 import projectData from '../data/project.json'
+import ScrollReveal from './ScrollReveal.vue'
 
 defineOptions({
   name: 'PortfolioProject',
@@ -129,15 +141,15 @@ defineOptions({
 
 const sliderRef = ref(null)
 let autoScrollTimer = null
-let isTransitioning = false 
+let isTransitioning = false
 
 // MAPPER STYLING & ICON (Dibiarkan di sini karena ini fungsionalitas UI, bukan sekadar data teks)
 const getTechConfig = (tech) => {
   const config = {
     "Tailwind CSS": { bg: "bg-[#38bdf8]", text: "text-white", icon: "tailwindcss", iconColor: "white" },
-    "CSS": { bg: "bg-[#1572B6]", text: "text-white", icon: "css3", iconColor: "white" }, 
+    "CSS": { bg: "bg-[#1572B6]", text: "text-white", icon: "css3", iconColor: "white" },
     "C#": { bg: "bg-[#239120]", text: "text-white", icon: "csharp", iconColor: "white" },
-    "React": { bg: "bg-[#20232A]", text: "text-white", icon: "react", iconColor: "61DAFB" }, 
+    "React": { bg: "bg-[#20232A]", text: "text-white", icon: "react", iconColor: "61DAFB" },
     "Vue": { bg: "bg-[#41B883]", text: "text-white", icon: "vuedotjs", iconColor: "white" },
     "Vue 3": { bg: "bg-[#41B883]", text: "text-white", icon: "vuedotjs", iconColor: "white" },
     "JavaScript": { bg: "bg-[#F7DF1E]", text: "text-black", icon: "javascript", iconColor: "black" },
@@ -169,41 +181,41 @@ const getTechConfig = (tech) => {
 // Menghubungkan logika infinite scroll dengan data dari JSON
 const infiniteProjectList = computed(() => {
   // PERBAIKAN 2: Mengambil array dari projectData.list
-  const dataProjects = projectData.projects; 
-  
+  const dataProjects = projectData.projects;
+
   if (!dataProjects || dataProjects.length === 0) return [];
-  
-  const firstItems = dataProjects.slice(0, 2) 
-  const lastItems = dataProjects.slice(-2)    
+
+  const firstItems = dataProjects.slice(0, 2)
+  const lastItems = dataProjects.slice(-2)
   return [...lastItems, ...dataProjects, ...firstItems]
 })
 
 const getGap = () => {
-  return window.innerWidth >= 768 ? 48 : 24; 
+  return window.innerWidth >= 768 ? 48 : 24;
 }
 
 const setInitialPosition = () => {
   if (sliderRef.value && sliderRef.value.children.length > 0) {
-    const cardWidth = sliderRef.value.children[0].offsetWidth + getGap() 
-    sliderRef.value.scrollLeft = cardWidth * 2 
+    const cardWidth = sliderRef.value.children[0].offsetWidth + getGap()
+    sliderRef.value.scrollLeft = cardWidth * 2
   }
 }
 
 const handleScroll = () => {
   if (!sliderRef.value || isTransitioning) return
   const slider = sliderRef.value
-  
+
   // Mencegah error jika belum ada child element
   if (slider.children.length === 0) return;
 
-  const cardWidth = slider.children[0].offsetWidth + getGap() 
+  const cardWidth = slider.children[0].offsetWidth + getGap()
   const maxScroll = slider.scrollWidth - slider.clientWidth
 
   if (slider.scrollLeft <= 5) {
     isTransitioning = true
     slider.style.scrollBehavior = 'auto'
-    slider.scrollLeft = maxScroll - (cardWidth * 2) 
-    
+    slider.scrollLeft = maxScroll - (cardWidth * 2)
+
     requestAnimationFrame(() => {
       slider.style.scrollBehavior = 'smooth'
       isTransitioning = false
@@ -212,8 +224,8 @@ const handleScroll = () => {
   else if (slider.scrollLeft >= maxScroll - 5) {
     isTransitioning = true
     slider.style.scrollBehavior = 'auto'
-    slider.scrollLeft = cardWidth * 2 
-    
+    slider.scrollLeft = cardWidth * 2
+
     requestAnimationFrame(() => {
       slider.style.scrollBehavior = 'smooth'
       isTransitioning = false

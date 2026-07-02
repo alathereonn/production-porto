@@ -1,10 +1,12 @@
 <template>
   <section id="about" class="about-section">
-    
-    <h2 class="about-title">
-      About <span class="text-primary">Me!</span>
-    </h2>
-    <div class="about-divider"></div>
+
+    <ScrollReveal>
+      <h2 class="about-title">
+        About <span class="text-primary">Me!</span>
+      </h2>
+      <div class="about-divider"></div>
+    </ScrollReveal>
 
     <div class="about-nebula" aria-hidden="true">
       <div class="nebula-layer layer1"></div>
@@ -12,7 +14,7 @@
       <div class="nebula-layer layer3"></div>
     </div>
 
-    <div class="about-gallery-wrap">
+    <ScrollReveal as="div" class="about-gallery-wrap" :delay="100">
       <div class="about-gallery">
         <div
           v-for="(img, index) in images"
@@ -23,10 +25,10 @@
           <img :src="img" class="about-gallery-image" alt="Gallery Image" />
         </div>
       </div>
-    </div>
+    </ScrollReveal>
 
     <div class="about-content-grid">
-      <div class="about-copy">
+      <ScrollReveal as="div" class="about-copy" :delay="200">
         <h2 class="about-typing-title">
           <span class="text-primary">
             {{ displayAbout }}
@@ -36,65 +38,73 @@
           </span>
         </h2>
 
-        <p 
-          v-for="(paragraph, index) in aboutData.about.paragraphs" 
-          :key="'p-' + index" 
+        <p
+          v-for="(paragraph, index) in aboutData.about.paragraphs"
+          :key="'p-' + index"
           v-html="paragraph"
         ></p>
-      </div>
+      </ScrollReveal>
 
       <div class="flex flex-col gap-6 md:gap-8">
-        
-        <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
-          <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="text-xl font-bold text-primary mb-4">Education</h3>
-          <p class="text-gray-300 text-sm md:text-base space-y-2">
-            <span 
-              v-for="(edu, index) in aboutData.about.educationSummary" 
-              :key="'edu-' + index" 
-              class="block"
-            >
-              > {{ edu }}
-            </span>
-          </p>
-        </div>
 
-        <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
-          <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="text-xl font-bold text-primary mb-4">Interest / Skills</h3>
-          <ul class="list-disc list-inside space-y-1 text-gray-300 text-sm md:text-base">
-            <li 
-              v-for="(skill, index) in aboutData.about.skills" 
-              :key="'skill-' + index"
-            >
-              {{ skill }}
-            </li>
-          </ul>
-        </div>
+        <ScrollReveal :delay="200">
+          <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+            <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
+            <h3 class="text-xl font-bold text-primary mb-4">Education</h3>
+            <p class="text-gray-300 text-sm md:text-base space-y-2">
+              <span
+                v-for="(edu, index) in aboutData.about.educationSummary"
+                :key="'edu-' + index"
+                class="block"
+              >
+                > {{ edu }}
+              </span>
+            </p>
+          </div>
+        </ScrollReveal>
 
-        <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
-          <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <p class="italic text-gray-400 text-sm md:text-base leading-relaxed">
-            "{{ aboutData.about.quote }}"
-          </p>
-        </div>
+        <ScrollReveal :delay="260">
+          <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+            <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
+            <h3 class="text-xl font-bold text-primary mb-4">Interest / Skills</h3>
+            <ul class="list-disc list-inside space-y-1 text-gray-300 text-sm md:text-base">
+              <li
+                v-for="(skill, index) in aboutData.about.skills"
+                :key="'skill-' + index"
+              >
+                {{ skill }}
+              </li>
+            </ul>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal :delay="320">
+          <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+            <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
+            <p class="italic text-gray-400 text-sm md:text-base leading-relaxed">
+              "{{ aboutData.about.quote }}"
+            </p>
+          </div>
+        </ScrollReveal>
 
       </div>
     </div>
 
-    <div class="about-more-action">
+    <ScrollReveal as="div" class="about-more-action" :delay="300">
       <button @click="scrollToQualification" class="group relative px-10 py-4 rounded-xl font-semibold tracking-wide border border-primary text-primary bg-transparent transition-all duration-300 transform shadow-[0_6px_0_0_var(--color-primary)] hover:bg-primary hover:text-black hover:-translate-y-1 hover:shadow-[0_12px_25px_var] active:translate-y-2 active:shadow-[0_3px_0_0_var(--color-primary)]">
         More
       </button>
-    </div>
+    </ScrollReveal>
   </section>
 </template>
 
 <script>
 import aboutData from '../data/about.json'
+import ScrollReveal from './ScrollReveal.vue'
 
 export default {
   name: 'PortfolioAbout',
+  components: { ScrollReveal },
 
   data() {
     return {
@@ -103,11 +113,11 @@ export default {
         'src/images/1.jpeg',
         'src/images/2.jpg',
         'src/images/3.jpeg',
-        'src/images/4.jpg', 
+        'src/images/4.jpg',
         'src/images/5.jpeg',
         'src/images/6.jpeg',
       ],
-      activeCard: 0, 
+      activeCard: 0,
       typingTimeouts: [],
       displayAbout: '',
     }
