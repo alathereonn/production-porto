@@ -136,7 +136,7 @@
                 @click="playThis(index)"
               >
                 <img
-                  :src="item.cover"
+                  :src="resolveImageAsset(item.cover)"
                   :alt="item.name"
                   class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover/cover:scale-105 transition-transform duration-700"
                 />
@@ -196,6 +196,7 @@ import { nextTick, ref } from 'vue'
 import FeedbackModal from './FeedbackModal.vue'
 import ScrollReveal from './ScrollReveal.vue'
 import contactData from '../data/contact.json'
+import { resolveImageAsset } from '../data/imageAssets.js'
 
 defineOptions({
   name: 'PortfolioContact',

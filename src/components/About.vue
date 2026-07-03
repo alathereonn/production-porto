@@ -100,6 +100,7 @@
 
 <script>
 import aboutData from '../data/about.json'
+import { resolveImageAsset } from '../data/imageAssets.js'
 import ScrollReveal from './ScrollReveal.vue'
 
 export default {
@@ -110,12 +111,12 @@ export default {
     return {
       aboutData,
       images: [
-        'src/images/1.jpeg',
-        'src/images/2.jpg',
-        'src/images/3.jpeg',
-        'src/images/4.jpg',
-        'src/images/5.jpeg',
-        'src/images/6.jpeg',
+        resolveImageAsset('1.jpeg'),
+        resolveImageAsset('2.jpg'),
+        resolveImageAsset('3.jpeg'),
+        resolveImageAsset('4.jpg'),
+        resolveImageAsset('5.jpeg'),
+        resolveImageAsset('6.JPEG'),
       ],
       activeCard: 0,
       typingTimeouts: [],

@@ -39,7 +39,7 @@
         >
           <div class="project-image-wrap">
             <img
-              :src="project.image"
+              :src="resolveImageAsset(project.image)"
               :alt="project.title"
               class="project-image"
             />
@@ -133,6 +133,7 @@
 import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
 // PERBAIKAN 1: Import data dari file project.json yang baru
 import projectData from '../data/project.json'
+import { resolveImageAsset } from '../data/imageAssets.js'
 import ScrollReveal from './ScrollReveal.vue'
 
 defineOptions({
