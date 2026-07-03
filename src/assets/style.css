@@ -76,6 +76,13 @@ html {
   scrollbar-color: var(--color-primary) var(--color-darkbg);
 }
 
+html,
+body,
+#app {
+  min-height: 100%;
+  background-color: var(--color-darkbg);
+}
+
 /* ========================================
    Global Scrollbar
 ======================================== */
@@ -271,6 +278,7 @@ section[id] {
 
 .app-shell {
   min-height: 100vh;
+  min-height: 100dvh;
   color: #fff;
   background-color: var(--color-darkbg);
 }
@@ -284,6 +292,9 @@ section[id] {
   position: fixed;
   inset: 0;
   z-index: 0;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100svh;
   pointer-events: none;
 }
 
@@ -292,6 +303,9 @@ section[id] {
   position: fixed;
   inset: 0;
   z-index: 0;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100svh;
   pointer-events: none;
   background-image:
     radial-gradient(var(--color-primary) 1px, transparent 1px),

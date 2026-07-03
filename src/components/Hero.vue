@@ -65,16 +65,34 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import heroData from '../data/hero.json'
+import { useTypewriterCycle } from '../composables/useTypewriterCycle.js'
 
 defineOptions({
   name: 'PortfolioHero',
 })
 
-const displayName = ref('')
-const displayInterest = ref('')
 const isHeroRevealed = ref(false)
-const typingCleanups = []
 let heroRevealFrameId = 0
+
+const {
+  displayedText: displayName,
+  start: startNameTyping,
+  stop: stopNameTyping,
+} = useTypewriterCycle(heroData.names, {
+  typingSpeed: 150,
+  deletingSpeed: 40,
+  holdDuration: 1500,
+})
+
+const {
+  displayedText: displayInterest,
+  start: startInterestTyping,
+  stop: stopInterestTyping,
+} = useTypewriterCycle(heroData.interests, {
+  typingSpeed: 100,
+  deletingSpeed: 50,
+  holdDuration: 1000,
+})
 
 const getNavbarOffset = () => {
   const value = getComputedStyle(document.documentElement).getPropertyValue('--navbar-height')
@@ -82,46 +100,6 @@ const getNavbarOffset = () => {
   const rootFontSize = Number.parseFloat(getComputedStyle(document.documentElement).fontSize)
 
   return value.trim().endsWith('rem') ? numericValue * rootFontSize : numericValue
-}
-
-const createTypingEffect = (texts, outputRef, typingSpeed = 100, deletingSpeed = 50, delay = 1000) => {
-  let textIndex = 0
-  let charIndex = 0
-  let isDeleting = false
-  let loopTimer = 0
-  let delayTimer = 0
-  let isActive = true
-
-  const type = () => {
-    if (!isActive) return
-
-    const currentText = texts[textIndex]
-
-    if (!isDeleting) {
-      outputRef.value = currentText.substring(0, charIndex++)
-      if (charIndex > currentText.length) {
-        delayTimer = window.setTimeout(() => {
-          isDeleting = true
-        }, delay)
-      }
-    } else {
-      outputRef.value = currentText.substring(0, charIndex--)
-      if (charIndex < 0) {
-        isDeleting = false
-        textIndex = (textIndex + 1) % texts.length
-      }
-    }
-
-    loopTimer = window.setTimeout(type, isDeleting ? deletingSpeed : typingSpeed)
-  }
-
-  type()
-
-  return () => {
-    isActive = false
-    window.clearTimeout(loopTimer)
-    window.clearTimeout(delayTimer)
-  }
 }
 
 const scrollToAbout = () => {
@@ -142,12 +120,13 @@ onMounted(() => {
     isHeroRevealed.value = true
   })
 
-  typingCleanups.push(createTypingEffect(heroData.names, displayName, 150, 40, 1500))
-  typingCleanups.push(createTypingEffect(heroData.interests, displayInterest, 100, 50, 1000))
+  startNameTyping()
+  startInterestTyping()
 })
 
 onUnmounted(() => {
   if (heroRevealFrameId) window.cancelAnimationFrame(heroRevealFrameId)
-  typingCleanups.forEach((cleanup) => cleanup())
+  stopNameTyping()
+  stopInterestTyping()
 })
 </script>

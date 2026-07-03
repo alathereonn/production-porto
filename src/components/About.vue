@@ -101,11 +101,30 @@
 <script>
 import aboutData from '../data/about.json'
 import { resolveImageAsset } from '../data/imageAssets.js'
+import { useTypewriterCycle } from '../composables/useTypewriterCycle.js'
 import ScrollReveal from './ScrollReveal.vue'
 
 export default {
   name: 'PortfolioAbout',
   components: { ScrollReveal },
+
+  setup() {
+    const {
+      displayedText: displayAbout,
+      start: startAboutTyping,
+      stop: stopAboutTyping,
+    } = useTypewriterCycle(aboutData.about.typingTexts, {
+      typingSpeed: 120,
+      deletingSpeed: 60,
+      holdDuration: 1500,
+    })
+
+    return {
+      displayAbout,
+      startAboutTyping,
+      stopAboutTyping,
+    }
+  },
 
   data() {
     return {
@@ -119,55 +138,18 @@ export default {
         resolveImageAsset('6.JPEG'),
       ],
       activeCard: 0,
-      typingTimeouts: [],
-      displayAbout: '',
     }
   },
 
   mounted() {
-    this.createTypingEffect(this.aboutData.about.typingTexts, 120, 60, 1500)
+    this.startAboutTyping()
   },
 
   beforeUnmount() {
-    this.typingTimeouts.forEach((timeoutId) => clearTimeout(timeoutId))
+    this.stopAboutTyping()
   },
 
   methods: {
-    scheduleTimeout(callback, delay) {
-      const timeoutId = setTimeout(callback, delay)
-      this.typingTimeouts.push(timeoutId)
-      return timeoutId
-    },
-
-    createTypingEffect(texts, typingSpeed, deletingSpeed, delay) {
-      let textIndex = 0
-      let charIndex = 0
-      let isDeleting = false
-
-      const type = () => {
-        const currentText = texts[textIndex]
-
-        if (!isDeleting) {
-          this.displayAbout = currentText.substring(0, charIndex++)
-          if (charIndex > currentText.length) {
-            this.scheduleTimeout(() => {
-              isDeleting = true
-            }, delay)
-          }
-        } else {
-          this.displayAbout = currentText.substring(0, charIndex--)
-          if (charIndex < 0) {
-            isDeleting = false
-            textIndex = (textIndex + 1) % texts.length
-          }
-        }
-
-        this.scheduleTimeout(type, isDeleting ? deletingSpeed : typingSpeed)
-      }
-
-      type()
-    },
-
     scrollToQualification() {
       const target = document.getElementById('qualification')
       if (!target) return

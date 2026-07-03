@@ -24,7 +24,18 @@ import Contact from './components/Contact.vue'
 
 const galaxyCanvas = ref(null)
 let animationFrameId = 0
-let resizeHandler = null
+let resizeFrameId = 0
+let scheduleGalaxyResize = null
+let visualViewport = null
+
+const getViewportSize = () => {
+  const viewport = window.visualViewport
+
+  return {
+    width: viewport?.width ?? window.innerWidth,
+    height: viewport?.height ?? window.innerHeight,
+  }
+}
 
 onMounted(() => {
   const canvas = galaxyCanvas.value
@@ -33,13 +44,33 @@ onMounted(() => {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
-  let w = window.innerWidth
-  let h = window.innerHeight
-  canvas.width = w
-  canvas.height = h
-
+  let w = 1
+  let h = 1
   const starsCount = 600
   const stars = []
+
+  const resizeGalaxyCanvas = () => {
+    const previousWidth = w
+    const previousHeight = h
+    const viewportSize = getViewportSize()
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2)
+
+    w = Math.max(1, viewportSize.width)
+    h = Math.max(1, viewportSize.height)
+
+    canvas.style.width = `${w}px`
+    canvas.style.height = `${h}px`
+    canvas.width = Math.round(w * pixelRatio)
+    canvas.height = Math.round(h * pixelRatio)
+    ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+
+    stars.forEach((star) => {
+      star.x = Math.min(w, Math.max(0, (star.x / previousWidth) * w))
+      star.y = Math.min(h, Math.max(0, (star.y / previousHeight) * h))
+    })
+  }
+
+  resizeGalaxyCanvas()
 
   for (let i = 0; i < starsCount; i++) {
     stars.push({
@@ -52,7 +83,7 @@ onMounted(() => {
     })
   }
 
-  function animateStars() {
+  const animateStars = () => {
     ctx.clearRect(0, 0, w, h)
     stars.forEach((star) => {
       star.x += star.dx
@@ -71,20 +102,31 @@ onMounted(() => {
     animationFrameId = requestAnimationFrame(animateStars)
   }
 
-  animateStars()
+  scheduleGalaxyResize = () => {
+    if (resizeFrameId) return
 
-  resizeHandler = () => {
-    w = window.innerWidth
-    h = window.innerHeight
-    canvas.width = w
-    canvas.height = h
+    resizeFrameId = window.requestAnimationFrame(() => {
+      resizeGalaxyCanvas()
+      resizeFrameId = 0
+    })
   }
 
-  window.addEventListener('resize', resizeHandler)
+  visualViewport = window.visualViewport
+  window.addEventListener('resize', scheduleGalaxyResize)
+  window.addEventListener('orientationchange', scheduleGalaxyResize)
+  visualViewport?.addEventListener('resize', scheduleGalaxyResize)
+
+  animateStars()
 })
 
 onUnmounted(() => {
-  if (animationFrameId) cancelAnimationFrame(animationFrameId)
-  if (resizeHandler) window.removeEventListener('resize', resizeHandler)
+  if (animationFrameId) window.cancelAnimationFrame(animationFrameId)
+  if (resizeFrameId) window.cancelAnimationFrame(resizeFrameId)
+
+  if (scheduleGalaxyResize) {
+    window.removeEventListener('resize', scheduleGalaxyResize)
+    window.removeEventListener('orientationchange', scheduleGalaxyResize)
+    visualViewport?.removeEventListener('resize', scheduleGalaxyResize)
+  }
 })
 </script>
