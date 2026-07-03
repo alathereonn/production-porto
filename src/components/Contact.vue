@@ -48,7 +48,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                 Message
               </label>
-              <textarea name="message" required rows="6" placeholder="Describe your project or collaboration idea..." class="contact-input contact-textarea"></textarea>
+              <textarea name="message" required rows="6" placeholder="Write me a message..." class="contact-input contact-textarea"></textarea>
             </div>
 
             <button ref="submitButtonRef" type="submit" :disabled="isSending" class="primary-button primary-button--full contact-submit-button">
