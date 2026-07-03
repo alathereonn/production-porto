@@ -2,14 +2,13 @@
   "about": {
     "typingTexts": [
       "WHO AM I", 
-      "GET TO KNOW ME", 
-      "WHAT DO I DO?"
+      "GET TO KNOW ME"
     ],
     "paragraphs": [
-      "My name is Zakaria Fattawari, a third-year <a href='https://if.itk.ac.id/' target='_blank' rel='noopener noreferrer' class='text-primary font-bold hover:text-white transition-colors underline decoration-primary/30 underline-offset-4'>Computer Science</a> student at <a href='https://itk.ac.id' target='_blank' rel='noopener noreferrer' class='text-primary font-bold hover:text-white transition-colors underline decoration-primary/30 underline-offset-4'>Kalimantan Institute of Technology</a>. I am passionate about Web Development, Game Development, and Machine Learning. Currently, I am deepening my knowledge of database systems, deep learning, full-stack development, and software architecture to strengthen my technical foundation and broaden my expertise.",
-      "What I do is transform ideas into functional digital solutions. I design and develop responsive web applications, and explore intelligent systems using AI and Machine Learning. I enjoy working across the full development cycle from planning, designing system architecture, developing features, to testing.",
-      "Despite starting without a technical background, I continuously challenge myself to grow and adapt in the field of Computer Science. This journey has strengthened my problem-solving mindset, analytical thinking, and ability to learn independently. I am currently strengthening my foundation in databases, API development, and system architecture to become a well-rounded full-stack developer.",
-      "Beyond technical development, I am also active as a 'Pemandu' in Student Managerial Skills Training of Kalimantan Institute of Technology (LKMM ITK), contributing to leadership and organizational development among students. Through this role, I develop communication, teamwork, and project coordination skills that complement my technical expertise."
+      "Hi, I’m Zakaria Fattawari, a third-year <a href='https://if.itk.ac.id/' target='_blank' rel='noopener noreferrer' class='text-primary font-bold hover:text-white transition-colors underline decoration-primary/30 underline-offset-4'>Computer Science</a> student at <a href='https://itk.ac.id' target='_blank' rel='noopener noreferrer' class='text-primary font-bold hover:text-white transition-colors underline decoration-primary/30 underline-offset-4'>Kalimantan Institute of Technology</a>, commonly known as ITK. I mostly enjoy building web projects, trying out game ideas, and occasionally getting lost in machine learning stuff. I’m still figuring out what I want to focus on the most, but I like learning by making things.",
+      "Most of my time goes into turning random ideas, campus assignments, or personal experiments into actual projects. I enjoy working on websites, designing interfaces, writing features, and figuring out why something suddenly does not work at 2 AM. I also like seeing a project slowly come together, even when the process is a little painful.",
+      "I did not come from a strong technical background, so a lot of my journey has been about learning things from scratch and being okay with not understanding everything immediately. Right now, I’m trying to get better at databases, APIs, full-stack development, system design, and writing code that is not held together by hope and console logs.",
+      "Outside of coding, I’m also involved as a Guider or Pemandu in LKMM at ITK, where I get to work with other students and help with leadership and organizational activities. It has taught me a lot about communication, teamwork, and handling responsibilities things that are just as useful as technical skills when working on real projects."
     ],
     "educationSummary": [
       "Computer Science Student - Kalimantan Institute of Technology",
