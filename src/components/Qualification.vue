@@ -1,5 +1,5 @@
 <template>
-  <section id="qualification" class="qualification-section scroll-mt-24 pt-20 md:pt-32">
+  <section id="qualification" class="qualification-section certification-section scroll-mt-24 pt-20 md:pt-32">
     <ScrollReveal>
       <h2 class="section-title">
         Featured <span class="text-primary">Qualifications</span>

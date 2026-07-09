@@ -1756,6 +1756,12 @@ section[id] {
   .contact-playlist-card {
     min-height: auto;
   }
+
+  .about-copy p,
+  .certification-section .timeline-content .description {
+    text-align: justify;
+    text-justify: inter-word;
+  }
 }
 
 @media (min-width: 768px) {
