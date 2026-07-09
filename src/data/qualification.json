@@ -2,12 +2,21 @@
   "certifications": [
     {
       "title": "MikroTik Certified Network Associate",
-      "issuer": "Mikrotik",
+      "issuer": "MikroTik",
       "issuerLink": "https://mikrotik.com",
       "institution": "Kalimantan Institute of Technology",
       "institutionLink": "https://itk.ac.id",
       "description": "Foundational certification focusing on basic configuration, troubleshooting, and management of RouterOS and RouterBOARD.",
       "dates": ["May 19, 2025 - May 20, 2025"]
+    },
+    {
+      "title": "IAET (Internal Academic English Test)",
+      "issuer": "Academic Support Unit for Language and Culture, Kalimantan Institute of Technology",
+      "issuerLink": "https://itk.ac.id/unit-pegawai",
+      "institution": "Kalimantan Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
+      "description": "Internal academic English proficiency test conducted to assess English language skills in an academic context, including grammar, reading comprehension, and overall English understanding.",
+      "dates": ["July, 2025"]
     }
   ],
   "teaching": [
