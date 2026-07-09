@@ -54,7 +54,7 @@
     </div>
   </section>
 
-  <section class="qualification-section">
+  <section class="qualification-section qualification-category--teaching">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
       <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
         <span class="text-primary">{{ typedTeach }}</span><span class="typing-cursor">|</span>
@@ -102,7 +102,7 @@
     </div>
   </section>
 
-  <section class="qualification-section pb-24">
+  <section class="qualification-section qualification-category--education pb-24">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
       <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
         <span class="text-primary">{{ typedEdu }}</span><span class="typing-cursor">|</span>

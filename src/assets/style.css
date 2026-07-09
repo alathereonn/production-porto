@@ -1762,6 +1762,12 @@ section[id] {
     text-align: justify;
     text-justify: inter-word;
   }
+
+  .qualification-category--teaching .timeline-content .description,
+  .qualification-category--education .timeline-content .description {
+    text-align: justify;
+    text-justify: inter-word;
+  }
 }
 
 @media (min-width: 768px) {
