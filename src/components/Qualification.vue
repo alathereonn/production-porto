@@ -58,7 +58,7 @@
             rel="noopener noreferrer"
             :aria-label="`View certificate document for ${cert.title}`"
           >
-            View Certificate
+            View
           </a>
         </div>
       </ScrollReveal>
