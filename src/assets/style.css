@@ -1728,7 +1728,11 @@ section[id] {
 
 @media (max-width: 767px) {
   :root {
-    --navbar-height: 7rem;
+    --navbar-height: 5.25rem;
+  }
+
+  .navbar-inner {
+    padding: 1.25rem 1.25rem;
   }
 
   .brand-button {
