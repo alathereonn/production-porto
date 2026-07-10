@@ -49,6 +49,17 @@
             </div>
             <span v-else>{{ cert.dates[0] }}</span>
           </div>
+
+          <a
+            v-if="cert.certificateLink"
+            :href="cert.certificateLink"
+            class="certificate-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            :aria-label="`View certificate document for ${cert.title}`"
+          >
+            View Certificate
+          </a>
         </div>
       </ScrollReveal>
     </div>
