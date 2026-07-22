@@ -27,6 +27,14 @@
       "demo": "#" 
     },
     {
+      "title": "Layanan Fakultas Rekayasa dan Teknologi Industri ITK (Layanan FRTI ITK)",
+      "description": "A web platform for FRTI ITK that centralizes faculty information, academic services, lecturer directories, accreditation data, news, agenda, and administrative service access. The website is designed to provide a clear, responsive, and user-friendly experience for students, lecturers, staff, and public visitors.",
+      "image": "src/images/github11.png", 
+      "tags": ["React", "TypeScript", "Laravel"],
+      "github": "https://github.com/alathereonn/Layanan-Fakultas-Rekayasa-dan-Teknologi-Industri-ITK",
+      "demo": "#" 
+    },
+    {
       "title": "Dashboard Kesehatan untuk Smart City - Prototype",
       "description": "Prototype for final project in Smart City Support Information System course.",
       "image": "src/images/github8.png", 

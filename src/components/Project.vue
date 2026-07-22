@@ -155,6 +155,7 @@ const getTechConfig = (tech) => {
     "Vue 3": { bg: "bg-[#41B883]", text: "text-white", icon: "vuedotjs", iconColor: "white" },
     "JavaScript": { bg: "bg-[#F7DF1E]", text: "text-black", icon: "javascript", iconColor: "black" },
     "TypeScript": { bg: "bg-[#3178C6]", text: "text-white", icon: "typescript", iconColor: "white" },
+    "Laravel": { bg: "bg-[#FF2D20]", text: "text-white", icon: "laravel", iconColor: "white" },
     "Bootstrap": { bg: "bg-[#7952B3]", text: "text-white", icon: "bootstrap", iconColor: "white" },
     "Python": { bg: "bg-[#3776AB]", text: "text-white", icon: "python", iconColor: "white" },
     "PHP": { bg: "bg-[#777BB4]", text: "text-white", icon: "php", iconColor: "white" },
