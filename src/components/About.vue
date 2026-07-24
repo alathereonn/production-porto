@@ -79,16 +79,79 @@
         </ScrollReveal>
 
         <ScrollReveal :delay="320">
-          <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
-            <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-            <p class="italic text-gray-400 text-sm md:text-base leading-relaxed">
-              "{{ aboutData.about.quote }}"
-            </p>
+          <div :class="['about-music-card', { 'is-playing': isAboutSongPlaying, 'is-changing': isAboutSongChanging }]">
+            <div class="about-music-accent"></div>
+
+            <img
+              class="about-music-cover"
+              :src="resolveSongCoverAsset(currentAboutSong.thumbnailUrl)"
+              alt=""
+              aria-hidden="true"
+            />
+
+            <div class="about-music-body">
+              <p class="about-music-label">{{ aboutData.about.song.label }}</p>
+              <h3 class="about-music-title">
+                {{ currentAboutSong.title }}
+              </h3>
+              <p class="about-music-artist">
+                {{ currentAboutSong.artist }}
+              </p>
+
+              <div class="about-music-controls">
+                <button
+                  class="about-music-play"
+                  type="button"
+                  :aria-label="isAboutSongPlaying ? aboutData.about.song.stopLabel : aboutData.about.song.playLabel"
+                  @click="toggleAboutSong"
+                >
+                  <svg v-if="!isAboutSongPlaying" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M8 5v14l11-7z"></path>
+                  </svg>
+                  <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M7 5h4v14H7z"></path>
+                    <path d="M13 5h4v14h-4z"></path>
+                  </svg>
+                </button>
+
+                <button
+                  v-if="hasMultipleAboutSongs"
+                  class="about-music-next"
+                  type="button"
+                  :aria-label="aboutData.about.song.nextLabel"
+                  :disabled="isAboutSongChanging"
+                  @click="nextAboutSong"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M6 5.75c0-.82.92-1.31 1.6-.85l9.24 6.25c.6.41.6 1.29 0 1.7L7.6 19.1c-.68.46-1.6-.03-1.6-.85V5.75z"></path>
+                    <path d="M19 5.75c0-.41.34-.75.75-.75s.75.34.75.75v12.5c0 .41-.34.75-.75.75s-.75-.34-.75-.75V5.75z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <iframe
+              v-if="isAboutSongPlaying"
+              :key="currentAboutSong.embedUrl"
+              :src="currentAboutSong.embedUrl"
+              :title="currentAboutSong.title"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              class="about-music-hidden-player"
+            ></iframe>
           </div>
         </ScrollReveal>
 
       </div>
     </div>
+
+    <ScrollReveal as="div" class="about-quote-panel" :delay="260">
+      <p>
+        "{{ aboutData.about.quote }}"
+      </p>
+    </ScrollReveal>
 
     <ScrollReveal as="div" class="about-more-action" :delay="300">
       <button @click="scrollToQualification" class="group relative px-10 py-4 rounded-xl font-semibold tracking-wide border border-primary text-primary bg-transparent transition-all duration-300 transform shadow-[0_6px_0_0_var(--color-primary)] hover:bg-primary hover:text-black hover:-translate-y-1 hover:shadow-[0_12px_25px_var] active:translate-y-2 active:shadow-[0_3px_0_0_var(--color-primary)]">
@@ -101,6 +164,7 @@
 <script>
 import aboutData from '../data/about.json'
 import { resolveImageAsset } from '../data/imageAssets.js'
+import { resolveSongCoverAsset } from '../data/songCoverAssets.js'
 import { useTypewriterCycle } from '../composables/useTypewriterCycle.js'
 import ScrollReveal from './ScrollReveal.vue'
 
@@ -123,6 +187,7 @@ export default {
       displayAbout,
       startAboutTyping,
       stopAboutTyping,
+      resolveSongCoverAsset,
     }
   },
 
@@ -138,7 +203,25 @@ export default {
         resolveImageAsset('6.JPEG'),
       ],
       activeCard: 0,
+      isAboutSongPlaying: false,
+      isAboutSongChanging: false,
+      activeAboutSongIndex: 0,
+      aboutSongTransitionTimeoutId: 0,
     }
+  },
+
+  computed: {
+    aboutSongList() {
+      return this.aboutData.about.song.list
+    },
+
+    currentAboutSong() {
+      return this.aboutSongList[this.activeAboutSongIndex] || this.aboutSongList[0]
+    },
+
+    hasMultipleAboutSongs() {
+      return this.aboutSongList.length > 1
+    },
   },
 
   mounted() {
@@ -147,6 +230,7 @@ export default {
 
   beforeUnmount() {
     this.stopAboutTyping()
+    if (this.aboutSongTransitionTimeoutId) window.clearTimeout(this.aboutSongTransitionTimeoutId)
   },
 
   methods: {
@@ -161,6 +245,28 @@ export default {
         top: end,
         behavior: 'smooth',
       })
+    },
+
+    toggleAboutSong() {
+      this.isAboutSongPlaying = !this.isAboutSongPlaying
+    },
+
+    nextAboutSong() {
+      if (!this.hasMultipleAboutSongs) return
+      if (this.aboutSongTransitionTimeoutId) window.clearTimeout(this.aboutSongTransitionTimeoutId)
+
+      this.isAboutSongChanging = true
+
+      this.aboutSongTransitionTimeoutId = window.setTimeout(() => {
+        this.activeAboutSongIndex = (this.activeAboutSongIndex + 1) % this.aboutSongList.length
+
+        this.$nextTick(() => {
+          window.requestAnimationFrame(() => {
+            this.isAboutSongChanging = false
+            this.aboutSongTransitionTimeoutId = 0
+          })
+        })
+      }, 180)
     },
   },
 }

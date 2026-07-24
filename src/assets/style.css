@@ -1131,12 +1131,203 @@ section[id] {
   line-height: 1.65;
 }
 
+.about-music-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border-soft);
+  border-radius: 1rem;
+  background: var(--color-card);
+  padding: 0.75rem;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+  transition:
+    border-color 0.5s ease,
+    box-shadow 0.5s ease,
+    transform 0.5s ease;
+}
+
+.about-music-card:hover {
+  border-color: rgba(190, 24, 93, 0.5);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+}
+
+.about-music-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.25rem;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.5s ease;
+}
+
+.about-music-card:hover .about-music-accent {
+  background: var(--color-primary);
+}
+
+.about-music-card.is-playing .about-music-accent {
+  background: var(--color-primary);
+}
+
+.about-music-card.is-playing .about-music-cover {
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.35),
+    0 0 18px rgba(190, 24, 93, 0.28);
+}
+
+.about-music-card.is-changing .about-music-title,
+.about-music-card.is-changing .about-music-artist {
+  opacity: 0;
+  transform: translateX(0.75rem);
+}
+
+.about-music-cover {
+  width: 7.25rem;
+  height: 7.25rem;
+  flex: 0 0 auto;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  transition: box-shadow 0.3s ease;
+}
+
+.about-music-body {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-music-label {
+  margin-bottom: 0.35rem;
+  color: var(--color-primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.about-music-title {
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.about-music-artist {
+  margin-top: 0.3rem;
+  overflow: hidden;
+  color: var(--color-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.about-music-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  color: #f8f8f8;
+}
+
+.about-music-play,
+.about-music-next {
+  display: inline-flex;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--color-primary);
+  box-shadow: none;
+  transition:
+    color 180ms ease,
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+.about-music-next {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--color-primary);
+}
+
+.about-music-play svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.about-music-next svg {
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+.about-music-next:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-music-play:hover,
+  .about-music-next:hover {
+    color: var(--color-primary-hover);
+    filter: drop-shadow(0 0 0.45rem rgba(190, 24, 93, 0.45));
+    transform: translateY(-0.125rem);
+  }
+}
+
+.about-music-hidden-player {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.about-quote-panel {
+  position: relative;
+  z-index: 10;
+  width: min(100%, 52rem);
+  margin: 2.5rem auto 0;
+  padding-inline: 1rem;
+  text-align: center;
+}
+
+.about-quote-panel p {
+  margin: 0;
+  color: #c9ced8;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.75;
+}
+
 .about-more-action {
   position: relative;
   z-index: 10;
   display: flex;
   justify-content: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
 }
 
 /* ========================================
@@ -1969,6 +2160,47 @@ section[id] {
     text-align: justify;
     text-justify: inter-word;
   }
+
+  .about-music-card {
+    gap: 1rem;
+    padding: 0.7rem;
+  }
+
+  .about-music-cover {
+    width: 5.65rem;
+    height: 5.65rem;
+  }
+
+  .about-music-title {
+    font-size: 1rem;
+  }
+
+  .about-music-controls {
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  .about-music-play {
+    width: 2.35rem;
+    height: 2.35rem;
+  }
+
+  .about-music-next {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .about-quote-panel {
+    width: calc(100% - 2.5rem);
+    margin-top: 2rem;
+    padding-inline: 0;
+  }
+
+  .about-quote-panel p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
 }
 
 @media (min-width: 768px) {
@@ -2072,7 +2304,7 @@ section[id] {
   }
 
   .about-more-action {
-    margin-top: 5.5rem;
+    margin-top: 3.5rem;
   }
 
   .qualification-section {

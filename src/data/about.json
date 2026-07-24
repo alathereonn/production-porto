@@ -21,6 +21,38 @@
       "Computer Networks",
       "Machine Learning"
     ],
+    "song": {
+      "label": "All Time Favorite Songs",
+      "playLabel": "Play song",
+      "stopLabel": "Stop song",
+      "nextLabel": "Next song",
+      "list": [
+        {
+          "title": "November Rain",
+          "artist": "Guns N' Roses",
+          "thumbnailUrl": "songs/november rain.jpg",
+          "embedUrl": "https://www.youtube.com/embed/y6lfK3bH4z8?autoplay=1&controls=0&modestbranding=1&rel=0"
+        },
+        {
+          "title": "Paradie Lost - Avatar Battle",
+          "artist": "Granblue Fantasy, Taro Kobayashi",
+          "thumbnailUrl": "songs/paradise lost.jpg",
+          "embedUrl": "https://www.youtube.com/embed/MeM-V5eFCsg?autoplay=1&controls=0&modestbranding=1&rel=0"
+        },
+        {
+          "title": "Voyaging Star's Farewell",
+          "artist": "Wuthering Waves, Tarokiki",
+          "thumbnailUrl": "songs/voyaging stars farewell.png",
+          "embedUrl": "https://www.youtube.com/embed/0HrdRGuF2Y8?autoplay=1&controls=0&modestbranding=1&rel=0"
+        },
+        {
+          "title": "What a Wonderful World",
+          "artist": "Louis Armstrong",
+          "thumbnailUrl": "songs/what a wonderful world.png",
+          "embedUrl": "https://www.youtube.com/embed/rBrd_3VMC3c?autoplay=1&controls=0&modestbranding=1&rel=0"
+        }
+      ]
+    },
     "quote": "And after all that anger, violence and death, you have to dig deep into your own heart to see if you're still sane, or if you can still call yourself: a human. I just knew in my heart that I wasn't that crazy."
   }
 }
