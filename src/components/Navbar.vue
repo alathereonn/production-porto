@@ -15,7 +15,6 @@
           alt=""
           aria-hidden="true"
         />
-        <span class="brand-name">ALATHEREONN</span>
       </button>
 
       <div class="nav-links">

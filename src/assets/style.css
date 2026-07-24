@@ -538,8 +538,8 @@ section[id] {
 }
 
 .brand-logo {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
   flex: 0 0 auto;
   object-fit: contain;
   transition:
@@ -1937,8 +1937,8 @@ section[id] {
   }
 
   .brand-logo {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.875rem;
+    height: 1.875rem;
   }
 
   .hero-section {
