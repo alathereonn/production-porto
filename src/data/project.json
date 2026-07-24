@@ -36,7 +36,7 @@
     },
     {
       "title": "Dashboard Kesehatan untuk Smart City - Prototype",
-      "description": "Prototype for final project in Smart City Support Information System course.",
+      "description": "Prototype for final project in Smart City Support Information System subject.",
       "image": "src/images/github8.png", 
       "tags": ["TypeScript", "CSS", "React"],
       "github": "https://github.com/alathereonn/Smart-City-Kesehatan-Terhadap-Layanan-Kesehatan",
@@ -44,7 +44,7 @@
     },
     {
       "title": "Churn Prediction for Telco Customer",
-      "description": "Website Customer Churn prediction for Telco Customer. A team project from Machine Learning course.",
+      "description": "Website Customer Churn prediction for Telco Customer. A team project from Machine Learning subject.",
       "image": "src/images/github9.png", 
       "tags": ["Jupyter", "Python", "Machine Learning", "Vue 3", "JavaScript"],
       "github": "https://github.com/alathereonn/Churn-Predictor",
@@ -52,7 +52,7 @@
     },
         {
       "title": "AI Personal Scheduler",
-      "description": "A web-based personal scheduler that utilizes AI to optimize and manage daily tasks and appointments. A team project from Web-Based Application Development course.",
+      "description": "A web-based personal scheduler that utilizes AI to optimize and manage daily tasks and appointments. A team project from Web-Based Application Development subject.",
       "image": "src/images/github10.png", 
       "tags": ["JavaScript", "Vue 3", "Ollama", "Supabase", "PostgreSQL"],
       "github": "https://github.com/Naufalpc11/ai-personal-scheduler",
@@ -60,7 +60,7 @@
     },
     {
       "title": "Connect 4 AI Game",
-      "description": "Implementation and Comparative Study of Alpha-Beta Pruning, Transposition Tables, and MTD(F) for Minimax Algorithm in a Two-Player Connect Four Game. A team project from ntroduction to Artificial Intelligence course.",
+      "description": "Implementation and Comparative Study of Alpha-Beta Pruning, Transposition Tables, and MTD(F) for Minimax Algorithm in a Two-Player Connect Four Game. A team project from ntroduction to Artificial Intelligence subject.",
       "image": "src/images/github5.png", 
       "tags": ["React","TypeScript", "JavaScript"],
       "github": "https://github.com/NotHydra/connect-4-game",

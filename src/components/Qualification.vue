@@ -142,7 +142,7 @@
 
           <p class="description">
             GPA Semester: {{ edu.gpa }} <br>
-            Relevant Courses:
+            Relevant Subjects:
           </p>
 
           <ul class="course-list">
