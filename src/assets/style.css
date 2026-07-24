@@ -330,6 +330,154 @@ section[id] {
 }
 
 /* ========================================
+   Not Found Route
+======================================== */
+
+.not-found-page {
+  position: relative;
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  place-items: center;
+  overflow: hidden;
+  padding: 2rem 1.25rem;
+}
+
+.not-found-content {
+  position: relative;
+  z-index: 10;
+  width: min(100%, 42rem);
+  text-align: center;
+}
+
+.not-found-logo {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  margin-inline: auto;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 18px rgba(190, 24, 93, 0.45));
+}
+
+.not-found-kicker {
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.not-found-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.75rem;
+  color: #ffffff;
+  font-size: clamp(2rem, 9vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.not-found-title span {
+  color: rgba(190, 24, 93, 0.16);
+  font-size: clamp(6rem, 28vw, 12rem);
+  line-height: 0.85;
+  text-shadow: 0 0 35px rgba(190, 24, 93, 0.2);
+  -webkit-text-stroke: 1px rgba(190, 24, 93, 0.45);
+}
+
+.not-found-description {
+  max-width: 34rem;
+  margin: 1.5rem auto 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.not-found-button {
+  display: inline-flex;
+  min-height: 3rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.not-found-button--primary {
+  background: var(--color-primary);
+  color: #000000;
+  box-shadow: 0 6px 0 0 var(--color-primary);
+}
+
+.not-found-button--secondary {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.not-found-orbit {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.not-found-orbit span {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  box-shadow: 0 0 18px rgba(190, 24, 93, 0.85);
+  opacity: 0.72;
+  animation: float 5s ease-in-out infinite;
+}
+
+.not-found-orbit span:nth-child(1) {
+  top: 24%;
+  left: 22%;
+}
+
+.not-found-orbit span:nth-child(2) {
+  top: 33%;
+  right: 20%;
+  animation-delay: 0.8s;
+}
+
+.not-found-orbit span:nth-child(3) {
+  right: 31%;
+  bottom: 27%;
+  animation-delay: 1.6s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .not-found-button--primary:hover,
+  .not-found-button--secondary:hover {
+    background: var(--color-primary);
+    color: #000000;
+    box-shadow: var(--shadow-primary-soft);
+    transform: translateY(-0.25rem);
+  }
+}
+
+/* ========================================
    5. Navbar
 ======================================== */
 

@@ -3,24 +3,14 @@
     <canvas ref="galaxyCanvas" class="galaxy-canvas"></canvas>
 
     <div class="app-content">
-      <Navbar />
-      <Hero />
-      <About />
-      <Qualification />
-      <Project />
-      <Contact />
+      <RouterView />
     </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
-import Navbar from './components/Navbar.vue'
-import Hero from './components/Hero.vue'
-import About from './components/About.vue'
-import Qualification from './components/Qualification.vue'
-import Project from './components/Project.vue'
-import Contact from './components/Contact.vue'
+import { RouterView } from 'vue-router'
 
 const galaxyCanvas = ref(null)
 let animationFrameId = 0
