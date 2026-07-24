@@ -957,13 +957,13 @@ section[id] {
 .about-gallery {
   display: flex;
   width: 100%;
-  height: 21.875rem;
+  height: clamp(17.5rem, 78vw, 22rem);
   gap: 0.75rem;
 }
 
 .expanding-card {
   position: relative;
-  flex: 0.5;
+  flex: 0.28;
   overflow: hidden;
   border-radius: 1.5rem;
   background-color: #1a1a1a;
@@ -980,7 +980,7 @@ section[id] {
 }
 
 .expanding-card.active {
-  flex: 5;
+  flex: 6.5;
   cursor: default;
   filter: grayscale(0%) brightness(100%);
 }
@@ -1946,12 +1946,12 @@ section[id] {
   }
 
   .expanding-card {
-    flex: 0.2;
+    flex: 0.12;
     border-radius: 1rem;
   }
 
   .expanding-card.active {
-    flex: 4;
+    flex: 8;
   }
 
   .contact-playlist-card {
@@ -2031,7 +2031,7 @@ section[id] {
   }
 
   .about-gallery {
-    height: 28.125rem;
+    height: clamp(21rem, 32vw, 28.125rem);
     gap: 1.25rem;
   }
 
