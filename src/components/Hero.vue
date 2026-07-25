@@ -52,9 +52,17 @@
             class="hero-action hero-reveal hero-reveal--cta"
             :class="{ 'is-visible': isHeroRevealed }"
           >
-            <button @click="scrollToAbout" class="primary-button">
+            <button type="button" @click="scrollToAbout" class="primary-button">
               About Me
             </button>
+            <a
+              href="https://drive.google.com/file/d/1uXpCHtyFIy9_z67M9t4bFdEHnh8IqAyH/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="primary-button"
+            >
+              View CV
+            </a>
           </div>
         </div>
       </div>

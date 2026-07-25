@@ -1,4 +1,19 @@
 {
+  "headers": [
+    {
+      "source": "/cv/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
