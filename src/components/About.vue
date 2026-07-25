@@ -100,6 +100,20 @@
 
               <div class="about-music-controls">
                 <button
+                  v-if="hasMultipleAboutSongs"
+                  class="about-music-previous"
+                  type="button"
+                  :aria-label="aboutData.about.song.previousLabel"
+                  :disabled="isAboutSongChanging"
+                  @click="previousAboutSong"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M18 5.75c0-.82-.92-1.31-1.6-.85l-9.24 6.25c-.6.41-.6 1.29 0 1.7l9.24 6.25c.68.46 1.6-.03 1.6-.85V5.75z"></path>
+                    <path d="M5 5.75C5 5.34 4.66 5 4.25 5s-.75.34-.75.75v12.5c0 .41.34.75.75.75s.75-.34.75-.75V5.75z"></path>
+                  </svg>
+                </button>
+
+                <button
                   class="about-music-play"
                   type="button"
                   :aria-label="isAboutSongPlaying ? aboutData.about.song.stopLabel : aboutData.about.song.playLabel"
@@ -251,14 +265,23 @@ export default {
       this.isAboutSongPlaying = !this.isAboutSongPlaying
     },
 
+    previousAboutSong() {
+      this.changeAboutSong(-1)
+    },
+
     nextAboutSong() {
+      this.changeAboutSong(1)
+    },
+
+    changeAboutSong(direction) {
       if (!this.hasMultipleAboutSongs) return
       if (this.aboutSongTransitionTimeoutId) window.clearTimeout(this.aboutSongTransitionTimeoutId)
 
       this.isAboutSongChanging = true
 
       this.aboutSongTransitionTimeoutId = window.setTimeout(() => {
-        this.activeAboutSongIndex = (this.activeAboutSongIndex + 1) % this.aboutSongList.length
+        const songCount = this.aboutSongList.length
+        this.activeAboutSongIndex = (this.activeAboutSongIndex + direction + songCount) % songCount
 
         this.$nextTick(() => {
           window.requestAnimationFrame(() => {

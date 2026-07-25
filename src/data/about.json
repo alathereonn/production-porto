@@ -25,6 +25,7 @@
       "label": "All Time Favorite Songs",
       "playLabel": "Play song",
       "stopLabel": "Stop song",
+      "previousLabel": "Previous song",
       "nextLabel": "Next song",
       "list": [
         {

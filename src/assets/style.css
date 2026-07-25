@@ -1254,6 +1254,7 @@ section[id] {
   color: #f8f8f8;
 }
 
+.about-music-previous,
 .about-music-play,
 .about-music-next {
   display: inline-flex;
@@ -1273,6 +1274,7 @@ section[id] {
     transform 180ms ease;
 }
 
+.about-music-previous,
 .about-music-next {
   width: 2.5rem;
   height: 2.5rem;
@@ -1284,17 +1286,20 @@ section[id] {
   height: 2rem;
 }
 
+.about-music-previous svg,
 .about-music-next svg {
   width: 1.85rem;
   height: 1.85rem;
 }
 
+.about-music-previous:disabled,
 .about-music-next:disabled {
   cursor: not-allowed;
   opacity: 0.55;
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .about-music-previous:hover,
   .about-music-play:hover,
   .about-music-next:hover {
     color: var(--color-primary-hover);
@@ -2194,6 +2199,7 @@ section[id] {
     height: 2.35rem;
   }
 
+  .about-music-previous,
   .about-music-next {
     width: 2rem;
     height: 2rem;
