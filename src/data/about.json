@@ -27,6 +27,7 @@
       "stopLabel": "Stop song",
       "previousLabel": "Previous song",
       "nextLabel": "Next song",
+      "seekLabel": "Seek song",
       "list": [
         {
           "title": "November Rain",

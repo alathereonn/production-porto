@@ -98,6 +98,24 @@
                 {{ currentAboutSong.artist }}
               </p>
 
+              <div class="about-music-progress">
+                <span class="about-music-time">{{ formatAboutSongTime(aboutSongCurrentTime) }}</span>
+                <input
+                  class="about-music-slider"
+                  type="range"
+                  min="0"
+                  :max="aboutSongDuration || 0"
+                  step="1"
+                  :value="aboutSongCurrentTime"
+                  :aria-label="aboutData.about.song.seekLabel"
+                  :disabled="!isYouTubePlayerReady || !aboutSongDuration"
+                  :style="{ '--song-progress': `${aboutSongProgressPercent}%` }"
+                  @input="handleAboutSongSeekInput"
+                  @change="commitAboutSongSeek"
+                />
+                <span class="about-music-time">{{ formatAboutSongTime(aboutSongDuration) }}</span>
+              </div>
+
               <div class="about-music-controls">
                 <button
                   v-if="hasMultipleAboutSongs"
@@ -144,17 +162,9 @@
               </div>
             </div>
 
-            <iframe
-              v-if="isAboutSongPlaying"
-              :key="currentAboutSong.embedUrl"
-              :src="currentAboutSong.embedUrl"
-              :title="currentAboutSong.title"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-              class="about-music-hidden-player"
-            ></iframe>
+            <div class="about-music-hidden-player" aria-hidden="true">
+              <div ref="aboutMusicPlayerRef"></div>
+            </div>
           </div>
         </ScrollReveal>
 
@@ -181,6 +191,38 @@ import { resolveImageAsset } from '../data/imageAssets.js'
 import { resolveSongCoverAsset } from '../data/songCoverAssets.js'
 import { useTypewriterCycle } from '../composables/useTypewriterCycle.js'
 import ScrollReveal from './ScrollReveal.vue'
+
+let youtubeIframeApiPromise = null
+
+const loadYouTubeIframeApi = () => {
+  if (typeof window === 'undefined') return Promise.reject(new Error('Window is unavailable'))
+  if (window.YT?.Player) return Promise.resolve(window.YT)
+  if (youtubeIframeApiPromise) return youtubeIframeApiPromise
+
+  youtubeIframeApiPromise = new Promise((resolve) => {
+    const previousCallback = window.onYouTubeIframeAPIReady
+
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof previousCallback === 'function') previousCallback()
+      resolve(window.YT)
+    }
+
+    const existingScript = document.querySelector('script[src="https://www.youtube.com/iframe_api"]')
+    if (existingScript) return
+
+    const script = document.createElement('script')
+    script.src = 'https://www.youtube.com/iframe_api'
+    script.async = true
+    document.head.appendChild(script)
+  })
+
+  return youtubeIframeApiPromise
+}
+
+const extractYouTubeVideoId = (url) => {
+  const match = url?.match(/\/embed\/([^?]+)/)
+  return match?.[1] ?? ''
+}
 
 export default {
   name: 'PortfolioAbout',
@@ -219,8 +261,16 @@ export default {
       activeCard: 0,
       isAboutSongPlaying: false,
       isAboutSongChanging: false,
+      isAboutSongSeeking: false,
+      isYouTubePlayerReady: false,
+      isYouTubePlayerLoading: false,
+      pendingAboutSongPlay: false,
       activeAboutSongIndex: 0,
+      aboutSongCurrentTime: 0,
+      aboutSongDuration: 0,
+      aboutSongProgressFrameId: 0,
       aboutSongTransitionTimeoutId: 0,
+      youtubePlayer: null,
     }
   },
 
@@ -236,15 +286,27 @@ export default {
     hasMultipleAboutSongs() {
       return this.aboutSongList.length > 1
     },
+
+    currentAboutSongVideoId() {
+      return this.currentAboutSong.videoId || extractYouTubeVideoId(this.currentAboutSong.embedUrl)
+    },
+
+    aboutSongProgressPercent() {
+      if (!this.aboutSongDuration) return 0
+      return Math.min(100, Math.max(0, (this.aboutSongCurrentTime / this.aboutSongDuration) * 100))
+    },
   },
 
   mounted() {
     this.startAboutTyping()
+    this.initializeAboutSongPlayer()
   },
 
   beforeUnmount() {
     this.stopAboutTyping()
     if (this.aboutSongTransitionTimeoutId) window.clearTimeout(this.aboutSongTransitionTimeoutId)
+    this.stopAboutSongProgress()
+    this.youtubePlayer?.destroy?.()
   },
 
   methods: {
@@ -261,8 +323,24 @@ export default {
       })
     },
 
-    toggleAboutSong() {
-      this.isAboutSongPlaying = !this.isAboutSongPlaying
+    async toggleAboutSong() {
+      if (!this.youtubePlayer || !this.isYouTubePlayerReady) {
+        this.pendingAboutSongPlay = !this.pendingAboutSongPlay
+        await this.initializeAboutSongPlayer()
+      }
+
+      if (!this.youtubePlayer || !this.isYouTubePlayerReady) return
+
+      if (this.isAboutSongPlaying) {
+        this.youtubePlayer.pauseVideo()
+        this.isAboutSongPlaying = false
+        this.stopAboutSongProgress()
+        return
+      }
+
+      this.youtubePlayer.playVideo()
+      this.isAboutSongPlaying = true
+      this.startAboutSongProgress()
     },
 
     previousAboutSong() {
@@ -284,12 +362,164 @@ export default {
         this.activeAboutSongIndex = (this.activeAboutSongIndex + direction + songCount) % songCount
 
         this.$nextTick(() => {
+          this.syncAboutSongPlayerToCurrentSong()
+
           window.requestAnimationFrame(() => {
             this.isAboutSongChanging = false
             this.aboutSongTransitionTimeoutId = 0
           })
         })
       }, 180)
+    },
+
+    async initializeAboutSongPlayer() {
+      if (this.youtubePlayer || this.isYouTubePlayerLoading) return
+
+      this.isYouTubePlayerLoading = true
+
+      try {
+        const YT = await loadYouTubeIframeApi()
+        if (!this.$refs.aboutMusicPlayerRef) return
+
+        this.youtubePlayer = new YT.Player(this.$refs.aboutMusicPlayerRef, {
+          width: '1',
+          height: '1',
+          videoId: this.currentAboutSongVideoId,
+          playerVars: {
+            controls: 0,
+            disablekb: 1,
+            modestbranding: 1,
+            playsinline: 1,
+            rel: 0,
+          },
+          events: {
+            onReady: () => {
+              this.isYouTubePlayerReady = true
+              this.isYouTubePlayerLoading = false
+              this.youtubePlayer.cueVideoById(this.currentAboutSongVideoId)
+              window.setTimeout(() => this.refreshAboutSongProgress(), 400)
+
+              if (this.pendingAboutSongPlay) {
+                this.pendingAboutSongPlay = false
+                this.youtubePlayer.playVideo()
+                this.isAboutSongPlaying = true
+                this.startAboutSongProgress()
+              }
+            },
+            onStateChange: (event) => this.handleAboutSongPlayerStateChange(event),
+            onError: () => {
+              this.isAboutSongPlaying = false
+              this.stopAboutSongProgress()
+            },
+          },
+        })
+      } catch {
+        this.isYouTubePlayerLoading = false
+      }
+    },
+
+    handleAboutSongPlayerStateChange(event) {
+      const playerState = window.YT?.PlayerState
+      if (!playerState) return
+
+      if (event.data === playerState.PLAYING) {
+        this.isAboutSongPlaying = true
+        this.startAboutSongProgress()
+        return
+      }
+
+      if (event.data === playerState.PAUSED) {
+        this.isAboutSongPlaying = false
+        this.stopAboutSongProgress()
+        this.refreshAboutSongProgress()
+        return
+      }
+
+      if (event.data === playerState.ENDED) {
+        this.isAboutSongPlaying = false
+        this.stopAboutSongProgress()
+        this.aboutSongCurrentTime = this.aboutSongDuration
+      }
+    },
+
+    syncAboutSongPlayerToCurrentSong() {
+      this.aboutSongCurrentTime = 0
+      this.aboutSongDuration = 0
+      this.isAboutSongSeeking = false
+      this.stopAboutSongProgress()
+
+      if (!this.youtubePlayer || !this.isYouTubePlayerReady || !this.currentAboutSongVideoId) return
+
+      if (this.isAboutSongPlaying) {
+        this.youtubePlayer.loadVideoById(this.currentAboutSongVideoId)
+        this.startAboutSongProgress()
+        return
+      }
+
+      this.youtubePlayer.cueVideoById(this.currentAboutSongVideoId)
+      window.setTimeout(() => this.refreshAboutSongProgress(), 400)
+    },
+
+    startAboutSongProgress() {
+      this.stopAboutSongProgress()
+
+      const updateProgress = () => {
+        this.refreshAboutSongProgress()
+        this.aboutSongProgressFrameId = window.requestAnimationFrame(updateProgress)
+      }
+
+      updateProgress()
+    },
+
+    stopAboutSongProgress() {
+      if (!this.aboutSongProgressFrameId) return
+      window.cancelAnimationFrame(this.aboutSongProgressFrameId)
+      this.aboutSongProgressFrameId = 0
+    },
+
+    refreshAboutSongProgress() {
+      if (!this.youtubePlayer || !this.isYouTubePlayerReady) return
+
+      const duration = this.youtubePlayer.getDuration?.()
+      if (Number.isFinite(duration) && duration > 0) {
+        this.aboutSongDuration = duration
+      }
+
+      if (this.isAboutSongSeeking) return
+
+      const currentTime = this.youtubePlayer.getCurrentTime?.()
+      if (Number.isFinite(currentTime) && currentTime >= 0) {
+        this.aboutSongCurrentTime = currentTime
+      }
+    },
+
+    handleAboutSongSeekInput(event) {
+      this.isAboutSongSeeking = true
+      this.aboutSongCurrentTime = Number(event.target.value)
+    },
+
+    commitAboutSongSeek(event) {
+      const seekTime = Number(event.target.value)
+      if (!Number.isFinite(seekTime)) return
+
+      this.aboutSongCurrentTime = seekTime
+      this.youtubePlayer?.seekTo?.(seekTime, true)
+      this.isAboutSongSeeking = false
+      this.refreshAboutSongProgress()
+
+      if (this.isAboutSongPlaying) {
+        this.startAboutSongProgress()
+      }
+    },
+
+    formatAboutSongTime(time) {
+      if (!Number.isFinite(time) || time <= 0) return '0:00'
+
+      const totalSeconds = Math.floor(time)
+      const minutes = Math.floor(totalSeconds / 60)
+      const seconds = totalSeconds % 60
+
+      return `${minutes}:${seconds.toString().padStart(2, '0')}`
     },
   },
 }
