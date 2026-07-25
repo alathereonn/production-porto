@@ -66,15 +66,24 @@
         <ScrollReveal :delay="260">
           <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
             <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-            <h3 class="text-xl font-bold text-primary mb-4">Interest / Skills</h3>
-            <ul class="list-disc list-inside space-y-1 text-gray-300 text-sm md:text-base">
-              <li
+            <h3 class="about-skill-heading text-xl font-bold text-primary">Interest / Skills</h3>
+            <div class="about-skill-icon-list" aria-label="Interest and skills">
+              <span
                 v-for="(skill, index) in aboutData.about.skills"
                 :key="'skill-' + index"
+                class="about-skill-icon"
+                :aria-label="skill"
+                :title="skill"
+                :style="{ '--skill-color': `#${getAboutSkillIcon(skill).color}` }"
+                role="img"
               >
-                {{ skill }}
-              </li>
-            </ul>
+                <img
+                  :src="getAboutSkillIcon(skill).src"
+                  :alt="skill"
+                  class="about-skill-icon-image"
+                />
+              </span>
+            </div>
           </div>
         </ScrollReveal>
 
@@ -224,6 +233,14 @@ const extractYouTubeVideoId = (url) => {
   return match?.[1] ?? ''
 }
 
+const aboutSkillIcons = {
+  'Web Development': { icon: 'html5', color: 'E34F26' },
+  'Game Development': { icon: 'unity', color: '000000' },
+  'Computer Vision': { icon: 'opencv', color: '5C3EE8' },
+  'Computer Networks': { icon: 'cisco', color: '1BA0D7' },
+  'Machine Learning': { icon: 'tensorflow', color: 'FF6F00' },
+}
+
 export default {
   name: 'PortfolioAbout',
   components: { ScrollReveal },
@@ -321,6 +338,14 @@ export default {
         top: end,
         behavior: 'smooth',
       })
+    },
+
+    getAboutSkillIcon(skill) {
+      const config = aboutSkillIcons[skill] || { icon: 'codersrank', color: 'BE185D' }
+      return {
+        color: config.color,
+        src: `https://cdn.simpleicons.org/${config.icon}/${config.color}`,
+      }
     },
 
     async toggleAboutSong() {

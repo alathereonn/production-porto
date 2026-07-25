@@ -1128,6 +1128,61 @@ section[id] {
   margin-top: 0.25rem;
 }
 
+.about-skill-heading {
+  margin-bottom: 1.75rem;
+}
+
+.about-skill-icon-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.about-skill-icon {
+  display: inline-flex;
+  width: 3.5rem;
+  height: 3.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  background: var(--color-darkbg);
+  color: #9ca3af;
+  --skill-color: var(--color-primary);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.about-skill-icon-image {
+  width: 1.55rem;
+  height: 1.55rem;
+  object-fit: contain;
+  opacity: 0.68;
+  filter: grayscale(1) brightness(0) invert(0.68);
+  transition:
+    opacity 180ms ease,
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-skill-icon:hover {
+    border-color: var(--skill-color);
+    background: var(--skill-color);
+    box-shadow: 0 0.35rem 1rem color-mix(in srgb, var(--skill-color) 32%, transparent);
+    transform: translateY(-0.125rem);
+  }
+
+  .about-skill-icon:hover .about-skill-icon-image {
+    opacity: 1;
+    filter: brightness(0) invert(1);
+    transform: scale(1.08);
+  }
+}
+
 .info-card-quote {
   color: #9ca3af;
   font-size: 0.875rem;
