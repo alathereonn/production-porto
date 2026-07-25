@@ -50,37 +50,47 @@
         <ScrollReveal :delay="200">
           <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
             <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-            <h3 class="text-xl font-bold text-primary mb-4">Education</h3>
-            <p class="text-gray-300 text-sm md:text-base space-y-2">
-              <span
+            <h3 class="about-icon-card-heading text-xl font-bold text-primary">Education</h3>
+            <div class="about-icon-tile-list" aria-label="Education">
+              <a
                 v-for="(edu, index) in aboutData.about.educationSummary"
                 :key="'edu-' + index"
-                class="block"
+                :href="getAboutEducationIcon(edu, index).href"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="about-icon-tile"
+                :aria-label="`${edu} website`"
+                :title="edu"
+                :style="{ '--tile-color': `#${getAboutEducationIcon(edu, index).color}` }"
               >
-                > {{ edu }}
-              </span>
-            </p>
+                <img
+                  :src="getAboutEducationIcon(edu, index).src"
+                  :alt="edu"
+                  class="about-icon-tile-image"
+                />
+              </a>
+            </div>
           </div>
         </ScrollReveal>
 
         <ScrollReveal :delay="260">
           <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
             <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-            <h3 class="about-skill-heading text-xl font-bold text-primary">Interest / Skills</h3>
-            <div class="about-skill-icon-list" aria-label="Interest and skills">
+            <h3 class="about-icon-card-heading text-xl font-bold text-primary">Interest / Skills</h3>
+            <div class="about-icon-tile-list" aria-label="Interest and skills">
               <span
                 v-for="(skill, index) in aboutData.about.skills"
                 :key="'skill-' + index"
-                class="about-skill-icon"
+                class="about-icon-tile"
                 :aria-label="skill"
                 :title="skill"
-                :style="{ '--skill-color': `#${getAboutSkillIcon(skill).color}` }"
+                :style="{ '--tile-color': `#${getAboutSkillIcon(skill).color}` }"
                 role="img"
               >
                 <img
                   :src="getAboutSkillIcon(skill).src"
                   :alt="skill"
-                  class="about-skill-icon-image"
+                  class="about-icon-tile-image"
                 />
               </span>
             </div>
@@ -241,6 +251,19 @@ const aboutSkillIcons = {
   'Machine Learning': { icon: 'tensorflow', color: 'FF6F00' },
 }
 
+const aboutEducationIcons = [
+  {
+    src: 'https://if.itk.ac.id/asset/backend/upload/overview/logo_IF.png',
+    color: '032580',
+    href: 'https://if.itk.ac.id/',
+  },
+  {
+    icon: 'googleclassroom',
+    color: '34A853',
+    href: 'https://sman9-bpp.sch.id/',
+  },
+]
+
 export default {
   name: 'PortfolioAbout',
   components: { ScrollReveal },
@@ -345,6 +368,15 @@ export default {
       return {
         color: config.color,
         src: `https://cdn.simpleicons.org/${config.icon}/${config.color}`,
+      }
+    },
+
+    getAboutEducationIcon(_education, index) {
+      const config = aboutEducationIcons[index] || aboutEducationIcons[0]
+      return {
+        color: config.color,
+        href: config.href,
+        src: config.src || `https://cdn.simpleicons.org/${config.icon}/${config.color}`,
       }
     },
 
