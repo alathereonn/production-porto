@@ -249,6 +249,8 @@ const aboutSkillIcons = {
   'Computer Vision': { icon: 'opencv', color: '5C3EE8' },
   'Computer Networks': { icon: 'cisco', color: '1BA0D7' },
   'Machine Learning': { icon: 'tensorflow', color: 'FF6F00' },
+  English: { icon: 'googletranslate', color: '4285F4' },
+  'Public Speaking': { icon: 'speakerdeck', color: '009287' },
 }
 
 const aboutEducationIcons = [
