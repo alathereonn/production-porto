@@ -56,7 +56,7 @@
               About Me
             </button>
             <a
-              href="https://drive.google.com/file/d/1uXpCHtyFIy9_z67M9t4bFdEHnh8IqAyH/view?usp=sharing"
+              :href="heroData.cvLink"
               target="_blank"
               rel="noopener noreferrer"
               class="primary-button"

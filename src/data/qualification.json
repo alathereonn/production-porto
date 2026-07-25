@@ -1,16 +1,6 @@
 {
   "certifications": [
     {
-      "title": "MikroTik Certified Network Associate",
-      "issuer": "MikroTik",
-      "issuerLink": "https://mikrotik.com",
-      "institution": "Kalimantan's Institute of Technology",
-      "institutionLink": "https://itk.ac.id",
-      "description": "Foundational certification focusing on basic configuration, troubleshooting, and management of RouterOS and RouterBOARD.",
-      "dates": ["May 19, 2025 - May 20, 2025"],
-      "certificateLink": "https://drive.google.com/file/d/1ks1gdRpn8_KKtSlgl9TFDVJROfi29na4/view?usp=sharing"
-    },
-    {
       "title": "Internal Academic English Test",
       "issuer": "Academic Support Unit for Language and Culture, Kalimantan's Institute of Technology",
       "issuerLink": "https://itk.ac.id/unit-pegawai",
@@ -19,18 +9,19 @@
       "description": "Internal academic English proficiency test conducted to assess English language skills in an academic context, including grammar, reading comprehension, and overall English understanding.",
       "dates": ["July, 2025"],
       "certificateLink": "https://drive.google.com/file/d/14C-0G1rivKssPwbO_dMK9R8cDTke3j8q/view?usp=sharing"
+    },
+    {
+      "title": "MikroTik Certified Network Associate",
+      "issuer": "MikroTik",
+      "issuerLink": "https://mikrotik.com",
+      "institution": "Kalimantan's Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
+      "description": "Foundational certification focusing on basic configuration, troubleshooting, and management of RouterOS and RouterBOARD.",
+      "dates": ["May 19, 2025 - May 20, 2025"],
+      "certificateLink": "https://drive.google.com/file/d/1ks1gdRpn8_KKtSlgl9TFDVJROfi29na4/view?usp=sharing"
     }
   ],
   "teaching": [
-    {
-      "title": "Laboratory Assistant for Basic Physics Subject",
-      "issuer": "Integrated Laboratory of Kalimantan's Institute of Technology",
-      "issuerLink": "https://labterpadu.itk.ac.id/",
-      "institution": "Kalimantan's Institute of Technology",
-      "institutionLink": "https://itk.ac.id",
-      "description": "Participate in becoming a Laboratory Assistant for the Practical Courses of Basic Physics I and General Physics subject during the Odd Semester of 2024/2025.",
-      "dates": ["August 21, 2024 - December 20, 2024"]
-    },
     {
       "title": "Laboratory Assistant for Digital System Subject",
       "issuer": "Computer Science Department of Kalimantan's Institute of Technology",
@@ -60,52 +51,28 @@
       "institutionLink": "https://itk.ac.id",
       "description": "Served as a 'Teacher' in Tutor Beraktif for HMIF ITK, teaching the Digital Systems subject during the IMPACT Cabinet of HMIF ITK/ Odd Semester of 2025/2026.",
       "dates": ["September 12, 2025 - December 9, 2025"]
+    },
+    {
+      "title": "Laboratory Assistant for Basic Physics Subject",
+      "issuer": "Integrated Laboratory of Kalimantan's Institute of Technology",
+      "issuerLink": "https://labterpadu.itk.ac.id/",
+      "institution": "Kalimantan's Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
+      "description": "Participate in becoming a Laboratory Assistant for the Practical Courses of Basic Physics I and General Physics subject during the Odd Semester of 2024/2025.",
+      "dates": ["August 21, 2024 - December 20, 2024"]
     }
   ],
   "education": [
     {
-      "title": "First Semester",
+      "title": "Sixth Semester",
       "level": "Undergraduate",
       "major": "Computer Science",
       "majorLink": "https://if.itk.ac.id/",
       "institution": "Kalimantan's Institute of Technology",
       "institutionLink": "https://itk.ac.id",
-      "gpa": "3.33",
-      "courses": ["Algorithm and Programming", "Introduction to Computer Science"],
-      "dates": ["August 2023 - November 2023"]
-    },
-    {
-      "title": "Second Semester",
-      "level": "Undergraduate",
-      "major": "Computer Science",
-      "majorLink": "https://if.itk.ac.id/",
-      "institution": "Kalimantan's Institute of Technology",
-      "institutionLink": "https://itk.ac.id",
-      "gpa": "3.5",
-      "courses": ["Digital Systems", "Discrete Mathematics", "Object Oriented Programming"],
-      "dates": ["January 2024 - June 2024"] 
-    },
-    {
-      "title": "Third Semester",
-      "level": "Undergraduate",
-      "major": "Computer Science",
-      "majorLink": "https://if.itk.ac.id/",
-      "institution": "Kalimantan's Institute of Technology",
-      "institutionLink": "https://itk.ac.id",
-      "gpa": "3.84",
-      "courses": ["Computer Architecture", "Data Structure", "Introduction to Probability and Optimization", "Linear Algebra and Geometry", "Operation System", "Digital Startup"],
-      "dates": ["August 2024 - December 2024"]
-    },
-    {
-      "title": "Fourth Semester",
-      "level": "Undergraduate",
-      "major": "Computer Science",
-      "majorLink": "https://if.itk.ac.id/",
-      "institution": "Kalimantan's Institute of Technology",
-      "institutionLink": "https://itk.ac.id",
-      "gpa": "3.81",
-      "courses": ["Advance Digital Startup", "Algorithm Planning and Analysis", "Computer Network", "Database Systems", "General Insights and Ideas in Computer Science", "Graph Theory and Automata", "Graphics Computer", "Software Analysis and Design"],
-      "dates": ["February 2025 - July 2025"]
+      "gpa": "4.0",
+      "courses": ["Capita Selecta", "Data Mining", "Deep Learning", "Digital Game Programming", "Machine Learning", "Web Based Application Development"],
+      "dates": ["February 2026 - Now"]
     },
     {
       "title": "Fifth Semester",
@@ -119,15 +86,48 @@
       "dates": ["August 2025 - December 2025"]
     },
     {
-      "title": "Sixth Semester",
+      "title": "Fourth Semester",
       "level": "Undergraduate",
       "major": "Computer Science",
       "majorLink": "https://if.itk.ac.id/",
       "institution": "Kalimantan's Institute of Technology",
       "institutionLink": "https://itk.ac.id",
-      "gpa": "4.0",
-      "courses": ["Capita Selecta", "Data Mining", "Deep Learning", "Digital Game Programming", "Machine Learning", "Web Based Application Development"],
-      "dates": ["February 2026 - Now"]
+      "gpa": "3.81",
+      "courses": ["Advance Digital Startup", "Algorithm Planning and Analysis", "Computer Network", "Database Systems", "General Insights and Ideas in Computer Science", "Graph Theory and Automata", "Graphics Computer", "Software Analysis and Design"],
+      "dates": ["February 2025 - July 2025"]
+    },
+    {
+      "title": "Third Semester",
+      "level": "Undergraduate",
+      "major": "Computer Science",
+      "majorLink": "https://if.itk.ac.id/",
+      "institution": "Kalimantan's Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
+      "gpa": "3.84",
+      "courses": ["Computer Architecture", "Data Structure", "Introduction to Probability and Optimization", "Linear Algebra and Geometry", "Operation System", "Digital Startup"],
+      "dates": ["August 2024 - December 2024"]
+    },
+    {
+      "title": "Second Semester",
+      "level": "Undergraduate",
+      "major": "Computer Science",
+      "majorLink": "https://if.itk.ac.id/",
+      "institution": "Kalimantan's Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
+      "gpa": "3.5",
+      "courses": ["Digital Systems", "Discrete Mathematics", "Object Oriented Programming"],
+      "dates": ["January 2024 - June 2024"]
+    },
+    {
+      "title": "First Semester",
+      "level": "Undergraduate",
+      "major": "Computer Science",
+      "majorLink": "https://if.itk.ac.id/",
+      "institution": "Kalimantan's Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
+      "gpa": "3.33",
+      "courses": ["Algorithm and Programming", "Introduction to Computer Science"],
+      "dates": ["August 2023 - November 2023"]
     }
   ]
 }
