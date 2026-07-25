@@ -61,7 +61,10 @@
                 class="about-icon-tile"
                 :aria-label="`${edu} website`"
                 :title="edu"
-                :style="{ '--tile-color': `#${getAboutEducationIcon(edu, index).color}` }"
+                :style="{
+                  '--tile-color': `#${getAboutEducationIcon(edu, index).color}`,
+                  '--tile-icon-size': getAboutEducationIcon(edu, index).size,
+                }"
               >
                 <img
                   :src="getAboutEducationIcon(edu, index).src"
@@ -260,6 +263,12 @@ const aboutEducationIcons = [
     href: 'https://if.itk.ac.id/',
   },
   {
+    src: 'https://itk.ac.id/assets/image/Logo_ITK_White_NoText.webp',
+    color: '0072CE',
+    href: 'https://itk.ac.id/',
+    size: '2.35rem',
+  },
+  {
     icon: 'googleclassroom',
     color: '34A853',
     href: 'https://sman9-bpp.sch.id/',
@@ -378,6 +387,7 @@ export default {
       return {
         color: config.color,
         href: config.href,
+        size: config.size || null,
         src: config.src || `https://cdn.simpleicons.org/${config.icon}/${config.color}`,
       }
     },

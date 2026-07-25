@@ -1163,8 +1163,8 @@ section[id] {
 }
 
 .about-icon-tile-image {
-  width: 1.55rem;
-  height: 1.55rem;
+  width: var(--tile-icon-size, 1.9rem);
+  height: var(--tile-icon-size, 1.9rem);
   object-fit: contain;
   opacity: 0.68;
   filter: grayscale(1) brightness(0) invert(0.68);
