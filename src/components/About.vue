@@ -81,22 +81,32 @@
             <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
             <h3 class="about-icon-card-heading text-xl font-bold text-primary">Interests and Skills</h3>
             <div class="about-icon-tile-list" aria-label="Interest and skills">
-              <span
+              <button
                 v-for="(skill, index) in aboutData.about.skills"
                 :key="'skill-' + index"
+                type="button"
                 class="about-icon-tile"
+                :class="{ 'is-active': activeAboutSkill === skill }"
                 :aria-label="skill"
+                :aria-pressed="activeAboutSkill === skill"
                 :title="skill"
                 :style="{ '--tile-color': `#${getAboutSkillIcon(skill).color}` }"
-                role="img"
+                @click="selectAboutSkill(skill)"
               >
                 <img
                   :src="getAboutSkillIcon(skill).src"
                   :alt="skill"
                   class="about-icon-tile-image"
                 />
-              </span>
+              </button>
             </div>
+            <p
+              class="about-skill-active-label"
+              :class="{ 'is-visible': activeAboutSkill }"
+              aria-live="polite"
+            >
+              {{ activeAboutSkill }}
+            </p>
           </div>
         </ScrollReveal>
 
@@ -320,6 +330,7 @@ export default {
       aboutSongDuration: 0,
       aboutSongProgressFrameId: 0,
       aboutSongTransitionTimeoutId: 0,
+      activeAboutSkill: '',
       youtubePlayer: null,
     }
   },
@@ -379,6 +390,10 @@ export default {
         color: config.color,
         src: `https://cdn.simpleicons.org/${config.icon}/${config.color}`,
       }
+    },
+
+    selectAboutSkill(skill) {
+      this.activeAboutSkill = this.activeAboutSkill === skill ? '' : skill
     },
 
     getAboutEducationIcon(_education, index) {

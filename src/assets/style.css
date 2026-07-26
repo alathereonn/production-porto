@@ -1151,13 +1151,19 @@ section[id] {
   border-radius: 0.75rem;
   background: var(--color-darkbg);
   color: #9ca3af;
+  padding: 0;
   text-decoration: none;
+  cursor: pointer;
   --tile-color: var(--color-primary);
   transition:
     border-color 180ms ease,
     background-color 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
+}
+
+.about-skill-active-label {
+  display: none;
 }
 
 .about-icon-tile:focus-visible {
@@ -2332,6 +2338,38 @@ section[id] {
 
   .about-music-progress {
     max-width: none;
+  }
+
+  .about-icon-tile.is-active {
+    border-color: var(--tile-color);
+    background: var(--tile-color);
+    box-shadow: 0 0.35rem 1rem color-mix(in srgb, var(--tile-color) 32%, transparent);
+    transform: translateY(-0.125rem);
+  }
+
+  .about-icon-tile.is-active .about-icon-tile-image {
+    opacity: 1;
+    filter: brightness(0) invert(1);
+    transform: scale(1.08);
+  }
+
+  .about-skill-active-label {
+    display: block;
+    min-height: 1.35rem;
+    margin-top: 1rem;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(-0.2rem);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .about-skill-active-label.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .about-music-controls {
