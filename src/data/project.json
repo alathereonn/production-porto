@@ -35,6 +35,14 @@
       "demo": "#" 
     },
     {
+      "title": "PDF Compressor - Multiprocessing",
+      "description": "A Dockerized PDF compression app with a Rust backend and Vue.js frontend. It handles PDF uploads through a REST API, runs parallel compression jobs with worker processes, tracks processing progress, and serves compressed files for download. A final project for Functional Programming subject.",
+      "image": "src/images/github13.jpeg", 
+      "tags": ["Rust", "Axum", "Vue 3", "Vite", "Axios", "Docker"],
+      "github": "https://github.com/kyogree1/Project-Multiprocessing-PF-B-_5",
+      "demo": "#" 
+    },
+    {
       "title": "Dashboard Kesehatan untuk Smart City - Prototype",
       "description": "Prototype for final project in Smart City Support Information System subject.",
       "image": "src/images/github8.png", 
