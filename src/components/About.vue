@@ -313,7 +313,7 @@ export default {
       aboutData,
       images: [
         resolveImageAsset('1.jpeg'),
-        resolveImageAsset('2.jpg'),
+        resolveImageAsset('2.jpeg'),
         resolveImageAsset('3.jpg'),
         resolveImageAsset('4.jpeg'),
         resolveImageAsset('5.jpeg'),
