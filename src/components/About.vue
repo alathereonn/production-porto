@@ -314,7 +314,7 @@ export default {
       images: [
         resolveImageAsset('1.jpeg'),
         resolveImageAsset('2.jpeg'),
-        resolveImageAsset('3.jpg'),
+        resolveImageAsset('3.jpeg'),
         resolveImageAsset('4.jpeg'),
         resolveImageAsset('5.jpeg'),
       ],
