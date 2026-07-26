@@ -173,7 +173,10 @@
 
     <div class="absolute bottom-0 w-full border-t border-white/5 pt-6 pb-6 text-center bg-darkbg/90 backdrop-blur-md z-20">
       <p class="text-gray-400 text-sm tracking-wide">
-        Designed & Built by <span class="text-primary font-bold">{{ contactData.footer.designer }}</span>
+        Designed & Built by
+        <button type="button" class="contact-footer-designer" @click="scrollToHome">
+          {{ contactData.footer.designer }}
+        </button>
       </p>
       <p class="text-gray-600 text-xs mt-2">
         {{ contactData.footer.copyright }}
@@ -220,6 +223,27 @@ const closeFeedbackModal = async () => {
   isFeedbackModalOpen.value = false
   await nextTick()
   submitButtonRef.value?.focus()
+}
+
+const getNavbarOffset = () => {
+  const value = getComputedStyle(document.documentElement).getPropertyValue('--navbar-height')
+  const numericValue = Number.parseFloat(value)
+  const rootFontSize = Number.parseFloat(getComputedStyle(document.documentElement).fontSize)
+
+  return value.trim().endsWith('rem') ? numericValue * rootFontSize : numericValue
+}
+
+const scrollToHome = () => {
+  const target = document.getElementById('home')
+  if (!target) return
+
+  const start = window.pageYOffset
+  const end = target.getBoundingClientRect().top + start - getNavbarOffset()
+
+  window.scrollTo({
+    top: end,
+    behavior: 'smooth',
+  })
 }
 
 const sendMessage = async (e) => {
