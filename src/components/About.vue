@@ -15,11 +15,16 @@
     </div>
 
     <ScrollReveal as="div" class="about-gallery-wrap" :delay="100">
-      <div class="about-gallery">
+      <div
+        class="about-gallery"
+        @touchstart.passive="handleGalleryTouchStart"
+        @touchend="handleGalleryTouchEnd"
+      >
         <div
           v-for="(img, index) in images"
           :key="index"
           @mouseenter="activeCard = index"
+          @click="activeCard = index"
           :class="['expanding-card', { 'active': activeCard === index }]"
         >
           <img :src="img" class="about-gallery-image" alt="Gallery Image" />
@@ -331,6 +336,8 @@ export default {
       aboutSongProgressFrameId: 0,
       aboutSongTransitionTimeoutId: 0,
       activeAboutSkill: '',
+      galleryTouchStartX: 0,
+      galleryTouchStartY: 0,
       youtubePlayer: null,
     }
   },
@@ -382,6 +389,24 @@ export default {
         top: end,
         behavior: 'smooth',
       })
+    },
+
+    handleGalleryTouchStart(event) {
+      const touch = event.changedTouches[0]
+      this.galleryTouchStartX = touch.clientX
+      this.galleryTouchStartY = touch.clientY
+    },
+
+    handleGalleryTouchEnd(event) {
+      const touch = event.changedTouches[0]
+      const deltaX = touch.clientX - this.galleryTouchStartX
+      const deltaY = touch.clientY - this.galleryTouchStartY
+
+      if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY)) return
+
+      const direction = deltaX < 0 ? 1 : -1
+      const nextIndex = (this.activeCard + direction + this.images.length) % this.images.length
+      this.activeCard = nextIndex
     },
 
     getAboutSkillIcon(skill) {
