@@ -1486,6 +1486,12 @@ section[id] {
   line-height: 1.75;
 }
 
+.about-quote-cursor {
+  display: inline-block;
+  margin-left: 0.125rem;
+  font-style: normal;
+}
+
 .about-more-action {
   position: relative;
   z-index: 10;

@@ -210,7 +210,7 @@
 
     <ScrollReveal as="div" class="about-quote-panel" :delay="260">
       <p>
-        "{{ aboutData.about.quote }}"
+        "<span class="about-quote-text">{{ displayQuote }}</span><span class="typing-cursor about-quote-cursor">|</span>"
       </p>
     </ScrollReveal>
 
@@ -305,10 +305,28 @@ export default {
       holdDuration: 1500,
     })
 
+    const quoteTexts = Array.isArray(aboutData.about.quotes)
+      ? aboutData.about.quotes
+      : [aboutData.about.quote]
+
+    const {
+      displayedText: displayQuote,
+      start: startQuoteTyping,
+      stop: stopQuoteTyping,
+    } = useTypewriterCycle(quoteTexts, {
+      typingSpeed: 42,
+      deletingSpeed: 26,
+      holdDuration: 2600,
+      nextTextDelay: 700,
+    })
+
     return {
       displayAbout,
       startAboutTyping,
       stopAboutTyping,
+      displayQuote,
+      startQuoteTyping,
+      stopQuoteTyping,
       resolveSongCoverAsset,
     }
   },
@@ -367,11 +385,13 @@ export default {
 
   mounted() {
     this.startAboutTyping()
+    this.startQuoteTyping()
     this.initializeAboutSongPlayer()
   },
 
   beforeUnmount() {
     this.stopAboutTyping()
+    this.stopQuoteTyping()
     if (this.aboutSongTransitionTimeoutId) window.clearTimeout(this.aboutSongTransitionTimeoutId)
     this.stopAboutSongProgress()
     this.youtubePlayer?.destroy?.()
