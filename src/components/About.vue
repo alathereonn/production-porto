@@ -215,7 +215,7 @@
     </ScrollReveal>
 
     <ScrollReveal as="div" class="about-more-action" :delay="300">
-      <button @click="scrollToQualification" class="group relative px-10 py-4 rounded-xl font-semibold tracking-wide border border-primary text-primary bg-transparent transition-all duration-300 transform shadow-[0_6px_0_0_var(--color-primary)] hover:bg-primary hover:text-black hover:-translate-y-1 hover:shadow-[0_12px_25px_var] active:translate-y-2 active:shadow-[0_3px_0_0_var(--color-primary)]">
+      <button @click="scrollToQualification" class="primary-button">
         More
       </button>
     </ScrollReveal>

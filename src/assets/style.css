@@ -44,6 +44,8 @@
   --color-primary-hover: #DB2777;
   --color-darkbg: #0F0F14;
   --color-card: #18181F;
+  --button-surface: rgba(24, 24, 31, 0.94);
+  --button-surface-soft: rgba(24, 24, 31, 0.72);
   --color-text: #f8f8f8;
   --color-muted: #9ca3af;
   --color-muted-strong: #d1d5db;
@@ -428,7 +430,7 @@ section[id] {
 }
 
 .not-found-button--secondary {
-  background: transparent;
+  background: var(--button-surface);
   color: var(--color-primary);
 }
 
@@ -531,10 +533,12 @@ section[id] {
   gap: 0.625rem;
   cursor: pointer;
   border: 0;
-  background: transparent;
+  border-radius: var(--radius-sm);
+  background: var(--button-surface-soft);
   color: var(--color-primary);
   font-size: 1.25rem;
   font-weight: 700;
+  padding: 0.35rem 0.5rem;
 }
 
 .brand-logo {
@@ -558,14 +562,19 @@ section[id] {
 
 .nav-link {
   border: 0;
-  background: transparent;
+  border-radius: var(--radius-sm);
+  background: var(--button-surface-soft);
   color: #fff;
+  padding: 0.45rem 0.7rem;
   text-transform: capitalize;
-  transition: color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .nav-link:hover,
 .nav-link.is-active {
+  background: rgba(190, 24, 93, 0.12);
   color: var(--color-primary);
 }
 
@@ -654,7 +663,7 @@ section[id] {
   cursor: pointer;
   border: 0;
   border-radius: var(--radius-sm);
-  background: transparent;
+  background: var(--button-surface-soft);
   color: #fff;
   padding: 0.75rem 1rem;
   text-align: left;
@@ -1692,7 +1701,7 @@ section[id] {
   margin-top: 1rem;
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
-  background: transparent;
+  background: var(--button-surface);
   color: var(--color-primary);
   padding: 0.85rem 1.6rem;
   font-size: 0.875rem;
@@ -1721,7 +1730,7 @@ section[id] {
 
 @media (hover: none), (pointer: coarse) {
   .certificate-link:hover {
-    background: transparent;
+    background: var(--button-surface);
     color: var(--color-primary);
     box-shadow: none;
     transform: none;
@@ -2382,7 +2391,7 @@ section[id] {
   justify-content: center;
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-md);
-  background: transparent;
+  background: var(--button-surface);
   color: var(--color-primary);
   padding: 1rem 2.5rem;
   font-weight: 600;
@@ -2411,6 +2420,77 @@ section[id] {
 .primary-button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .mobile-menu-toggle:hover {
+    border-color: var(--color-border-mid);
+    background: rgba(24, 24, 31, 0.92);
+    box-shadow: none;
+  }
+
+  .mobile-menu-toggle.is-open {
+    border-color: rgba(190, 24, 93, 0.6);
+    background: rgba(190, 24, 93, 0.1);
+    box-shadow: 0 0 16px rgba(190, 24, 93, 0.25);
+  }
+
+  .mobile-navigation-link:hover {
+    background: var(--button-surface-soft);
+    color: #fff;
+  }
+
+  .mobile-navigation-link.is-active {
+    background: rgba(190, 24, 93, 0.12);
+    color: var(--color-primary);
+  }
+
+  .primary-button:hover {
+    background: var(--button-surface);
+    color: var(--color-primary);
+    box-shadow: 0 6px 0 0 var(--color-primary);
+    transform: none;
+  }
+
+  .project-action-link:hover {
+    background: rgba(190, 24, 93, 0.92);
+    color: #030307;
+    box-shadow: 0 0.75rem 1.5rem rgba(190, 24, 93, 0.28);
+    transform: none;
+  }
+
+  .project-nav-button:hover {
+    border-color: rgba(190, 24, 93, 0.72);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 42%),
+      rgba(12, 12, 18, 0.88);
+    color: var(--color-primary);
+    box-shadow:
+      0 1rem 2.5rem rgba(0, 0, 0, 0.42),
+      0 0 1.15rem rgba(190, 24, 93, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transform: translateY(-50%);
+  }
+
+  .contact-footer-designer:hover {
+    color: var(--color-primary);
+    text-shadow: none;
+  }
+
+  .contact-submit-button:hover .contact-submit-icon {
+    transform: none;
+  }
+
+  .feedback-modal-close:hover {
+    border-color: var(--color-border-mid);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-muted);
+  }
+
+  .feedback-modal-action:hover {
+    box-shadow: none;
+    transform: none;
+  }
 }
 
 .primary-button--compact {
