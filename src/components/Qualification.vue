@@ -187,7 +187,7 @@ export default {
   data() {
     return {
       qualificationData,
-      certText: ["PROFESSIONAL CERTIFICATION"],
+      certText: ["PROFESSIONAL CERTIFICATIONS"],
       teachText: ["TEACHING EXPERIENCES"],
       eduText: ["EDUCATION"],
       typedCert: "",
