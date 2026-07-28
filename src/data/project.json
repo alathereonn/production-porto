@@ -30,12 +30,12 @@
       "title": "Layanan Fakultas Rekayasa dan Teknologi Industri ITK (Layanan FRTI ITK)",
       "description": "A web platform for FRTI ITK that centralizes faculty information, academic services, lecturer directories, accreditation data, news, agenda, and administrative service access. The website is designed to provide a clear, responsive, and user-friendly experience for students, lecturers, staff, and public visitors.",
       "image": "src/images/github11.png", 
-      "tags": ["React", "TypeScript", "Laravel"],
+      "tags": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Laravel", "PostgreSQL"],
       "github": "https://github.com/alathereonn/Layanan-Fakultas-Rekayasa-dan-Teknologi-Industri-ITK",
       "demo": "#" 
     },
     {
-      "title": "PDF Compressor - Multiprocessing",
+      "title": "PDF Compressor",
       "description": "A Dockerized PDF compression app with a Rust backend and Vue.js frontend. It handles PDF uploads through a REST API, runs parallel compression jobs with worker processes, tracks processing progress, and serves compressed files for download. A final project for Functional Programming subject.",
       "image": "src/images/github13.jpeg", 
       "tags": ["Rust", "Axum", "Vue 3", "Vite", "Axios", "Docker"],
@@ -46,7 +46,7 @@
       "title": "Dashboard Kesehatan untuk Smart City - Prototype",
       "description": "Prototype for final project in Smart City Support Information System subject.",
       "image": "src/images/github8.png", 
-      "tags": ["TypeScript", "CSS", "React"],
+      "tags": ["TypeScript", "Tailwind CSS", "React"],
       "github": "https://github.com/alathereonn/Smart-City-Kesehatan-Terhadap-Layanan-Kesehatan",
       "demo": "#" 
     },
