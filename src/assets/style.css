@@ -533,12 +533,11 @@ section[id] {
   gap: 0.625rem;
   cursor: pointer;
   border: 0;
-  border-radius: var(--radius-sm);
-  background: var(--button-surface-soft);
+  background: transparent;
   color: var(--color-primary);
   font-size: 1.25rem;
   font-weight: 700;
-  padding: 0.35rem 0.5rem;
+  padding: 0;
 }
 
 .brand-logo {
@@ -562,19 +561,15 @@ section[id] {
 
 .nav-link {
   border: 0;
-  border-radius: var(--radius-sm);
-  background: var(--button-surface-soft);
+  background: transparent;
   color: #fff;
-  padding: 0.45rem 0.7rem;
+  padding: 0;
   text-transform: capitalize;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .nav-link:hover,
 .nav-link.is-active {
-  background: rgba(190, 24, 93, 0.12);
   color: var(--color-primary);
 }
 
