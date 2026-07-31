@@ -2022,7 +2022,7 @@ section[id] {
 
   .project-showcase__content {
     align-items: center;
-    min-height: 16.25rem;
+    min-height: 0;
     gap: 0.7rem;
     padding: 0;
     text-align: center;
@@ -2032,7 +2032,6 @@ section[id] {
     display: -webkit-box;
     overflow: hidden;
     max-width: 20rem;
-    min-height: 4.25rem;
     margin-inline: auto;
     font-size: clamp(1.25rem, 6.4vw, 1.65rem);
     line-height: 1.18;
@@ -2044,7 +2043,6 @@ section[id] {
     display: -webkit-box;
     overflow: hidden;
     max-width: 20.5rem;
-    min-height: 5.6rem;
     margin-inline: auto;
     font-size: 0.82rem;
     line-height: 1.62;
@@ -2058,7 +2056,6 @@ section[id] {
     gap: 0.3rem;
     margin-top: 0.1rem;
     margin-inline: auto;
-    min-height: 2.65rem;
   }
 
   .project-tech-badge {
