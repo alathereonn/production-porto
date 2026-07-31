@@ -1803,7 +1803,19 @@ section[id] {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 18%),
     linear-gradient(180deg, transparent 70%, rgba(10, 10, 16, 0.28));
+  opacity: 1;
   pointer-events: none;
+  transition:
+    opacity 240ms ease,
+    background 240ms ease;
+}
+
+.project-showcase__media:hover::before,
+.project-showcase__media:focus-within::before {
+  background:
+    radial-gradient(circle at center, rgba(190, 24, 93, 0.2), transparent 42%),
+    rgba(5, 5, 10, 0.6);
+  opacity: 1;
 }
 
 .project-showcase__image {
@@ -1821,6 +1833,72 @@ section[id] {
 .project-showcase:hover .project-showcase__image {
   filter: saturate(1.08) contrast(1.06);
   transform: scale(1.025);
+}
+
+.project-showcase__media:hover .project-showcase__image,
+.project-showcase__media:focus-within .project-showcase__image {
+  filter: saturate(0.82) contrast(0.95) blur(3px);
+  transform: scale(1.035);
+}
+
+.project-showcase__media-actions {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.35rem);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.project-showcase__media:hover .project-showcase__media-actions,
+.project-showcase__media:focus-within .project-showcase__media-actions {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.project-showcase__media-action {
+  display: inline-flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(190, 24, 93, 0.72);
+  border-radius: 999px;
+  background: rgba(190, 24, 93, 0.92);
+  color: #07070b;
+  box-shadow:
+    0 0.9rem 1.75rem rgba(0, 0, 0, 0.38),
+    0 0 1.6rem rgba(190, 24, 93, 0.35);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.project-showcase__media-action:hover,
+.project-showcase__media-action:focus-visible {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #111118;
+  box-shadow:
+    0 1rem 2rem rgba(0, 0, 0, 0.42),
+    0 0 1.75rem rgba(255, 255, 255, 0.18);
+  transform: translateY(-0.12rem) scale(1.05);
+}
+
+.project-showcase__media-action svg {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .project-showcase__content {
@@ -1909,43 +1987,6 @@ section[id] {
   object-fit: contain;
 }
 
-.project-showcase__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 0.55rem;
-}
-
-.project-showcase__action {
-  display: inline-flex;
-  min-height: 2.45rem;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  border: 1px solid rgba(190, 24, 93, 0.58);
-  border-radius: var(--radius-sm);
-  background: var(--button-surface);
-  color: var(--color-primary);
-  padding: 0.65rem 0.95rem;
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition:
-    background-color 220ms ease,
-    border-color 220ms ease,
-    color 220ms ease,
-    box-shadow 220ms ease,
-    transform 220ms ease;
-}
-
-.project-showcase__action:hover {
-  border-color: var(--color-primary);
-  background: var(--color-primary);
-  color: #07070b;
-  box-shadow: 0 0.9rem 1.75rem rgba(190, 24, 93, 0.28);
-  transform: translateY(-0.125rem);
-}
-
 .project-github-action {
   position: relative;
   z-index: 10;
@@ -1990,14 +2031,15 @@ section[id] {
     font-size: 0.62rem;
   }
 
-  .project-showcase__actions {
-    gap: 0.6rem;
+  .project-showcase__media-actions {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
   }
 
-  .project-showcase__action {
-    min-height: 2.55rem;
-    padding-inline: 0.85rem;
-    font-size: 0.8rem;
+  .project-showcase__media-action {
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .project-github-action {
@@ -2382,14 +2424,6 @@ section[id] {
     background: var(--button-surface);
     color: var(--color-primary);
     box-shadow: 0 6px 0 0 var(--color-primary);
-    transform: none;
-  }
-
-  .project-showcase__action:hover {
-    border-color: rgba(190, 24, 93, 0.8);
-    background: var(--button-surface);
-    color: var(--color-primary);
-    box-shadow: none;
     transform: none;
   }
 
