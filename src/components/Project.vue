@@ -133,6 +133,7 @@ defineOptions({
 
 const AUTO_SWITCH_DELAY = 5000
 const SWIPE_THRESHOLD = 50
+const PROJECT_TRANSITION_OUT_DELAY = 280
 
 const activeProjectIndex = ref(0)
 const isProjectChanging = ref(false)
@@ -254,7 +255,7 @@ const setActiveProjectIndex = (index, shouldResetAutoSwitch = true, direction = 
         projectTransitionTimer = null
       })
     })
-  }, 170)
+  }, PROJECT_TRANSITION_OUT_DELAY)
 
   if (shouldResetAutoSwitch) resetAutoSwitch()
 }

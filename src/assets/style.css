@@ -1757,7 +1757,8 @@ section[id] {
   position: relative;
   display: grid;
   min-height: 23rem;
-  grid-template-columns: minmax(0, 33rem) minmax(24rem, 1fr);
+  grid-template-columns: minmax(24rem, 1fr) minmax(0, 33rem);
+  grid-template-areas: "content media";
   align-items: center;
   gap: clamp(2rem, 5vw, 4.25rem);
   overflow: visible;
@@ -1778,7 +1779,8 @@ section[id] {
 
 .project-showcase__media {
   position: relative;
-  justify-self: end;
+  grid-area: media;
+  justify-self: start;
   overflow: hidden;
   width: min(100%, 33rem);
   aspect-ratio: 16 / 9;
@@ -1789,9 +1791,9 @@ section[id] {
     0 1.25rem 2.75rem rgba(0, 0, 0, 0.28),
     0 0 1.25rem rgba(190, 24, 93, 0.08);
   transition:
-    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 640ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 640ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-showcase__media::before {
@@ -1903,14 +1905,15 @@ section[id] {
 
 .project-showcase__content {
   display: flex;
+  grid-area: content;
   min-height: 23rem;
   flex-direction: column;
   justify-content: center;
   gap: 0.85rem;
   transition:
-    opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 500ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 620ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-showcase.is-changing .project-showcase__media,
@@ -1920,19 +1923,19 @@ section[id] {
 }
 
 .project-showcase.project-transition-next.is-changing .project-showcase__media {
-  transform: translateX(-1.2rem) scale(0.985);
+  transform: translateX(-3.25rem) scale(0.97);
 }
 
 .project-showcase.project-transition-next.is-changing .project-showcase__content {
-  transform: translateX(-1.2rem);
+  transform: translateX(-3.25rem);
 }
 
 .project-showcase.project-transition-previous.is-changing .project-showcase__media {
-  transform: translateX(1.2rem) scale(0.985);
+  transform: translateX(3.25rem) scale(0.97);
 }
 
 .project-showcase.project-transition-previous.is-changing .project-showcase__content {
-  transform: translateX(1.2rem);
+  transform: translateX(3.25rem);
 }
 
 .project-showcase__title {
@@ -1998,6 +2001,9 @@ section[id] {
 @media (max-width: 767px) {
   .project-showcase {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "media"
+      "content";
     min-height: 0;
     gap: 1.2rem;
     padding: 0;
