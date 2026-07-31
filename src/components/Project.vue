@@ -77,10 +77,6 @@
             {{ activeProject.title }}
           </h3>
 
-          <p class="project-showcase__meta">
-            {{ activeProjectMeta }}
-          </p>
-
           <p class="project-showcase__description">
             {{ activeProject.description }}
           </p>
@@ -152,11 +148,6 @@ const projects = computed(() => projectData.projects || [])
 
 const activeProject = computed(() => {
   return projects.value[activeProjectIndex.value] || projects.value[0] || {}
-})
-
-const activeProjectMeta = computed(() => {
-  const tags = activeProject.value.tags || []
-  return tags.slice(0, 3).join(' / ') || 'Featured work'
 })
 
 const activeProjectLinks = computed(() => {

@@ -1945,13 +1945,6 @@ section[id] {
   line-height: 1.15;
 }
 
-.project-showcase__meta {
-  color: rgba(255, 255, 255, 0.58);
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
 .project-showcase__description {
   max-width: 38rem;
   color: rgba(229, 231, 235, 0.72);
@@ -1995,7 +1988,7 @@ section[id] {
   z-index: 10;
   display: flex;
   justify-content: center;
-  margin-top: 1.6rem;
+  margin-top: 2.35rem;
 }
 
 @media (max-width: 767px) {
@@ -2049,7 +2042,7 @@ section[id] {
   }
 
   .project-github-action {
-    margin-top: 1.35rem;
+    margin-top: 2rem;
   }
 }
 
