@@ -1998,7 +1998,7 @@ section[id] {
 
   .project-showcase-shell {
     width: min(100%, 24rem);
-    min-height: 31.5rem;
+    min-height: 28.5rem;
   }
 
   .project-showcase {
@@ -2006,7 +2006,7 @@ section[id] {
     grid-template-areas:
       "media"
       "content";
-    min-height: 31.5rem;
+    min-height: 28.5rem;
     align-content: start;
     gap: 1.35rem;
     padding: 0;
@@ -2090,7 +2090,7 @@ section[id] {
   }
 
   .project-github-action {
-    margin-top: 3rem;
+    margin-top: 2.35rem;
   }
 }
 
