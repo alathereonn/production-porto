@@ -1998,6 +1998,7 @@ section[id] {
 
   .project-showcase-shell {
     width: min(100%, 24rem);
+    min-height: 31.5rem;
   }
 
   .project-showcase {
@@ -2005,7 +2006,8 @@ section[id] {
     grid-template-areas:
       "media"
       "content";
-    min-height: 0;
+    min-height: 31.5rem;
+    align-content: start;
     gap: 1.35rem;
     padding: 0;
   }
