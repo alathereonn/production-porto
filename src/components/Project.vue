@@ -9,113 +9,139 @@
 
     <ScrollReveal
       as="div"
-      class="project-carousel group"
+      class="project-showcase-shell"
       :delay="100"
-      @mouseenter="pauseAutoScroll"
-      @mouseleave="resumeAutoScroll"
     >
-
-      <ScrollReveal
-        as="button"
-        type="button"
-        :delay="180"
-        @click="scrollPrev"
-        class="project-nav-button project-nav-button--prev"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-      </ScrollReveal>
-
       <div
-        ref="sliderRef"
-        @scroll="handleScroll"
-        class="project-slider hide-scrollbar"
+        class="project-showcase"
+        :class="{ 'is-changing': isProjectChanging }"
+        tabindex="0"
+        aria-label="Featured project showcase"
+        @mouseenter="pauseAutoSwitch"
+        @mouseleave="resumeAutoSwitch"
+        @focusin="pauseAutoSwitch"
+        @focusout="resumeAutoSwitch"
+        @keydown.left.prevent="goToPreviousProject"
+        @keydown.right.prevent="goToNextProject"
+        @pointerdown="handlePointerDown"
+        @pointermove="handlePointerMove"
+        @pointerup="handlePointerUp"
+        @pointercancel="handlePointerCancel"
       >
-
-        <ScrollReveal
-          v-for="(project, index) in infiniteProjectList"
-          :key="`${project.title}-${index}`"
-          class="project-card group/card"
-          :delay="Math.min((index % 4) * 70, 210)"
+        <button
+          type="button"
+          class="project-nav-button project-nav-button--prev"
+          aria-label="Previous project"
+          @click="goToPreviousProject"
         >
-          <div class="project-image-wrap">
-            <img
-              :src="resolveImageAsset(project.image)"
-              :alt="project.title"
-              class="project-image"
-            />
-            <div class="project-overlay">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
 
-              <a v-if="project.github && project.github !== '#'" :href="project.github" target="_blank" class="project-action-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-              </a>
+        <div class="project-showcase__media">
+          <img
+            :src="resolveImageAsset(activeProject.image)"
+            :alt="activeProject.title"
+            class="project-showcase__image"
+            draggable="false"
+          />
+        </div>
 
-              <a v-if="project.demo && project.demo !== '#'" :href="project.demo" target="_blank" class="project-action-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-              </a>
+        <div class="project-showcase__content">
+          <p class="project-showcase__eyebrow">
+            Project
+            <span>{{ activeProjectNumber }}</span>
+          </p>
 
-              <a v-if="project.itchio && project.itchio !== '#'" :href="project.itchio" target="_blank" title="Play on Itch.io" class="project-action-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:w-6 md:h-6">
-                  <line x1="6" y1="12" x2="10" y2="12"></line>
-                  <line x1="8" y1="10" x2="8" y2="14"></line>
-                  <line x1="15" y1="13" x2="15.01" y2="13"></line>
-                  <line x1="18" y1="11" x2="18.01" y2="11"></line>
-                  <rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect>
-                </svg>
-              </a>
+          <h3 class="project-showcase__title">
+            {{ activeProject.title }}
+          </h3>
 
-            </div>
+          <p class="project-showcase__meta">
+            {{ activeProjectMeta }}
+          </p>
+
+          <p class="project-showcase__description">
+            {{ activeProject.description }}
+          </p>
+
+          <div class="project-showcase__stack" aria-label="Tech stack">
+            <span
+              v-for="tech in activeProject.tags"
+              :key="tech"
+              :class="[
+                'project-tech-badge',
+                getTechConfig(tech).bg,
+                getTechConfig(tech).text
+              ]"
+            >
+              <img
+                v-if="getTechConfig(tech).icon"
+                :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
+                class="project-tech-badge__icon"
+                alt=""
+              />
+              {{ tech }}
+            </span>
           </div>
 
-          <div class="project-card-body">
-            <div class="project-card-copy">
-              <h3 class="project-card-title">
-                {{ project.title }}
-              </h3>
-              <p class="project-card-description">
-                {{ project.description }}
-              </p>
-            </div>
-
-            <div class="project-tech">
-              <p class="project-tech-label">Tech Stack</p>
-              <div class="project-tech-list">
-                <span
-                  v-for="tech in project.tags"
-                  :key="tech"
-                  :class="[
-                    'text-[9px] md:text-xs font-bold px-2 py-1 md:px-2.5 md:py-1.5 rounded-sm uppercase tracking-widest flex items-center gap-1.5 md:gap-2 shadow-sm',
-                    getTechConfig(tech).bg,
-                    getTechConfig(tech).text
-                  ]"
-                >
-                  <img
-                    v-if="getTechConfig(tech).icon"
-                    :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
-                    class="w-3 h-3 md:w-3.5 md:h-3.5 object-contain"
-                    alt=""
-                  />
-                  {{ tech }}
-                </span>
-              </div>
-            </div>
+          <div v-if="activeProjectLinks.length" class="project-showcase__actions">
+            <a
+              v-for="link in activeProjectLinks"
+              :key="link.href"
+              :href="link.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="project-showcase__action"
+            >
+              <svg v-if="link.type === 'github'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              <svg v-else-if="link.type === 'demo'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="6" y1="12" x2="10" y2="12"></line>
+                <line x1="8" y1="10" x2="8" y2="14"></line>
+                <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                <rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect>
+              </svg>
+              {{ link.label }}
+            </a>
           </div>
-        </ScrollReveal>
+        </div>
 
+        <button
+          type="button"
+          class="project-nav-button project-nav-button--next"
+          aria-label="Next project"
+          @click="goToNextProject"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </div>
 
-      <ScrollReveal
-        as="button"
-        type="button"
-        :delay="180"
-        @click="scrollNext"
-        class="project-nav-button project-nav-button--next"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-      </ScrollReveal>
-
+      <div class="project-dots" aria-label="Project navigation">
+        <button
+          v-for="(project, index) in projects"
+          :key="project.title"
+          type="button"
+          class="project-dot"
+          :class="{ 'is-active': index === activeProjectIndex }"
+          :aria-label="`Show project ${index + 1}: ${project.title}`"
+          :aria-current="index === activeProjectIndex ? 'true' : undefined"
+          @click="goToProject(index)"
+        ></button>
+      </div>
     </ScrollReveal>
 
-    <ScrollReveal as="div" class="flex justify-center mt-12 md:mt-12 relative z-10" :delay="200">
+    <ScrollReveal as="div" class="project-github-action" :delay="200">
       <a
         href="https://github.com/alathereonn"
         target="_blank"
@@ -125,13 +151,11 @@
         See More on my GitHub
       </a>
     </ScrollReveal>
-
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue'
-// PERBAIKAN 1: Import data dari file project.json yang baru
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
 import projectData from '../data/project.json'
 import { resolveImageAsset } from '../data/imageAssets.js'
 import ScrollReveal from './ScrollReveal.vue'
@@ -140,11 +164,56 @@ defineOptions({
   name: 'PortfolioProject',
 })
 
-const sliderRef = ref(null)
-let autoScrollTimer = null
-let isTransitioning = false
+const AUTO_SWITCH_DELAY = 5000
+const SWIPE_THRESHOLD = 50
 
-// MAPPER STYLING & ICON (Dibiarkan di sini karena ini fungsionalitas UI, bukan sekadar data teks)
+const activeProjectIndex = ref(0)
+const isProjectChanging = ref(false)
+const pointerStartX = ref(0)
+const pointerStartY = ref(0)
+const pointerDeltaX = ref(0)
+const pointerDeltaY = ref(0)
+const activePointerId = ref(null)
+
+let autoSwitchTimer = null
+let projectTransitionTimer = null
+
+const projects = computed(() => projectData.projects || [])
+
+const activeProject = computed(() => {
+  return projects.value[activeProjectIndex.value] || projects.value[0] || {}
+})
+
+const activeProjectNumber = computed(() => {
+  const total = String(projects.value.length).padStart(2, '0')
+  const current = String(activeProjectIndex.value + 1).padStart(2, '0')
+  return `${current} / ${total}`
+})
+
+const activeProjectMeta = computed(() => {
+  const tags = activeProject.value.tags || []
+  return tags.slice(0, 3).join(' / ') || 'Featured work'
+})
+
+const activeProjectLinks = computed(() => {
+  const project = activeProject.value
+  const links = []
+
+  if (project.github && project.github !== '#') {
+    links.push({ href: project.github, label: 'View Source', type: 'github' })
+  }
+
+  if (project.demo && project.demo !== '#') {
+    links.push({ href: project.demo, label: 'Live Demo', type: 'demo' })
+  }
+
+  if (project.itchio && project.itchio !== '#') {
+    links.push({ href: project.itchio, label: 'Play Demo', type: 'itchio' })
+  }
+
+  return links
+})
+
 const getTechConfig = (tech) => {
   const config = {
     "Tailwind CSS": { bg: "bg-[#38bdf8]", text: "text-white", icon: "tailwindcss", iconColor: "white" },
@@ -183,107 +252,124 @@ const getTechConfig = (tech) => {
     "Distributed Systems": { bg: "bg-[#8A2BE2]", text: "text-white", icon: null },
     "Networking": { bg: "bg-[#FF4500]", text: "text-white", icon: null },
     "Raft Consensus": { bg: "bg-[#E6522C]", text: "text-white", icon: null },
-  };
-  return config[tech] || { bg: "bg-gray-800", text: "text-gray-200", icon: null };
-}
-
-// Menghubungkan logika infinite scroll dengan data dari JSON
-const infiniteProjectList = computed(() => {
-  // PERBAIKAN 2: Mengambil array dari projectData.list
-  const dataProjects = projectData.projects;
-
-  if (!dataProjects || dataProjects.length === 0) return [];
-
-  const firstItems = dataProjects.slice(0, 2)
-  const lastItems = dataProjects.slice(-2)
-  return [...lastItems, ...dataProjects, ...firstItems]
-})
-
-const getGap = () => {
-  return window.innerWidth >= 768 ? 48 : 24;
-}
-
-const setInitialPosition = () => {
-  if (sliderRef.value && sliderRef.value.children.length > 0) {
-    const cardWidth = sliderRef.value.children[0].offsetWidth + getGap()
-    sliderRef.value.scrollLeft = cardWidth * 2
   }
+
+  return config[tech] || { bg: "bg-gray-800", text: "text-gray-200", icon: null }
 }
 
-const handleScroll = () => {
-  if (!sliderRef.value || isTransitioning) return
-  const slider = sliderRef.value
+const normalizeProjectIndex = (index) => {
+  const count = projects.value.length
+  if (!count) return 0
+  return (index + count) % count
+}
 
-  // Mencegah error jika belum ada child element
-  if (slider.children.length === 0) return;
+const setActiveProjectIndex = (index, shouldResetAutoSwitch = true) => {
+  const nextIndex = normalizeProjectIndex(index)
+  if (nextIndex === activeProjectIndex.value || projects.value.length <= 1) return
 
-  const cardWidth = slider.children[0].offsetWidth + getGap()
-  const maxScroll = slider.scrollWidth - slider.clientWidth
+  if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
 
-  if (slider.scrollLeft <= 5) {
-    isTransitioning = true
-    slider.style.scrollBehavior = 'auto'
-    slider.scrollLeft = maxScroll - (cardWidth * 2)
+  isProjectChanging.value = true
+  projectTransitionTimer = window.setTimeout(() => {
+    activeProjectIndex.value = nextIndex
 
-    requestAnimationFrame(() => {
-      slider.style.scrollBehavior = 'smooth'
-      isTransitioning = false
+    nextTick(() => {
+      window.requestAnimationFrame(() => {
+        isProjectChanging.value = false
+        projectTransitionTimer = null
+      })
     })
-  }
-  else if (slider.scrollLeft >= maxScroll - 5) {
-    isTransitioning = true
-    slider.style.scrollBehavior = 'auto'
-    slider.scrollLeft = cardWidth * 2
+  }, 170)
 
-    requestAnimationFrame(() => {
-      slider.style.scrollBehavior = 'smooth'
-      isTransitioning = false
-    })
-  }
+  if (shouldResetAutoSwitch) resetAutoSwitch()
 }
 
-const scrollNext = () => {
-  if (sliderRef.value && !isTransitioning) {
-    sliderRef.value.style.scrollBehavior = 'smooth'
-    sliderRef.value.scrollBy({ left: sliderRef.value.clientWidth })
-    resetAutoScroll()
-  }
+const goToProject = (index) => {
+  setActiveProjectIndex(index)
 }
 
-const scrollPrev = () => {
-  if (sliderRef.value && !isTransitioning) {
-    sliderRef.value.style.scrollBehavior = 'smooth'
-    sliderRef.value.scrollBy({ left: -sliderRef.value.clientWidth })
-    resetAutoScroll()
-  }
+const goToNextProject = (shouldResetAutoSwitch = true) => {
+  setActiveProjectIndex(activeProjectIndex.value + 1, shouldResetAutoSwitch)
 }
 
-const startAutoScroll = () => {
-  pauseAutoScroll()
-  autoScrollTimer = setInterval(() => {
-    scrollNext()
-  }, 10000)
+const goToPreviousProject = (shouldResetAutoSwitch = true) => {
+  setActiveProjectIndex(activeProjectIndex.value - 1, shouldResetAutoSwitch)
 }
-const pauseAutoScroll = () => {
-  if (autoScrollTimer) clearInterval(autoScrollTimer)
+
+const startAutoSwitch = () => {
+  stopAutoSwitch()
+  if (projects.value.length <= 1) return
+
+  autoSwitchTimer = window.setInterval(() => {
+    goToNextProject(false)
+  }, AUTO_SWITCH_DELAY)
 }
-const resumeAutoScroll = () => {
-  startAutoScroll()
+
+const stopAutoSwitch = () => {
+  if (!autoSwitchTimer) return
+  window.clearInterval(autoSwitchTimer)
+  autoSwitchTimer = null
 }
-const resetAutoScroll = () => {
-  pauseAutoScroll()
-  startAutoScroll()
+
+const pauseAutoSwitch = () => {
+  stopAutoSwitch()
+}
+
+const resumeAutoSwitch = () => {
+  startAutoSwitch()
+}
+
+const resetAutoSwitch = () => {
+  stopAutoSwitch()
+  startAutoSwitch()
+}
+
+const handlePointerDown = (event) => {
+  if (event.target.closest('a, button')) return
+
+  activePointerId.value = event.pointerId
+  pointerStartX.value = event.clientX
+  pointerStartY.value = event.clientY
+  pointerDeltaX.value = 0
+  pointerDeltaY.value = 0
+  event.currentTarget.setPointerCapture?.(event.pointerId)
+}
+
+const handlePointerMove = (event) => {
+  if (activePointerId.value !== event.pointerId) return
+
+  pointerDeltaX.value = event.clientX - pointerStartX.value
+  pointerDeltaY.value = event.clientY - pointerStartY.value
+}
+
+const handlePointerUp = (event) => {
+  if (activePointerId.value !== event.pointerId) return
+
+  event.currentTarget.releasePointerCapture?.(event.pointerId)
+
+  if (
+    Math.abs(pointerDeltaX.value) >= SWIPE_THRESHOLD &&
+    Math.abs(pointerDeltaX.value) > Math.abs(pointerDeltaY.value)
+  ) {
+    pointerDeltaX.value < 0 ? goToNextProject() : goToPreviousProject()
+  }
+
+  activePointerId.value = null
+}
+
+const handlePointerCancel = (event) => {
+  if (activePointerId.value === event.pointerId) {
+    event.currentTarget.releasePointerCapture?.(event.pointerId)
+    activePointerId.value = null
+  }
 }
 
 onMounted(() => {
-  nextTick(() => {
-    setInitialPosition()
-    startAutoScroll()
-  })
+  startAutoSwitch()
 })
 
 onUnmounted(() => {
-  pauseAutoScroll()
+  stopAutoSwitch()
+  if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
 })
-
 </script>
