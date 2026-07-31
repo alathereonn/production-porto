@@ -16,7 +16,10 @@
         class="project-showcase"
         :class="[
           `project-transition-${projectTransitionDirection}`,
-          { 'is-changing': isProjectChanging }
+          {
+            'is-changing': isProjectChanging,
+            'is-dragging': isProjectDragging
+          }
         ]"
         tabindex="0"
         aria-label="Featured project showcase"
@@ -41,10 +44,6 @@
         </div>
 
         <div class="project-showcase__content">
-          <p class="project-showcase__eyebrow">
-            Project
-          </p>
-
           <h3 class="project-showcase__title">
             {{ activeProject.title }}
           </h3>
@@ -136,6 +135,7 @@ const SWIPE_THRESHOLD = 50
 
 const activeProjectIndex = ref(0)
 const isProjectChanging = ref(false)
+const isProjectDragging = ref(false)
 const projectTransitionDirection = ref('next')
 const pointerStartX = ref(0)
 const pointerStartY = ref(0)
@@ -294,14 +294,23 @@ const resetAutoSwitch = () => {
   startAutoSwitch()
 }
 
+const clearProjectSelection = () => {
+  const selection = window.getSelection?.()
+  if (selection && !selection.isCollapsed) {
+    selection.removeAllRanges()
+  }
+}
+
 const handlePointerDown = (event) => {
   if (event.target.closest('a, button')) return
 
+  isProjectDragging.value = true
   activePointerId.value = event.pointerId
   pointerStartX.value = event.clientX
   pointerStartY.value = event.clientY
   pointerDeltaX.value = 0
   pointerDeltaY.value = 0
+  event.preventDefault()
   event.currentTarget.setPointerCapture?.(event.pointerId)
 }
 
@@ -310,6 +319,14 @@ const handlePointerMove = (event) => {
 
   pointerDeltaX.value = event.clientX - pointerStartX.value
   pointerDeltaY.value = event.clientY - pointerStartY.value
+
+  if (
+    Math.abs(pointerDeltaX.value) > 6 &&
+    Math.abs(pointerDeltaX.value) > Math.abs(pointerDeltaY.value)
+  ) {
+    event.preventDefault()
+    clearProjectSelection()
+  }
 }
 
 const handlePointerUp = (event) => {
@@ -325,12 +342,14 @@ const handlePointerUp = (event) => {
   }
 
   activePointerId.value = null
+  isProjectDragging.value = false
 }
 
 const handlePointerCancel = (event) => {
   if (activePointerId.value === event.pointerId) {
     event.currentTarget.releasePointerCapture?.(event.pointerId)
     activePointerId.value = null
+    isProjectDragging.value = false
   }
 }
 

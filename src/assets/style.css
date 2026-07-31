@@ -1749,16 +1749,17 @@ section[id] {
 
 .project-showcase-shell {
   position: relative;
-  width: min(100%, 72rem);
+  width: min(100%, 78rem);
   margin-inline: auto;
 }
 
 .project-showcase {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 34rem) minmax(20rem, 1fr);
+  min-height: 23rem;
+  grid-template-columns: minmax(0, 33rem) minmax(24rem, 1fr);
   align-items: center;
-  gap: clamp(2.5rem, 6vw, 5.5rem);
+  gap: clamp(2rem, 5vw, 4.25rem);
   overflow: visible;
   padding: 0;
   touch-action: pan-y;
@@ -1769,11 +1770,17 @@ section[id] {
   outline-offset: 0.35rem;
 }
 
+.project-showcase.is-dragging,
+.project-showcase.is-dragging * {
+  cursor: grabbing;
+  user-select: none;
+}
+
 .project-showcase__media {
   position: relative;
   justify-self: end;
   overflow: hidden;
-  width: min(100%, 34rem);
+  width: min(100%, 33rem);
   aspect-ratio: 16 / 9;
   border: 1px solid rgba(190, 24, 93, 0.26);
   border-radius: 0.85rem;
@@ -1818,7 +1825,7 @@ section[id] {
 
 .project-showcase__content {
   display: flex;
-  min-height: 20rem;
+  min-height: 23rem;
   flex-direction: column;
   justify-content: center;
   gap: 0.85rem;
@@ -1839,7 +1846,7 @@ section[id] {
 }
 
 .project-showcase.project-transition-next.is-changing .project-showcase__content {
-  transform: translateX(1.2rem);
+  transform: translateX(-1.2rem);
 }
 
 .project-showcase.project-transition-previous.is-changing .project-showcase__media {
@@ -1847,19 +1854,7 @@ section[id] {
 }
 
 .project-showcase.project-transition-previous.is-changing .project-showcase__content {
-  transform: translateX(-1.2rem);
-}
-
-.project-showcase__eyebrow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--color-primary);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  transform: translateX(1.2rem);
 }
 
 .project-showcase__title {
@@ -1962,6 +1957,7 @@ section[id] {
 @media (max-width: 767px) {
   .project-showcase {
     grid-template-columns: 1fr;
+    min-height: 0;
     gap: 1.2rem;
     padding: 0;
   }
