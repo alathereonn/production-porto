@@ -1742,9 +1742,9 @@ section[id] {
 ======================================== */
 
 .project-section {
-  min-height: 100vh;
+  min-height: auto;
   scroll-margin-top: var(--navbar-height);
-  padding: 5rem 1rem;
+  padding: 4.5rem 1rem 3rem;
 }
 
 .project-showcase-shell {
@@ -1782,9 +1782,9 @@ section[id] {
     0 1.25rem 2.75rem rgba(0, 0, 0, 0.28),
     0 0 1.25rem rgba(190, 24, 93, 0.08);
   transition:
-    opacity 420ms ease,
-    transform 420ms ease,
-    filter 420ms ease;
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 520ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-showcase__media::before {
@@ -1823,16 +1823,31 @@ section[id] {
   justify-content: center;
   gap: 0.85rem;
   transition:
-    opacity 420ms ease,
-    transform 420ms ease,
-    filter 420ms ease;
+    opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-showcase.is-changing .project-showcase__media,
 .project-showcase.is-changing .project-showcase__content {
   opacity: 0;
   filter: blur(2px);
-  transform: translateY(0.55rem);
+}
+
+.project-showcase.project-transition-next.is-changing .project-showcase__media {
+  transform: translateX(-1.2rem) scale(0.985);
+}
+
+.project-showcase.project-transition-next.is-changing .project-showcase__content {
+  transform: translateX(1.2rem);
+}
+
+.project-showcase.project-transition-previous.is-changing .project-showcase__media {
+  transform: translateX(1.2rem) scale(0.985);
+}
+
+.project-showcase.project-transition-previous.is-changing .project-showcase__content {
+  transform: translateX(-1.2rem);
 }
 
 .project-showcase__eyebrow {
@@ -1845,12 +1860,6 @@ section[id] {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-
-.project-showcase__eyebrow span {
-  color: rgba(255, 255, 255, 0.34);
-  font-size: 0.64rem;
-  letter-spacing: 0.08em;
 }
 
 .project-showcase__title {
@@ -1942,102 +1951,12 @@ section[id] {
   transform: translateY(-0.125rem);
 }
 
-.project-nav-button {
-  position: absolute;
-  top: 50%;
-  z-index: 12;
-  display: inline-flex;
-  width: 2.55rem;
-  height: 3.25rem;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(190, 24, 93, 0.46);
-  border-radius: 0.75rem;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 42%),
-    rgba(12, 12, 18, 0.72);
-  color: var(--color-primary);
-  box-shadow:
-    0 0.75rem 1.75rem rgba(0, 0, 0, 0.28),
-    0 0 0.8rem rgba(190, 24, 93, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  transform: translateY(-50%);
-  transition:
-    background-color 220ms ease,
-    border-color 220ms ease,
-    color 220ms ease,
-    box-shadow 220ms ease,
-    transform 220ms ease;
-}
-
-.project-nav-button svg {
-  width: 1rem;
-  height: 1rem;
-}
-
-.project-nav-button:hover {
-  border-color: var(--color-primary);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 46%),
-    rgba(190, 24, 93, 0.95);
-  color: #08080d;
-  box-shadow:
-    0 1.15rem 2.75rem rgba(0, 0, 0, 0.5),
-    0 0 1.8rem rgba(190, 24, 93, 0.38),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transform: translateY(-50%) scale(1.04);
-}
-
-.project-nav-button--prev {
-  left: -3.25rem;
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-  border-top-right-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-}
-
-.project-nav-button--next {
-  right: -3.25rem;
-  border-top-left-radius: 0.5rem;
-  border-bottom-left-radius: 0.5rem;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-}
-
-.project-dots {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.45rem;
-  margin-top: 1.75rem;
-}
-
-.project-dot {
-  width: 0.42rem;
-  height: 0.42rem;
-  border: 1px solid rgba(190, 24, 93, 0.38);
-  border-radius: 999px;
-  background: rgba(24, 24, 31, 0.88);
-  transition:
-    width 220ms ease,
-    background-color 220ms ease,
-    border-color 220ms ease,
-    box-shadow 220ms ease;
-}
-
-.project-dot.is-active {
-  width: 1.35rem;
-  border-color: var(--color-primary);
-  background: var(--color-primary);
-  box-shadow: 0 0 0.75rem rgba(190, 24, 93, 0.28);
-}
-
 .project-github-action {
   position: relative;
   z-index: 10;
   display: flex;
   justify-content: center;
-  margin-top: 2.25rem;
+  margin-top: 1.6rem;
 }
 
 @media (max-width: 767px) {
@@ -2085,32 +2004,8 @@ section[id] {
     font-size: 0.8rem;
   }
 
-  .project-nav-button {
-    top: auto;
-    bottom: -3.45rem;
-    width: 2.45rem;
-    height: 2.45rem;
-    border-radius: 0.72rem;
-    transform: none;
-  }
-
-  .project-nav-button:hover {
-    transform: none;
-  }
-
-  .project-nav-button--prev {
-    left: 0;
-  }
-
-  .project-nav-button--next {
-    right: 0;
-  }
-
-  .project-dots {
-    min-height: 2.45rem;
-    align-items: center;
-    margin-top: 1.45rem;
-    padding-inline: 3rem;
+  .project-github-action {
+    margin-top: 1.35rem;
   }
 }
 
@@ -2502,19 +2397,6 @@ section[id] {
     transform: none;
   }
 
-  .project-nav-button:hover {
-    border-color: rgba(190, 24, 93, 0.46);
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 42%),
-      rgba(12, 12, 18, 0.72);
-    color: var(--color-primary);
-    box-shadow:
-      0 0.75rem 1.75rem rgba(0, 0, 0, 0.28),
-      0 0 0.8rem rgba(190, 24, 93, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    transform: translateY(-50%);
-  }
-
   .contact-footer-designer:hover {
     color: var(--color-primary);
     text-shadow: none;
@@ -2532,12 +2414,6 @@ section[id] {
 
   .feedback-modal-action:hover {
     box-shadow: none;
-    transform: none;
-  }
-}
-
-@media (hover: none) and (max-width: 767px), (pointer: coarse) and (max-width: 767px) {
-  .project-nav-button:hover {
     transform: none;
   }
 }
@@ -2807,7 +2683,7 @@ section[id] {
   }
 
   .project-section {
-    padding: 8rem 2rem;
+    padding: 6rem 2rem 3.75rem;
   }
 
   .contact-section {
@@ -2831,20 +2707,6 @@ section[id] {
 @media (min-width: 1024px) {
   .hero-copy {
     margin-left: 10rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .project-nav-button {
-    display: flex;
-  }
-
-  .project-nav-button--prev {
-    left: -4rem;
-  }
-
-  .project-nav-button--next {
-    right: -4rem;
   }
 }
 

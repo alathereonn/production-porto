@@ -14,7 +14,10 @@
     >
       <div
         class="project-showcase"
-        :class="{ 'is-changing': isProjectChanging }"
+        :class="[
+          `project-transition-${projectTransitionDirection}`,
+          { 'is-changing': isProjectChanging }
+        ]"
         tabindex="0"
         aria-label="Featured project showcase"
         @mouseenter="pauseAutoSwitch"
@@ -28,17 +31,6 @@
         @pointerup="handlePointerUp"
         @pointercancel="handlePointerCancel"
       >
-        <button
-          type="button"
-          class="project-nav-button project-nav-button--prev"
-          aria-label="Previous project"
-          @click="goToPreviousProject"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
-
         <div class="project-showcase__media">
           <img
             :src="resolveImageAsset(activeProject.image)"
@@ -51,7 +43,6 @@
         <div class="project-showcase__content">
           <p class="project-showcase__eyebrow">
             Project
-            <span>{{ activeProjectNumber }}</span>
           </p>
 
           <h3 class="project-showcase__title">
@@ -114,30 +105,6 @@
             </a>
           </div>
         </div>
-
-        <button
-          type="button"
-          class="project-nav-button project-nav-button--next"
-          aria-label="Next project"
-          @click="goToNextProject"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
-      </div>
-
-      <div class="project-dots" aria-label="Project navigation">
-        <button
-          v-for="(project, index) in projects"
-          :key="project.title"
-          type="button"
-          class="project-dot"
-          :class="{ 'is-active': index === activeProjectIndex }"
-          :aria-label="`Show project ${index + 1}: ${project.title}`"
-          :aria-current="index === activeProjectIndex ? 'true' : undefined"
-          @click="goToProject(index)"
-        ></button>
       </div>
     </ScrollReveal>
 
@@ -169,6 +136,7 @@ const SWIPE_THRESHOLD = 50
 
 const activeProjectIndex = ref(0)
 const isProjectChanging = ref(false)
+const projectTransitionDirection = ref('next')
 const pointerStartX = ref(0)
 const pointerStartY = ref(0)
 const pointerDeltaX = ref(0)
@@ -182,12 +150,6 @@ const projects = computed(() => projectData.projects || [])
 
 const activeProject = computed(() => {
   return projects.value[activeProjectIndex.value] || projects.value[0] || {}
-})
-
-const activeProjectNumber = computed(() => {
-  const total = String(projects.value.length).padStart(2, '0')
-  const current = String(activeProjectIndex.value + 1).padStart(2, '0')
-  return `${current} / ${total}`
 })
 
 const activeProjectMeta = computed(() => {
@@ -263,12 +225,24 @@ const normalizeProjectIndex = (index) => {
   return (index + count) % count
 }
 
-const setActiveProjectIndex = (index, shouldResetAutoSwitch = true) => {
+const getProjectDirection = (nextIndex) => {
+  const currentIndex = activeProjectIndex.value
+  const count = projects.value.length
+
+  if (count <= 1) return 'next'
+  if (nextIndex === normalizeProjectIndex(currentIndex + 1)) return 'next'
+  if (nextIndex === normalizeProjectIndex(currentIndex - 1)) return 'previous'
+
+  return nextIndex > currentIndex ? 'next' : 'previous'
+}
+
+const setActiveProjectIndex = (index, shouldResetAutoSwitch = true, direction = null) => {
   const nextIndex = normalizeProjectIndex(index)
   if (nextIndex === activeProjectIndex.value || projects.value.length <= 1) return
 
   if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
 
+  projectTransitionDirection.value = direction || getProjectDirection(nextIndex)
   isProjectChanging.value = true
   projectTransitionTimer = window.setTimeout(() => {
     activeProjectIndex.value = nextIndex
@@ -284,16 +258,12 @@ const setActiveProjectIndex = (index, shouldResetAutoSwitch = true) => {
   if (shouldResetAutoSwitch) resetAutoSwitch()
 }
 
-const goToProject = (index) => {
-  setActiveProjectIndex(index)
-}
-
 const goToNextProject = (shouldResetAutoSwitch = true) => {
-  setActiveProjectIndex(activeProjectIndex.value + 1, shouldResetAutoSwitch)
+  setActiveProjectIndex(activeProjectIndex.value + 1, shouldResetAutoSwitch, 'next')
 }
 
 const goToPreviousProject = (shouldResetAutoSwitch = true) => {
-  setActiveProjectIndex(activeProjectIndex.value - 1, shouldResetAutoSwitch)
+  setActiveProjectIndex(activeProjectIndex.value - 1, shouldResetAutoSwitch, 'previous')
 }
 
 const startAutoSwitch = () => {
