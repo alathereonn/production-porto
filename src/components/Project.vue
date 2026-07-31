@@ -143,6 +143,7 @@ const activePointerId = ref(null)
 
 let autoSwitchTimer = null
 let projectTransitionTimer = null
+let projectViewportQuery = null
 
 const projects = computed(() => projectData.projects || [])
 
@@ -261,7 +262,7 @@ const goToPreviousProject = (shouldResetAutoSwitch = true) => {
 
 const startAutoSwitch = () => {
   stopAutoSwitch()
-  if (projects.value.length <= 1) return
+  if (projects.value.length <= 1 || projectViewportQuery?.matches) return
 
   autoSwitchTimer = window.setInterval(() => {
     goToNextProject(false)
@@ -284,6 +285,15 @@ const resumeAutoSwitch = () => {
 
 const resetAutoSwitch = () => {
   stopAutoSwitch()
+  startAutoSwitch()
+}
+
+const handleProjectViewportChange = () => {
+  if (projectViewportQuery?.matches) {
+    stopAutoSwitch()
+    return
+  }
+
   startAutoSwitch()
 }
 
@@ -347,11 +357,25 @@ const handlePointerCancel = (event) => {
 }
 
 onMounted(() => {
+  projectViewportQuery = window.matchMedia('(max-width: 767px)')
+
+  if (projectViewportQuery.addEventListener) {
+    projectViewportQuery.addEventListener('change', handleProjectViewportChange)
+  } else if (projectViewportQuery.addListener) {
+    projectViewportQuery.addListener(handleProjectViewportChange)
+  }
+
   startAutoSwitch()
 })
 
 onUnmounted(() => {
   stopAutoSwitch()
   if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
+
+  if (projectViewportQuery?.removeEventListener) {
+    projectViewportQuery.removeEventListener('change', handleProjectViewportChange)
+  } else if (projectViewportQuery?.removeListener) {
+    projectViewportQuery.removeListener(handleProjectViewportChange)
+  }
 })
 </script>

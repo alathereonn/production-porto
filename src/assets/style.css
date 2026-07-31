@@ -2043,7 +2043,6 @@ section[id] {
     display: -webkit-box;
     overflow: hidden;
     max-width: 20rem;
-    min-height: 5.85rem;
     margin-inline: auto;
     font-size: clamp(1.25rem, 6.4vw, 1.65rem);
     line-height: 1.18;
