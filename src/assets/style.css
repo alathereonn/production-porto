@@ -1520,6 +1520,10 @@ section[id] {
   padding-top: 0;
 }
 
+.timeline--separate {
+  margin-top: 3rem;
+}
+
 .timeline::before {
   content: "";
   position: absolute;

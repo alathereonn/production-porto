@@ -164,6 +164,40 @@
         </div>
       </ScrollReveal>
     </div>
+
+    <div class="timeline timeline--separate education-school-timeline">
+      <ScrollReveal
+        v-for="(school, index) in qualificationData.highSchoolEducation"
+        :key="'school-' + index"
+        :class="['timeline-item', index % 2 === 0 ? 'left' : 'right']"
+        :delay="Math.min(index * 70, 280)"
+      >
+        <div class="timeline-content">
+          <h3>{{ school.title }}</h3>
+
+          <p class="heldby">
+            At
+            <a :href="school.institutionLink" target="_blank" rel="noopener noreferrer" class="timeline-link">
+              {{ school.institution }}
+            </a>
+          </p>
+
+          <p class="description">{{ school.description }}</p>
+          <p v-if="school.grade" class="description">Grade: {{ school.grade }}</p>
+
+          <div class="date">
+            <svg xmlns="http://www.w3.org/2000/svg" class="calendar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+
+            <div v-if="school.dates.length > 1" class="date-text">
+              <p v-for="(date, dIndex) in school.dates" :key="'sd-' + dIndex">{{ date }}</p>
+            </div>
+            <span v-else>{{ school.dates[0] }}</span>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
   </section>
 
   <ScrollReveal as="div" class="flex justify-center pb-32 relative z-10">
