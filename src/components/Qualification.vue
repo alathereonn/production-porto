@@ -8,7 +8,7 @@
     </ScrollReveal>
 
     <ScrollReveal as="div" class="w-full flex justify-center mb-10" :delay="100">
-      <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
+      <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
         <span class="text-primary">{{ typedCert }}</span><span class="typing-cursor">|</span>
       </h2>
     </ScrollReveal>
@@ -67,7 +67,7 @@
 
   <section class="qualification-section qualification-category--teaching">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
-      <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
+      <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
         <span class="text-primary">{{ typedTeach }}</span><span class="typing-cursor">|</span>
       </h2>
     </ScrollReveal>
@@ -115,7 +115,7 @@
 
   <section class="qualification-section qualification-category--education pb-24">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
-      <h2 class="text-3xl md:text-4xl font-bold text-center leading-tight">
+      <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
         <span class="text-primary">{{ typedEdu }}</span><span class="typing-cursor">|</span>
       </h2>
     </ScrollReveal>

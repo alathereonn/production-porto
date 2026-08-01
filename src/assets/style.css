@@ -2799,6 +2799,12 @@ section[id] {
 }
 
 @media (max-width: 768px) {
+  .qualification-typing-heading {
+    max-width: calc(100vw - 2rem);
+    font-size: clamp(1.25rem, 6vw, 1.55rem);
+    white-space: nowrap;
+  }
+
   .timeline {
     padding-top: 0;
   }
