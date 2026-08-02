@@ -39,6 +39,12 @@
           "embedUrl": "https://www.youtube.com/embed/y6lfK3bH4z8?autoplay=1&controls=0&modestbranding=1&rel=0"
         },
         {
+          "title": "Thriller",
+          "artist": "Michael Jackson",
+          "thumbnailUrl": "songs/thriller.jpg",
+          "embedUrl": "https://www.youtube.com/embed/sO4vI8P88NM?autoplay=1&controls=0&modestbranding=1&rel=0"
+        },
+        {
           "title": "蝶の飛ぶ水槽",
           "artist": "TK from Ling tosite sigure",
           "thumbnailUrl": "songs/chou no tobu suisou.jpg",
