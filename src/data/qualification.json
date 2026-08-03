@@ -62,6 +62,32 @@
       "dates": ["August 21, 2024 - December 20, 2024"]
     }
   ],
+  "techStacks": [
+    {
+      "category": "Frontend & App",
+      "items": ["Next.js", "React", "Vue.js", "Tailwind CSS", "Flutter"]
+    },
+    {
+      "category": "Backend",
+      "items": ["Laravel", "Rust", "Python", "PHP", "Node.js"]
+    },
+    {
+      "category": "Database & Cloud",
+      "items": ["PostgreSQL", "MySQL", "Supabase", "MongoDB", "Docker", "Vercel", "Nginx"]
+    },
+    {
+      "category": "Data & Machine Learning",
+      "items": ["Jupyter", "NumPy", "Pandas", "Matplotlib", "Plotly", "TensorFlow"]
+    },
+    {
+      "category": "Creative & Game Tools",
+      "items": ["Figma", "Photoshop", "Aseprite", "Blender", "Canva", "Unity", "Godot", "GDScript", "C#"]
+    },
+    {
+      "category": "Workflow & Networking",
+      "items": ["Git", "GitHub", "MikroTik"]
+    }
+  ],
   "education": [
     {
       "title": "Sixth Semester",

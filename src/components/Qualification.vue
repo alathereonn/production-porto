@@ -200,7 +200,46 @@
     </div>
   </section>
 
-  <ScrollReveal as="div" class="flex justify-center pb-32 relative z-10">
+  <section class="qualification-section qualification-category--tech-stack">
+    <ScrollReveal as="div" class="qualification-tech-marquee" :delay="100">
+      <div class="qualification-tech-marquee__track">
+        <div
+          v-for="copyIndex in 2"
+          :key="'tech-marquee-copy-' + copyIndex"
+          class="qualification-tech-marquee__group"
+          aria-hidden="true"
+        >
+          <span
+            v-for="item in flattenedTechStacks"
+            :key="`${copyIndex}-${item}`"
+            class="qualification-tech-marquee__item"
+          >
+            <img
+              v-if="getTechStackIcon(item).icon"
+              class="qualification-tech-marquee__icon"
+              :src="`https://cdn.simpleicons.org/${getTechStackIcon(item).icon}/${getTechStackIcon(item).color}`"
+              alt=""
+              aria-hidden="true"
+            />
+            <span
+              v-else-if="getTechStackIcon(item).fallback"
+              :class="[
+                'qualification-tech-marquee__fallback-icon',
+                { 'qualification-tech-marquee__fallback-icon--next': item === 'Next.js' }
+              ]"
+              aria-hidden="true"
+            >
+              {{ getTechStackIcon(item).fallback }}
+            </span>
+            {{ item }}
+            <span class="qualification-tech-marquee__spark">*</span>
+          </span>
+        </div>
+      </div>
+    </ScrollReveal>
+  </section>
+
+  <ScrollReveal as="div" class="qualification-project-action flex justify-center pb-32 relative z-10">
     <button
       @click="scrollToProject"
       class="primary-button"
@@ -213,6 +252,48 @@
 <script>
 import qualificationData from '../data/qualification.json'
 import ScrollReveal from './ScrollReveal.vue'
+
+const techStackIconMap = {
+  "Next.js": { icon: "", color: "ffffff", fallback: "N" },
+  "React": { icon: "react", color: "DB2777" },
+  "Vue.js": { icon: "vuedotjs", color: "BE185D" },
+  "Tailwind CSS": { icon: "tailwindcss", color: "DB2777" },
+  "Flutter": { icon: "flutter", color: "BE185D" },
+  "Tauri": { icon: "tauri", color: "DB2777" },
+  "Laravel": { icon: "laravel", color: "BE185D" },
+  "Rust": { icon: "rust", color: "ffffff" },
+  "Python": { icon: "python", color: "DB2777" },
+  "PHP": { icon: "php", color: "BE185D" },
+  "Node.js": { icon: "nodedotjs", color: "DB2777" },
+  "Axum": { icon: "", color: "BE185D" },
+  "PostgreSQL": { icon: "postgresql", color: "DB2777" },
+  "MySQL": { icon: "mysql", color: "BE185D" },
+  "Supabase": { icon: "supabase", color: "DB2777" },
+  "MongoDB": { icon: "mongodb", color: "BE185D" },
+  "Docker": { icon: "docker", color: "DB2777" },
+  "Vercel": { icon: "vercel", color: "ffffff" },
+  "Nginx": { icon: "nginx", color: "BE185D" },
+  "Jupyter": { icon: "jupyter", color: "DB2777" },
+  "NumPy": { icon: "numpy", color: "BE185D" },
+  "Pandas": { icon: "pandas", color: "DB2777" },
+  "Matplotlib": { icon: "", color: "BE185D", fallback: "Mpl" },
+  "Plotly": { icon: "plotly", color: "DB2777" },
+  "TensorFlow": { icon: "tensorflow", color: "BE185D" },
+  "Figma": { icon: "figma", color: "DB2777" },
+  "Photoshop": { icon: "", color: "BE185D", fallback: "Ps" },
+  "Aseprite": { icon: "aseprite", color: "DB2777" },
+  "Blender": { icon: "blender", color: "BE185D" },
+  "Canva": { icon: "", color: "DB2777", fallback: "Ca" },
+  "Unity": { icon: "unity", color: "ffffff" },
+  "Godot": { icon: "godotengine", color: "BE185D" },
+  "GDScript": { icon: "godotengine", color: "DB2777" },
+  "C#": { icon: "", color: "BE185D", fallback: "C#" },
+  "Git": { icon: "git", color: "DB2777" },
+  "GitHub": { icon: "github", color: "ffffff" },
+  "MikroTik": { icon: "mikrotik", color: "BE185D", fallback: "MT" },
+  "TCP/IP": { icon: "", color: "DB2777" },
+  "Routing": { icon: "", color: "BE185D" },
+}
 
 export default {
   name: 'PortfolioQualification',
@@ -232,6 +313,12 @@ export default {
       delay: 1500,
       typingTimeouts: []
     };
+  },
+
+  computed: {
+    flattenedTechStacks() {
+      return this.qualificationData.techStacks.flatMap((group) => group.items);
+    }
   },
 
   mounted() {
@@ -278,6 +365,9 @@ export default {
       };
 
       loop();
+    },
+    getTechStackIcon(item) {
+      return techStackIconMap[item] || { icon: "", color: "BE185D" };
     },
     scrollToProject() {
       const section = document.getElementById('project');
