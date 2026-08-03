@@ -1653,7 +1653,7 @@ section[id] {
 }
 
 .qualification-category--tech-stack {
-  margin-top: -4rem;
+  margin-top: -12rem;
   padding-top: 0;
 }
 
@@ -1789,7 +1789,7 @@ section[id] {
   flex: 0 0 auto;
   align-items: center;
   gap: 1.35rem;
-  padding: 1.15rem 1.35rem 1.15rem 0;
+  padding: 1.45rem 1.35rem 1.45rem 0;
 }
 
 .qualification-tech-marquee__item {
@@ -1797,15 +1797,15 @@ section[id] {
   align-items: center;
   gap: 0.55rem;
   color: rgba(248, 248, 248, 0.92);
-  font-size: clamp(1.1rem, 2.2vw, 1.75rem);
+  font-size: clamp(1.28rem, 2.55vw, 2rem);
   font-weight: 800;
   line-height: 1;
   white-space: nowrap;
 }
 
 .qualification-tech-marquee__icon {
-  width: 1.1em;
-  height: 1.1em;
+  width: 1.16em;
+  height: 1.16em;
   flex: 0 0 auto;
   object-fit: contain;
   filter: drop-shadow(0 0 0.4rem rgba(190, 24, 93, 0.22));
@@ -1829,8 +1829,8 @@ section[id] {
 }
 
 .qualification-tech-marquee__fallback-icon--next {
-  width: 1.18em;
-  height: 1.18em;
+  width: 1.24em;
+  height: 1.24em;
   border-color: rgba(255, 255, 255, 0.88);
   border-radius: 50%;
   color: #111116;
@@ -2952,7 +2952,7 @@ section[id] {
   }
 
   .qualification-category--tech-stack {
-    margin-top: -3rem;
+    margin-top: -7rem;
   }
 
   .qualification-tech-marquee__track {
@@ -2965,12 +2965,12 @@ section[id] {
   }
 
   .qualification-tech-marquee__group {
-    padding: 0.85rem 0.95rem 0.85rem 0;
+    padding: 1rem 0.95rem 1rem 0;
   }
 
   .qualification-tech-marquee__item {
     gap: 0.4rem;
-    font-size: 1rem;
+    font-size: 1.08rem;
   }
 
   .qualification-tech-marquee__spark {
