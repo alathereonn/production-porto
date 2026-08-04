@@ -79,8 +79,7 @@
       "description": "Echoes Wiki is a digital encyclopedia platform designed to systematically archive, organize, and manage information related to the indie game ECHOES: The Undying Follower.",
       "image": "src/images/github1.png", 
       "tags": ["Vue", "JavaScript", "Tailwind CSS"],
-      "github": "https://github.com/alathereonn/echoes-wiki-real",
-      "demo": "https://echoes-wiki.vercel.app/"
+      "github": "https://github.com/alathereonn/echoes-wiki-real"
     },
     {
       "title": "Distributed Sync System",
