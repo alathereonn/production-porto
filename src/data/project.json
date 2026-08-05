@@ -35,6 +35,14 @@
       "demo": "#" 
     },
     {
+      "title": "Digikids",
+      "description": "A digital education platform that helps parents and children build healthier gadget habits through research-based articles, screen time guidance, educational videos, alternative activities, and an admin-managed content system.",
+      "image": "src/images/github15.png",
+      "tags": ["Vue.js", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "Express", "Supabase", "Cloudinary"],
+      "github": "https://github.com/Masdi2020/digikids",
+      "demo": "#"
+    },
+    {
       "title": "PDF Compressor",
       "description": "A Dockerized PDF compression app with a Rust backend and Vue.js frontend. A final project for Functional Programming subject.",
       "image": "src/images/github13.jpeg", 

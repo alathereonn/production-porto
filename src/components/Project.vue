@@ -178,6 +178,7 @@ const getTechConfig = (tech) => {
     "React": { bg: "bg-[#20232A]", text: "text-white", icon: "react", iconColor: "61DAFB" },
     "Next.js": { bg: "bg-[#000000]", text: "text-white", icon: "nextdotjs", iconColor: "white" },
     "Vue": { bg: "bg-[#41B883]", text: "text-white", icon: "vuedotjs", iconColor: "white" },
+    "Vue.js": { bg: "bg-[#41B883]", text: "text-white", icon: "vuedotjs", iconColor: "white" },
     "Vue 3": { bg: "bg-[#41B883]", text: "text-white", icon: "vuedotjs", iconColor: "white" },
     "JavaScript": { bg: "bg-[#F7DF1E]", text: "text-black", icon: "javascript", iconColor: "black" },
     "TypeScript": { bg: "bg-[#3178C6]", text: "text-white", icon: "typescript", iconColor: "white" },
@@ -185,9 +186,12 @@ const getTechConfig = (tech) => {
     "Bootstrap": { bg: "bg-[#7952B3]", text: "text-white", icon: "bootstrap", iconColor: "white" },
     "Python": { bg: "bg-[#3776AB]", text: "text-white", icon: "python", iconColor: "white" },
     "PHP": { bg: "bg-[#777BB4]", text: "text-white", icon: "php", iconColor: "white" },
+    "Node.js": { bg: "bg-[#339933]", text: "text-white", icon: "nodedotjs", iconColor: "white" },
+    "Express": { bg: "bg-[#000000]", text: "text-white", icon: "express", iconColor: "white" },
     "MySQL": { bg: "bg-[#4479A1]", text: "text-white", icon: "mysql", iconColor: "white" },
     "PostgreSQL": { bg: "bg-[#4169E1]", text: "text-white", icon: "postgresql", iconColor: "white" },
     "Supabase": { bg: "bg-[#3ECF8E]", text: "text-black", icon: "supabase", iconColor: "black" },
+    "Cloudinary": { bg: "bg-[#3448C5]", text: "text-white", icon: "cloudinary", iconColor: "white" },
     "Docker": { bg: "bg-[#2496ED]", text: "text-white", icon: "docker", iconColor: "white" },
     "Docker Compose": { bg: "bg-[#2496ED]", text: "text-white", icon: "docker", iconColor: "white" },
     "Rust": { bg: "bg-[#000000]", text: "text-white", icon: "rust", iconColor: "white" },
@@ -208,6 +212,7 @@ const getTechConfig = (tech) => {
     "Distributed Systems": { bg: "bg-[#8A2BE2]", text: "text-white", icon: null },
     "Networking": { bg: "bg-[#FF4500]", text: "text-white", icon: null },
     "Raft Consensus": { bg: "bg-[#E6522C]", text: "text-white", icon: null },
+    "Social Innovation": { bg: "bg-[#BE185D]", text: "text-white", icon: null },
   }
 
   return config[tech] || { bg: "bg-gray-800", text: "text-gray-200", icon: null }
