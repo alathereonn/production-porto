@@ -4,7 +4,7 @@
       "title": "Portfolio Website",
       "description": "Personal portfolio of Zakaria Fattawari, as known as Alathereonn that is built with modern web technologies. Features smooth scroll, dynamic typing effects, and custom CSS animations.",
       "image": "src/images/github14.png", 
-      "tags": ["Vue 3", "Vite", "Tailwind CSS", "JavaScript"], 
+      "tags": ["Vue.js", "Vite", "Tailwind CSS", "JavaScript"], 
       "github": "https://github.com/alathereonn/production-porto",
       "demo": "alathereon.com" 
     },
@@ -46,7 +46,7 @@
       "title": "PDF Compressor",
       "description": "A Dockerized PDF compression app with a Rust backend and Vue.js frontend. A final project for Functional Programming subject.",
       "image": "src/images/github13.jpeg", 
-      "tags": ["Rust", "Axum", "Vue 3", "Vite", "Axios", "Docker"],
+      "tags": ["Rust", "Axum", "Vue.js", "Vite", "Axios", "Docker"],
       "github": "https://github.com/kyogree1/Project-Multiprocessing-PF-B-_5",
       "demo": "#" 
     },
@@ -62,7 +62,7 @@
       "title": "Churn Prediction for Telco Customer",
       "description": "Website Customer Churn prediction for Telco Customer. A team project from Machine Learning subject.",
       "image": "src/images/github9.png", 
-      "tags": ["Jupyter", "Python", "Machine Learning", "Vue 3", "JavaScript"],
+      "tags": ["Jupyter", "Python", "Machine Learning", "Vue.js", "JavaScript"],
       "github": "https://github.com/alathereonn/Churn-Predictor",
       "demo": "#" 
     },
@@ -70,7 +70,7 @@
       "title": "AI Personal Scheduler",
       "description": "A web-based personal scheduler that utilizes AI to optimize and manage daily tasks and appointments. A team project from Web-Based Application Development subject.",
       "image": "src/images/github10.png", 
-      "tags": ["JavaScript", "Vue 3", "Ollama", "Supabase", "PostgreSQL"],
+      "tags": ["JavaScript", "Vue.js", "Ollama", "Supabase", "PostgreSQL"],
       "github": "https://github.com/Naufalpc11/ai-personal-scheduler",
       "demo": "#" 
     },
@@ -86,7 +86,7 @@
       "title": "ECHOES: The Undying Follower WIKI",
       "description": "Echoes Wiki is a digital encyclopedia platform designed to systematically archive, organize, and manage information related to the indie game ECHOES: The Undying Follower.",
       "image": "src/images/github1.png", 
-      "tags": ["Vue", "JavaScript", "Tailwind CSS"],
+      "tags": ["Vue.js", "JavaScript", "Tailwind CSS"],
       "github": "https://github.com/alathereonn/echoes-wiki-real"
     },
     {
