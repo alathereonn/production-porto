@@ -9,151 +9,109 @@
 
     <ScrollReveal
       as="div"
-      class="project-showcase-shell"
-      :delay="100"
+      class="project-showcase-shell scroll-bottom-200"
+      :delay="200"
+      :distance="41"
     >
-      <div
+      <Swiper
         class="project-showcase"
-        :class="[
-          `project-transition-${projectTransitionDirection}`,
-          {
-            'is-changing': isProjectChanging,
-            'is-entering': isProjectEntering,
-            'is-dragging': isProjectDragging
-          }
-        ]"
-        tabindex="0"
+        :modules="swiperModules"
+        effect="coverflow"
+        :grab-cursor="true"
+        :centered-slides="true"
+        :slides-per-view="1"
+        :space-between="16"
+        :coverflow-effect="{
+          rotate: 120,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true
+        }"
+        :autoplay="{
+          delay: 2000,
+          disableOnInteraction: true
+        }"
+        :loop="true"
         aria-label="Featured project showcase"
-        @mouseenter="pauseAutoSwitch"
-        @mouseleave="resumeAutoSwitch"
-        @focusin="pauseAutoSwitch"
-        @focusout="resumeAutoSwitch"
-        @keydown.left.prevent="goToPreviousProject"
-        @keydown.right.prevent="goToNextProject"
-        @pointerdown="handlePointerDown"
-        @pointermove="handlePointerMove"
-        @pointerup="handlePointerUp"
-        @pointercancel="handlePointerCancel"
       >
-        <div class="project-showcase__media">
-          <img
-            :src="resolveImageAsset(activeProject.image)"
-            :alt="activeProject.title"
-            class="project-showcase__image"
-            draggable="false"
-          />
+        <SwiperSlide
+          v-for="project in projects"
+          :key="project.title"
+          class="project-showcase__slide"
+        >
+          <div class="project-showcase__media">
+            <img
+              :src="resolveImageAsset(project.image)"
+              :alt="project.title"
+              class="project-showcase__image"
+              draggable="false"
+            />
 
-          <div v-if="activeProjectLinks.length" class="project-showcase__media-actions">
-            <a
-              v-for="link in activeProjectLinks"
-              :key="link.href"
-              :href="link.href"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="project-showcase__media-action"
-              :aria-label="`${link.label}: ${activeProject.title}`"
-              :title="link.label"
+            <div
+              v-if="getProjectLinks(project).length"
+              class="project-showcase__media-actions"
             >
-              <svg v-if="link.type === 'github'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-              <svg v-else-if="link.type === 'demo'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-              <svg v-else xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="6" y1="12" x2="10" y2="12"></line>
-                <line x1="8" y1="10" x2="8" y2="14"></line>
-                <line x1="15" y1="13" x2="15.01" y2="13"></line>
-                <line x1="18" y1="11" x2="18.01" y2="11"></line>
-                <rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect>
-              </svg>
-            </a>
+              <a
+                v-for="link in getProjectLinks(project)"
+                :key="link.href"
+                :href="link.href"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-showcase__media-action"
+                :aria-label="`${link.label}: ${project.title}`"
+                :title="link.label"
+              >
+                <svg v-if="link.type === 'github'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                <svg v-else-if="link.type === 'demo'" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                <svg v-else xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="6" y1="12" x2="10" y2="12"></line>
+                  <line x1="8" y1="10" x2="8" y2="14"></line>
+                  <line x1="15" y1="13" x2="15.01" y2="13"></line>
+                  <line x1="18" y1="11" x2="18.01" y2="11"></line>
+                  <rect x="2" y="6" width="20" height="12" rx="2" ry="2"></rect>
+                </svg>
+              </a>
+            </div>
           </div>
-        </div>
 
-        <div class="project-showcase__content">
-          <h3 class="project-showcase__title">
-            {{ activeProject.title }}
-          </h3>
+          <div class="project-showcase__content">
+            <h3 class="project-showcase__title">
+              {{ project.title }}
+            </h3>
 
-          <p class="project-showcase__description">
-            {{ activeProject.description }}
-          </p>
+            <p class="project-showcase__description">
+              {{ project.description }}
+            </p>
 
-          <div class="project-showcase__stack" aria-label="Tech stack">
-            <span
-              v-for="tech in activeProject.tags"
-              :key="tech"
-              :class="[
-                'project-tech-badge',
-                getTechConfig(tech).bg,
-                getTechConfig(tech).text
-              ]"
-            >
-              <img
-                v-if="getTechConfig(tech).icon"
-                :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
-                class="project-tech-badge__icon"
-                alt=""
-              />
-              {{ tech }}
-            </span>
+            <div class="project-showcase__stack" aria-label="Tech stack">
+              <span
+                v-for="tech in project.tags"
+                :key="`${project.title}-${tech}`"
+                :class="[
+                  'project-tech-badge',
+                  getTechConfig(tech).bg,
+                  getTechConfig(tech).text
+                ]"
+              >
+                <img
+                  v-if="getTechConfig(tech).icon"
+                  :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
+                  class="project-tech-badge__icon"
+                  alt=""
+                />
+                {{ tech }}
+              </span>
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div
-        v-if="isProjectChanging && transitionFromProject && transitionToProject"
-        :class="[
-          'project-transition-stage',
-          `project-transition-stage--${projectTransitionDirection}`
-        ]"
-        aria-hidden="true"
-      >
-        <div class="project-transition-preview project-transition-preview--from">
-          <img
-            :src="resolveImageAsset(transitionFromProject.image)"
-            :alt="transitionFromProject.title"
-            draggable="false"
-          />
-        </div>
-
-        <div class="project-transition-info">
-          <p class="project-transition-info__eyebrow">Project</p>
-          <h3>{{ transitionToProject.title }}</h3>
-          <p>{{ transitionToProject.description }}</p>
-
-          <div class="project-transition-info__stack">
-            <span
-              v-for="tech in transitionToProject.tags"
-              :key="`transition-${tech}`"
-              :class="[
-                'project-tech-badge',
-                getTechConfig(tech).bg,
-                getTechConfig(tech).text
-              ]"
-            >
-              <img
-                v-if="getTechConfig(tech).icon"
-                :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
-                class="project-tech-badge__icon"
-                alt=""
-              />
-              {{ tech }}
-            </span>
-          </div>
-        </div>
-
-        <div class="project-transition-preview project-transition-preview--to">
-          <img
-            :src="resolveImageAsset(transitionToProject.image)"
-            :alt="transitionToProject.title"
-            draggable="false"
-          />
-        </div>
-      </div>
+        </SwiperSlide>
+      </Swiper>
     </ScrollReveal>
 
     <ScrollReveal as="div" class="project-github-action" :delay="200">
@@ -170,7 +128,11 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Autoplay, EffectCoverflow } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/effect-coverflow'
 import projectData from '../data/project.json'
 import { resolveImageAsset } from '../data/imageAssets.js'
 import ScrollReveal from './ScrollReveal.vue'
@@ -179,36 +141,11 @@ defineOptions({
   name: 'PortfolioProject',
 })
 
-const AUTO_SWITCH_DELAY = 5000
-const SWIPE_THRESHOLD = 50
-const PROJECT_TRANSITION_OUT_DELAY = 460
-const PROJECT_TRANSITION_ENTER_DELAY = 40
-
-const activeProjectIndex = ref(0)
-const isProjectChanging = ref(false)
-const isProjectEntering = ref(false)
-const isProjectDragging = ref(false)
-const transitionFromProject = ref(null)
-const transitionToProject = ref(null)
-const projectTransitionDirection = ref('next')
-const pointerStartX = ref(0)
-const pointerStartY = ref(0)
-const pointerDeltaX = ref(0)
-const pointerDeltaY = ref(0)
-const activePointerId = ref(null)
-
-let autoSwitchTimer = null
-let projectTransitionTimer = null
-let projectViewportQuery = null
+const swiperModules = [EffectCoverflow, Autoplay]
 
 const projects = computed(() => projectData.projects || [])
 
-const activeProject = computed(() => {
-  return projects.value[activeProjectIndex.value] || projects.value[0] || {}
-})
-
-const activeProjectLinks = computed(() => {
-  const project = activeProject.value
+const getProjectLinks = (project) => {
   const links = []
 
   if (project.github && project.github !== '#') {
@@ -224,7 +161,7 @@ const activeProjectLinks = computed(() => {
   }
 
   return links
-})
+}
 
 const getTechConfig = (tech) => {
   const config = {
@@ -273,183 +210,4 @@ const getTechConfig = (tech) => {
 
   return config[tech] || { bg: "bg-gray-800", text: "text-gray-200", icon: null }
 }
-
-const normalizeProjectIndex = (index) => {
-  const count = projects.value.length
-  if (!count) return 0
-  return (index + count) % count
-}
-
-const getProjectDirection = (nextIndex) => {
-  const currentIndex = activeProjectIndex.value
-  const count = projects.value.length
-
-  if (count <= 1) return 'next'
-  if (nextIndex === normalizeProjectIndex(currentIndex + 1)) return 'next'
-  if (nextIndex === normalizeProjectIndex(currentIndex - 1)) return 'previous'
-
-  return nextIndex > currentIndex ? 'next' : 'previous'
-}
-
-const setActiveProjectIndex = (index, shouldResetAutoSwitch = true, direction = null) => {
-  const nextIndex = normalizeProjectIndex(index)
-  if (nextIndex === activeProjectIndex.value || projects.value.length <= 1) return
-
-  if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
-
-  projectTransitionDirection.value = direction || getProjectDirection(nextIndex)
-  transitionFromProject.value = activeProject.value
-  transitionToProject.value = projects.value[nextIndex]
-  isProjectChanging.value = true
-  isProjectEntering.value = false
-  projectTransitionTimer = window.setTimeout(() => {
-    activeProjectIndex.value = nextIndex
-
-    nextTick(() => {
-      window.requestAnimationFrame(() => {
-        isProjectChanging.value = false
-        isProjectEntering.value = true
-
-        projectTransitionTimer = window.setTimeout(() => {
-          isProjectEntering.value = false
-          transitionFromProject.value = null
-          transitionToProject.value = null
-          projectTransitionTimer = null
-        }, PROJECT_TRANSITION_ENTER_DELAY)
-      })
-    })
-  }, PROJECT_TRANSITION_OUT_DELAY)
-
-  if (shouldResetAutoSwitch) resetAutoSwitch()
-}
-
-const goToNextProject = (shouldResetAutoSwitch = true) => {
-  setActiveProjectIndex(activeProjectIndex.value + 1, shouldResetAutoSwitch, 'next')
-}
-
-const goToPreviousProject = (shouldResetAutoSwitch = true) => {
-  setActiveProjectIndex(activeProjectIndex.value - 1, shouldResetAutoSwitch, 'previous')
-}
-
-const startAutoSwitch = () => {
-  stopAutoSwitch()
-  if (projects.value.length <= 1 || projectViewportQuery?.matches) return
-
-  autoSwitchTimer = window.setInterval(() => {
-    goToNextProject(false)
-  }, AUTO_SWITCH_DELAY)
-}
-
-const stopAutoSwitch = () => {
-  if (!autoSwitchTimer) return
-  window.clearInterval(autoSwitchTimer)
-  autoSwitchTimer = null
-}
-
-const pauseAutoSwitch = () => {
-  stopAutoSwitch()
-}
-
-const resumeAutoSwitch = () => {
-  startAutoSwitch()
-}
-
-const resetAutoSwitch = () => {
-  stopAutoSwitch()
-  startAutoSwitch()
-}
-
-const handleProjectViewportChange = () => {
-  if (projectViewportQuery?.matches) {
-    stopAutoSwitch()
-    return
-  }
-
-  startAutoSwitch()
-}
-
-const clearProjectSelection = () => {
-  const selection = window.getSelection?.()
-  if (selection && !selection.isCollapsed) {
-    selection.removeAllRanges()
-  }
-}
-
-const handlePointerDown = (event) => {
-  if (event.target.closest('a, button')) return
-
-  isProjectDragging.value = true
-  activePointerId.value = event.pointerId
-  pointerStartX.value = event.clientX
-  pointerStartY.value = event.clientY
-  pointerDeltaX.value = 0
-  pointerDeltaY.value = 0
-  event.preventDefault()
-  event.currentTarget.setPointerCapture?.(event.pointerId)
-}
-
-const handlePointerMove = (event) => {
-  if (activePointerId.value !== event.pointerId) return
-
-  pointerDeltaX.value = event.clientX - pointerStartX.value
-  pointerDeltaY.value = event.clientY - pointerStartY.value
-
-  if (
-    Math.abs(pointerDeltaX.value) > 6 &&
-    Math.abs(pointerDeltaX.value) > Math.abs(pointerDeltaY.value)
-  ) {
-    event.preventDefault()
-    clearProjectSelection()
-  }
-}
-
-const handlePointerUp = (event) => {
-  if (activePointerId.value !== event.pointerId) return
-
-  event.currentTarget.releasePointerCapture?.(event.pointerId)
-
-  if (
-    Math.abs(pointerDeltaX.value) >= SWIPE_THRESHOLD &&
-    Math.abs(pointerDeltaX.value) > Math.abs(pointerDeltaY.value)
-  ) {
-    pointerDeltaX.value < 0 ? goToNextProject() : goToPreviousProject()
-  }
-
-  activePointerId.value = null
-  isProjectDragging.value = false
-}
-
-const handlePointerCancel = (event) => {
-  if (activePointerId.value === event.pointerId) {
-    event.currentTarget.releasePointerCapture?.(event.pointerId)
-    activePointerId.value = null
-    isProjectDragging.value = false
-  }
-}
-
-onMounted(() => {
-  projectViewportQuery = window.matchMedia('(max-width: 767px)')
-
-  if (projectViewportQuery.addEventListener) {
-    projectViewportQuery.addEventListener('change', handleProjectViewportChange)
-  } else if (projectViewportQuery.addListener) {
-    projectViewportQuery.addListener(handleProjectViewportChange)
-  }
-
-  startAutoSwitch()
-})
-
-onUnmounted(() => {
-  stopAutoSwitch()
-  if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
-  isProjectEntering.value = false
-  transitionFromProject.value = null
-  transitionToProject.value = null
-
-  if (projectViewportQuery?.removeEventListener) {
-    projectViewportQuery.removeEventListener('change', handleProjectViewportChange)
-  } else if (projectViewportQuery?.removeListener) {
-    projectViewportQuery.removeListener(handleProjectViewportChange)
-  }
-})
 </script>

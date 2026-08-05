@@ -1858,28 +1858,47 @@ section[id] {
 .project-section {
   min-height: auto;
   scroll-margin-top: var(--navbar-height);
+  overflow-x: hidden;
   padding: 4.5rem 1rem 3rem;
 }
 
 .project-showcase-shell {
   position: relative;
   perspective: 1400px;
-  width: min(100%, 78rem);
-  min-height: 23rem;
+  width: min(100%, 86rem);
   margin-inline: auto;
 }
 
-.project-showcase {
+.scroll-reveal.scroll-bottom-200 {
+  transition-duration: 2000ms, 2000ms;
+}
+
+.project-showcase.swiper {
   position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 0.5rem 0 1rem;
+}
+
+.project-showcase__slide {
   display: grid;
-  min-height: 23rem;
-  grid-template-columns: minmax(24rem, 1fr) minmax(0, 33rem);
+  grid-template-columns: minmax(26rem, 1fr) minmax(0, 36rem);
   grid-template-areas: "content media";
   align-items: center;
-  gap: clamp(2rem, 5vw, 4.25rem);
-  overflow: visible;
-  padding: 0;
-  touch-action: pan-y;
+  gap: clamp(2.25rem, 5vw, 5rem);
+  min-height: 23rem;
+  user-select: none;
+}
+
+.project-showcase .swiper-slide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.project-showcase .swiper-slide-active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .project-showcase:focus-visible {
@@ -1887,30 +1906,23 @@ section[id] {
   outline-offset: 0.35rem;
 }
 
-.project-showcase.is-dragging,
-.project-showcase.is-dragging * {
-  cursor: grabbing;
-  user-select: none;
-}
-
 .project-showcase__media {
   position: relative;
   grid-area: media;
   justify-self: start;
   overflow: hidden;
-  width: min(100%, 33rem);
+  width: min(100%, 36rem);
   aspect-ratio: 16 / 9;
-  border: 1px solid rgba(190, 24, 93, 0.26);
-  border-radius: 0.85rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
   background: #08080d;
   box-shadow:
     0 1.25rem 2.75rem rgba(0, 0, 0, 0.28),
     0 0 1.25rem rgba(190, 24, 93, 0.08);
-  transform-origin: center;
+  cursor: pointer;
   transition:
-    opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 760ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 760ms cubic-bezier(0.16, 1, 0.3, 1);
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .project-showcase__media::before {
@@ -1944,20 +1956,15 @@ section[id] {
   user-select: none;
   object-fit: cover;
   filter: saturate(0.98) contrast(1.03);
-  transition:
-    filter 420ms ease,
-    transform 620ms ease;
-}
-
-.project-showcase:hover .project-showcase__image {
-  filter: saturate(1.08) contrast(1.06);
-  transform: scale(1.025);
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .project-showcase__media:hover .project-showcase__image,
 .project-showcase__media:focus-within .project-showcase__image {
-  filter: saturate(0.82) contrast(0.95) blur(3px);
-  transform: scale(1.035);
+  opacity: 0.5;
+  filter: saturate(0.88) contrast(0.95);
+  transform: scale(1.025);
 }
 
 .project-showcase__media-actions {
@@ -2023,212 +2030,9 @@ section[id] {
 .project-showcase__content {
   display: flex;
   grid-area: content;
-  min-height: 23rem;
   flex-direction: column;
   justify-content: center;
   gap: 0.85rem;
-  transform-origin: center;
-  transition:
-    opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 720ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 720ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project-showcase.is-changing .project-showcase__media,
-.project-showcase.is-changing .project-showcase__content {
-  opacity: 0;
-  filter: none;
-}
-
-.project-showcase.project-transition-next.is-changing .project-showcase__media {
-  transform: none;
-}
-
-.project-showcase.project-transition-next.is-changing .project-showcase__content {
-  transform: none;
-}
-
-.project-showcase.project-transition-previous.is-changing .project-showcase__media {
-  transform: none;
-}
-
-.project-showcase.project-transition-previous.is-changing .project-showcase__content {
-  transform: none;
-}
-
-.project-showcase.is-entering .project-showcase__media,
-.project-showcase.is-entering .project-showcase__content {
-  opacity: 0;
-  filter: blur(3px);
-}
-
-.project-showcase.project-transition-next.is-entering .project-showcase__media {
-  transform: translateX(48vw) rotateY(14deg) scale(0.86);
-}
-
-.project-showcase.project-transition-next.is-entering .project-showcase__content {
-  transform: translateX(30vw) scale(0.92);
-}
-
-.project-showcase.project-transition-previous.is-entering .project-showcase__media {
-  transform: translateX(-48vw) rotateY(-14deg) scale(0.86);
-}
-
-.project-showcase.project-transition-previous.is-entering .project-showcase__content {
-  transform: translateX(-30vw) scale(0.92);
-}
-
-.project-transition-stage {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
-  display: grid;
-  grid-template-columns: minmax(12rem, 24vw) minmax(22rem, 1fr) minmax(12rem, 24vw);
-  align-items: center;
-  column-gap: clamp(1rem, 4vw, 4rem);
-  overflow: visible;
-  pointer-events: none;
-}
-
-.project-transition-preview {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-  border: 1px solid rgba(190, 24, 93, 0.24);
-  border-radius: 0.45rem;
-  background: #090910;
-  opacity: 0.96;
-  box-shadow:
-    0 1rem 2.5rem rgba(0, 0, 0, 0.34),
-    0 0 1.4rem rgba(190, 24, 93, 0.1);
-}
-
-.project-transition-preview img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.86) contrast(0.95);
-}
-
-.project-transition-preview--from {
-  justify-self: end;
-  animation: projectPreviewFromNext 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.project-transition-preview--to {
-  justify-self: start;
-  animation: projectPreviewToNext 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.project-transition-stage--previous .project-transition-preview--from {
-  animation-name: projectPreviewFromPrevious;
-}
-
-.project-transition-stage--previous .project-transition-preview--to {
-  animation-name: projectPreviewToPrevious;
-}
-
-.project-transition-info {
-  justify-self: center;
-  width: min(100%, 36rem);
-  text-align: left;
-  animation: projectInfoFocus 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.project-transition-info__eyebrow {
-  margin-bottom: 0.45rem;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-}
-
-.project-transition-info h3 {
-  color: #ffffff;
-  font-size: clamp(1.45rem, 2.4vw, 2rem);
-  font-weight: 800;
-  line-height: 1.12;
-}
-
-.project-transition-info p:not(.project-transition-info__eyebrow) {
-  display: -webkit-box;
-  overflow: hidden;
-  margin-top: 0.75rem;
-  color: rgba(229, 231, 235, 0.76);
-  font-size: 0.92rem;
-  line-height: 1.65;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.project-transition-info__stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-top: 1rem;
-}
-
-@keyframes projectPreviewFromNext {
-  from {
-    opacity: 1;
-    transform: translateX(0) rotateY(0deg) scale(1);
-  }
-  to {
-    opacity: 0.9;
-    transform: translateX(calc(-50vw - 35%)) rotateY(-18deg) scale(0.84);
-  }
-}
-
-@keyframes projectPreviewToNext {
-  from {
-    opacity: 0.88;
-    transform: translateX(calc(50vw + 35%)) rotateY(18deg) scale(0.84);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) rotateY(0deg) scale(1);
-  }
-}
-
-@keyframes projectPreviewFromPrevious {
-  from {
-    opacity: 1;
-    transform: translateX(0) rotateY(0deg) scale(1);
-  }
-  to {
-    opacity: 0.9;
-    transform: translateX(calc(50vw + 35%)) rotateY(18deg) scale(0.84);
-  }
-}
-
-@keyframes projectPreviewToPrevious {
-  from {
-    opacity: 0.88;
-    transform: translateX(calc(-50vw - 35%)) rotateY(-18deg) scale(0.84);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0) rotateY(0deg) scale(1);
-  }
-}
-
-@keyframes projectInfoFocus {
-  0% {
-    opacity: 0;
-    filter: blur(5px);
-    transform: scale(0.96);
-  }
-  40% {
-    opacity: 1;
-    filter: blur(0);
-  }
-  100% {
-    opacity: 0.96;
-    filter: blur(0);
-    transform: scale(1);
-  }
 }
 
 .project-showcase__title {
@@ -2284,6 +2088,32 @@ section[id] {
   margin-top: 3.25rem;
 }
 
+.project-showcase .swiper-button-prev,
+.project-showcase .swiper-button-next {
+  display: none;
+}
+
+.project-showcase .swiper-slide-shadow-left,
+.project-showcase .swiper-slide-shadow-right {
+  border-radius: 0.5rem;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .project-showcase.swiper {
+    padding-inline: 3rem;
+  }
+
+  .project-showcase__slide {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 21.875rem);
+    gap: 2rem;
+  }
+
+  .project-showcase__media {
+    width: 21.875rem;
+  }
+}
+
 @media (max-width: 767px) {
   .project-section {
     overflow-x: hidden;
@@ -2294,33 +2124,30 @@ section[id] {
   .project-showcase-shell {
     overflow-x: hidden;
     width: min(100%, 24rem);
-    height: 28rem;
-    min-height: 28rem;
     max-width: calc(100vw - 1.5rem);
     overscroll-behavior-x: contain;
   }
 
-  .project-showcase {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "media"
-      "content";
-    height: 100%;
-    min-height: 0;
-    align-content: start;
-    gap: 1.35rem;
+  .project-showcase.swiper {
     overflow: hidden;
     padding: 0;
   }
 
-  .project-transition-stage {
-    display: none;
+  .project-showcase__slide {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "media"
+      "content";
+    align-content: start;
+    gap: 1rem;
+    min-height: 26.5rem;
+    padding: 0;
   }
 
   .project-showcase__media {
     min-height: auto;
     justify-self: center;
-    width: min(100%, 19rem);
+    width: min(100%, 16.5625rem);
     border-radius: 0.5rem;
     box-shadow:
       0 1rem 2.25rem rgba(0, 0, 0, 0.32),
@@ -2329,9 +2156,7 @@ section[id] {
 
   .project-showcase__content {
     align-items: center;
-    height: 100%;
-    min-height: 0;
-    gap: 0.7rem;
+    gap: 0.6rem;
     padding: 0;
     text-align: center;
   }
@@ -2351,7 +2176,7 @@ section[id] {
     display: -webkit-box;
     overflow: hidden;
     max-width: 20.5rem;
-    min-height: 5.35rem;
+    min-height: 4.8rem;
     margin-inline: auto;
     font-size: 0.82rem;
     line-height: 1.62;
@@ -2398,7 +2223,12 @@ section[id] {
   }
 
   .project-github-action {
-    margin-top: 2.35rem;
+    margin-top: 2rem;
+  }
+
+  .project-showcase .swiper-button-prev,
+  .project-showcase .swiper-button-next {
+    display: none;
   }
 }
 
