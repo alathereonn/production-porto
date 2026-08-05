@@ -103,6 +103,57 @@
           </div>
         </div>
       </div>
+
+      <div
+        v-if="isProjectChanging && transitionFromProject && transitionToProject"
+        :class="[
+          'project-transition-stage',
+          `project-transition-stage--${projectTransitionDirection}`
+        ]"
+        aria-hidden="true"
+      >
+        <div class="project-transition-preview project-transition-preview--from">
+          <img
+            :src="resolveImageAsset(transitionFromProject.image)"
+            :alt="transitionFromProject.title"
+            draggable="false"
+          />
+        </div>
+
+        <div class="project-transition-info">
+          <p class="project-transition-info__eyebrow">Project</p>
+          <h3>{{ transitionToProject.title }}</h3>
+          <p>{{ transitionToProject.description }}</p>
+
+          <div class="project-transition-info__stack">
+            <span
+              v-for="tech in transitionToProject.tags"
+              :key="`transition-${tech}`"
+              :class="[
+                'project-tech-badge',
+                getTechConfig(tech).bg,
+                getTechConfig(tech).text
+              ]"
+            >
+              <img
+                v-if="getTechConfig(tech).icon"
+                :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
+                class="project-tech-badge__icon"
+                alt=""
+              />
+              {{ tech }}
+            </span>
+          </div>
+        </div>
+
+        <div class="project-transition-preview project-transition-preview--to">
+          <img
+            :src="resolveImageAsset(transitionToProject.image)"
+            :alt="transitionToProject.title"
+            draggable="false"
+          />
+        </div>
+      </div>
     </ScrollReveal>
 
     <ScrollReveal as="div" class="project-github-action" :delay="200">
@@ -137,6 +188,8 @@ const activeProjectIndex = ref(0)
 const isProjectChanging = ref(false)
 const isProjectEntering = ref(false)
 const isProjectDragging = ref(false)
+const transitionFromProject = ref(null)
+const transitionToProject = ref(null)
 const projectTransitionDirection = ref('next')
 const pointerStartX = ref(0)
 const pointerStartY = ref(0)
@@ -245,6 +298,8 @@ const setActiveProjectIndex = (index, shouldResetAutoSwitch = true, direction = 
   if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
 
   projectTransitionDirection.value = direction || getProjectDirection(nextIndex)
+  transitionFromProject.value = activeProject.value
+  transitionToProject.value = projects.value[nextIndex]
   isProjectChanging.value = true
   isProjectEntering.value = false
   projectTransitionTimer = window.setTimeout(() => {
@@ -257,6 +312,8 @@ const setActiveProjectIndex = (index, shouldResetAutoSwitch = true, direction = 
 
         projectTransitionTimer = window.setTimeout(() => {
           isProjectEntering.value = false
+          transitionFromProject.value = null
+          transitionToProject.value = null
           projectTransitionTimer = null
         }, PROJECT_TRANSITION_ENTER_DELAY)
       })
@@ -386,6 +443,8 @@ onUnmounted(() => {
   stopAutoSwitch()
   if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
   isProjectEntering.value = false
+  transitionFromProject.value = null
+  transitionToProject.value = null
 
   if (projectViewportQuery?.removeEventListener) {
     projectViewportQuery.removeEventListener('change', handleProjectViewportChange)

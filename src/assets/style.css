@@ -1865,6 +1865,7 @@ section[id] {
   position: relative;
   perspective: 1400px;
   width: min(100%, 78rem);
+  min-height: 23rem;
   margin-inline: auto;
 }
 
@@ -2035,8 +2036,8 @@ section[id] {
 
 .project-showcase.is-changing .project-showcase__media,
 .project-showcase.is-changing .project-showcase__content {
-  opacity: 0;
-  filter: blur(3px);
+  opacity: 0.08;
+  filter: blur(5px);
 }
 
 .project-showcase.project-transition-next.is-changing .project-showcase__media {
@@ -2075,6 +2076,159 @@ section[id] {
 
 .project-showcase.project-transition-previous.is-entering .project-showcase__content {
   transform: translateX(-30vw) scale(0.92);
+}
+
+.project-transition-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: minmax(12rem, 24vw) minmax(22rem, 1fr) minmax(12rem, 24vw);
+  align-items: center;
+  column-gap: clamp(1rem, 4vw, 4rem);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.project-transition-preview {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(190, 24, 93, 0.24);
+  border-radius: 0.45rem;
+  background: #090910;
+  opacity: 0.96;
+  box-shadow:
+    0 1rem 2.5rem rgba(0, 0, 0, 0.34),
+    0 0 1.4rem rgba(190, 24, 93, 0.1);
+}
+
+.project-transition-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.86) contrast(0.95);
+}
+
+.project-transition-preview--from {
+  justify-self: end;
+  animation: projectPreviewFromNext 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.project-transition-preview--to {
+  justify-self: start;
+  animation: projectPreviewToNext 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.project-transition-stage--previous .project-transition-preview--from {
+  animation-name: projectPreviewFromPrevious;
+}
+
+.project-transition-stage--previous .project-transition-preview--to {
+  animation-name: projectPreviewToPrevious;
+}
+
+.project-transition-info {
+  justify-self: center;
+  width: min(100%, 36rem);
+  text-align: left;
+  animation: projectInfoFocus 460ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.project-transition-info__eyebrow {
+  margin-bottom: 0.45rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.project-transition-info h3 {
+  color: #ffffff;
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.project-transition-info p:not(.project-transition-info__eyebrow) {
+  display: -webkit-box;
+  overflow: hidden;
+  margin-top: 0.75rem;
+  color: rgba(229, 231, 235, 0.76);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.project-transition-info__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 1rem;
+}
+
+@keyframes projectPreviewFromNext {
+  from {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg) scale(1);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateX(calc(-50vw - 35%)) rotateY(-18deg) scale(0.84);
+  }
+}
+
+@keyframes projectPreviewToNext {
+  from {
+    opacity: 0.88;
+    transform: translateX(calc(50vw + 35%)) rotateY(18deg) scale(0.84);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes projectPreviewFromPrevious {
+  from {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg) scale(1);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateX(calc(50vw + 35%)) rotateY(18deg) scale(0.84);
+  }
+}
+
+@keyframes projectPreviewToPrevious {
+  from {
+    opacity: 0.88;
+    transform: translateX(calc(-50vw - 35%)) rotateY(-18deg) scale(0.84);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes projectInfoFocus {
+  0% {
+    opacity: 0;
+    filter: blur(5px);
+    transform: scale(0.96);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0.96;
+    filter: blur(0);
+    transform: scale(1);
+  }
 }
 
 .project-showcase__title {
@@ -2157,6 +2311,10 @@ section[id] {
     gap: 1.35rem;
     overflow: hidden;
     padding: 0;
+  }
+
+  .project-transition-stage {
+    display: none;
   }
 
   .project-showcase__media {
