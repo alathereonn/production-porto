@@ -113,6 +113,89 @@
     </div>
   </section>
 
+  <section class="qualification-section qualification-category--publication">
+    <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
+      <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
+        <span class="text-primary">{{ typedPublication }}</span><span class="typing-cursor">|</span>
+      </h2>
+    </ScrollReveal>
+
+    <div class="timeline">
+      <ScrollReveal
+        v-for="(publication, index) in qualificationData.publications"
+        :key="'publication-' + index"
+        :class="['timeline-item', index % 2 === 0 ? 'left' : 'right']"
+        :delay="Math.min(index * 70, 280)"
+      >
+        <div class="timeline-content">
+          <h3>{{ publication.title }}</h3>
+
+          <p class="heldby">
+            Published by
+            <a
+              v-if="publication.publisherLink"
+              :href="publication.publisherLink"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="timeline-link"
+            >
+              {{ publication.publisher }}
+            </a>
+            <span v-else>{{ publication.publisher }}</span>
+          </p>
+
+          <p class="description">{{ publication.description }}</p>
+
+          <div class="date">
+            <svg xmlns="http://www.w3.org/2000/svg" class="calendar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+
+            <div v-if="publication.dates.length > 1" class="date-text">
+              <p v-for="(date, dIndex) in publication.dates" :key="'pd-' + dIndex">{{ date }}</p>
+            </div>
+            <span v-else>{{ publication.dates[0] }}</span>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <section class="qualification-section qualification-category--ipr">
+    <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
+      <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
+        <span class="text-primary">{{ typedIpr }}</span><span class="typing-cursor">|</span>
+      </h2>
+    </ScrollReveal>
+
+    <div class="timeline">
+      <ScrollReveal
+        v-for="(ipr, index) in qualificationData.intellectualPropertyRights"
+        :key="'ipr-' + index"
+        :class="['timeline-item', index % 2 === 0 ? 'left' : 'right']"
+        :delay="Math.min(index * 70, 280)"
+      >
+        <div class="timeline-content">
+          <h3>{{ ipr.title }}</h3>
+
+          <p class="heldby">{{ ipr.record }}</p>
+          <p class="description">{{ ipr.description }}</p>
+
+          <div class="date">
+            <svg xmlns="http://www.w3.org/2000/svg" class="calendar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+
+            <div v-if="ipr.dates.length > 1" class="date-text">
+              <p v-for="(date, dIndex) in ipr.dates" :key="'id-' + dIndex">{{ date }}</p>
+            </div>
+            <span v-else>{{ ipr.dates[0] }}</span>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+
   <section class="qualification-section qualification-category--education pb-24">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
       <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
@@ -304,9 +387,13 @@ export default {
       qualificationData,
       certText: ["PROFESSIONAL CERTIFICATIONS"],
       teachText: ["TEACHING EXPERIENCES"],
+      publicationText: ["PUBLICATION"],
+      iprText: ["INTELLECTUAL PROPERTY RIGHTS"],
       eduText: ["EDUCATION"],
       typedCert: "",
       typedTeach: "",
+      typedPublication: "",
+      typedIpr: "",
       typedEdu: "",
       typingSpeed: 100,
       deletingSpeed: 50,
@@ -324,6 +411,8 @@ export default {
   mounted() {
     this.createTyping(this.certText, "typedCert");
     this.createTyping(this.teachText, "typedTeach");
+    this.createTyping(this.publicationText, "typedPublication");
+    this.createTyping(this.iprText, "typedIpr");
     this.createTyping(this.eduText, "typedEdu");
   },
 

@@ -62,6 +62,29 @@
       "dates": ["August 21, 2024 - December 20, 2024"]
     }
   ],
+  "publications": [
+    {
+      "title": "Paper Penelitian Asimetri Harga dan Spesifikasi pada Laptop Gaming 2026: Segmentasi Tier Performa Menggunakan K-Means Clustering",
+      "publisher": "Universitas Gajah Mada",
+      "publisherLink": "https://jurnal.ugm.ac.id/v3/JISE/reviewer",
+      "description": "Publication details are currently pending official release and will be updated once the paper is publicly available.",
+      "dates": ["To be announced"]
+    }
+  ],
+  "intellectualPropertyRights": [
+    {
+      "title": "Dummy Intellectual Property Right Title for Creative Work",
+      "record": "Registration number pending release",
+      "description": "Intellectual property right documentation is currently in progress and will be updated after the official record is published.",
+      "dates": ["To be announced"]
+    },
+    {
+      "title": "Dummy Intellectual Property Right Title for Software Product",
+      "record": "Registration number pending release",
+      "description": "Intellectual property right documentation is currently in progress and will be updated after the official record is published.",
+      "dates": ["To be announced"]
+    }
+  ],
   "techStacks": [
     {
       "category": "Frontend & App",
