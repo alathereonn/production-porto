@@ -18,6 +18,7 @@
           `project-transition-${projectTransitionDirection}`,
           {
             'is-changing': isProjectChanging,
+            'is-entering': isProjectEntering,
             'is-dragging': isProjectDragging
           }
         ]"
@@ -129,10 +130,12 @@ defineOptions({
 
 const AUTO_SWITCH_DELAY = 5000
 const SWIPE_THRESHOLD = 50
-const PROJECT_TRANSITION_OUT_DELAY = 280
+const PROJECT_TRANSITION_OUT_DELAY = 460
+const PROJECT_TRANSITION_ENTER_DELAY = 40
 
 const activeProjectIndex = ref(0)
 const isProjectChanging = ref(false)
+const isProjectEntering = ref(false)
 const isProjectDragging = ref(false)
 const projectTransitionDirection = ref('next')
 const pointerStartX = ref(0)
@@ -243,13 +246,19 @@ const setActiveProjectIndex = (index, shouldResetAutoSwitch = true, direction = 
 
   projectTransitionDirection.value = direction || getProjectDirection(nextIndex)
   isProjectChanging.value = true
+  isProjectEntering.value = false
   projectTransitionTimer = window.setTimeout(() => {
     activeProjectIndex.value = nextIndex
 
     nextTick(() => {
       window.requestAnimationFrame(() => {
         isProjectChanging.value = false
-        projectTransitionTimer = null
+        isProjectEntering.value = true
+
+        projectTransitionTimer = window.setTimeout(() => {
+          isProjectEntering.value = false
+          projectTransitionTimer = null
+        }, PROJECT_TRANSITION_ENTER_DELAY)
       })
     })
   }, PROJECT_TRANSITION_OUT_DELAY)
@@ -376,6 +385,7 @@ onMounted(() => {
 onUnmounted(() => {
   stopAutoSwitch()
   if (projectTransitionTimer) window.clearTimeout(projectTransitionTimer)
+  isProjectEntering.value = false
 
   if (projectViewportQuery?.removeEventListener) {
     projectViewportQuery.removeEventListener('change', handleProjectViewportChange)
