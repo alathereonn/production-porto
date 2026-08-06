@@ -2286,6 +2286,10 @@ section[id] {
   line-height: 1.625;
 }
 
+.contact-layout {
+  margin-bottom: 3rem;
+}
+
 .contact-footer-designer {
   color: var(--color-primary);
   font-weight: 700;
@@ -2923,7 +2927,7 @@ section[id] {
   }
 
   .contact-section {
-    padding: 3.5rem 2rem 8rem;
+    padding: 3.5rem 2rem 5.5rem;
   }
 
   .contact-header {

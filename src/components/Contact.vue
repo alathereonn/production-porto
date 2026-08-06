@@ -16,7 +16,7 @@
       </p>
     </ScrollReveal>
 
-    <div class="relative z-10 w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 mb-24">
+    <div class="contact-layout relative z-10 w-full max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
 
       <div class="lg:col-span-7 flex flex-col gap-6 md:gap-8">
 
