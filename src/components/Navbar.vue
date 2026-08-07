@@ -117,18 +117,30 @@ const scrollTo = (id) => {
 }
 
 const updateActiveNavigation = () => {
+  const scrollTop = window.scrollY
+  const documentHeight = document.documentElement.scrollHeight
+  const viewportHeight = window.innerHeight
+  const isAtBottom = viewportHeight + scrollTop >= documentHeight - 4
+
+  if (isAtBottom) {
+    active.value = 'contact'
+    return
+  }
+
+  const navbarOffset = getNavbarOffset()
+  const activationPoint = scrollTop + navbarOffset + viewportHeight * 0.25
+  let currentSection = navLinks[0].target
+
   navLinks.forEach((link) => {
     const el = document.getElementById(link.target)
     if (!el) return
 
-    const top = window.scrollY
-    const offset = el.offsetTop - 150
-    const height = el.offsetHeight
-
-    if (top >= offset && top < offset + height) {
-      active.value = link.target
+    if (el.offsetTop <= activationPoint) {
+      currentSection = link.target
     }
   })
+
+  active.value = currentSection
 }
 
 const updateScrollProgress = () => {
