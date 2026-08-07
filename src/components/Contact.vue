@@ -171,7 +171,7 @@
 
     </div>
 
-    <div class="absolute bottom-0 w-full border-t border-white/5 pt-6 pb-6 text-center bg-darkbg/90 backdrop-blur-md z-20">
+    <div class="contact-footer w-full border-t border-white/5 pt-6 pb-6 text-center bg-darkbg/90 backdrop-blur-md z-20">
       <p class="text-gray-400 text-sm tracking-wide">
         Designed & Built by
         <button type="button" class="contact-footer-designer" @click="scrollToHome">

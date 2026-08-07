@@ -2260,12 +2260,12 @@ section[id] {
 .contact-section {
   position: relative;
   display: flex;
-  min-height: 100vh;
+  min-height: auto;
   flex-direction: column;
   align-items: center;
   overflow: hidden;
   scroll-margin-top: var(--navbar-height);
-  padding: 5rem 1rem;
+  padding: 5rem 1rem 0;
   background: var(--color-darkbg);
 }
 
@@ -2287,7 +2287,12 @@ section[id] {
 }
 
 .contact-layout {
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.contact-footer {
+  position: relative;
+  margin-top: 0;
 }
 
 .contact-footer-designer {
@@ -2927,7 +2932,7 @@ section[id] {
   }
 
   .contact-section {
-    padding: 3.5rem 2rem 5.5rem;
+    padding: 3.5rem 2rem 0;
   }
 
   .contact-header {
