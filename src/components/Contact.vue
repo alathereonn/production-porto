@@ -82,23 +82,23 @@
           <h3 class="contact-card-heading contact-protocol-heading">{{ contactData.contactInfo.heading }}</h3>
 
           <div class="contact-info-list">
-            <a :href="'mailto:' + contactData.contactInfo.email" class="flex items-center gap-5 group/item">
+            <a :href="'mailto:' + contactData.contactInfo.email" class="contact-protocol-item flex items-center gap-5 group/item">
               <div class="p-4 bg-primary/10 text-primary rounded-xl group-hover/item:bg-primary group-hover/item:text-black transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
               </div>
-              <div>
+              <div class="contact-protocol-content">
                 <p class="text-sm text-gray-500 mb-1">Email Address</p>
-                <p class="text-gray-200 group-hover/item:text-primary transition-colors text-base md:text-lg font-medium break-all">{{ contactData.contactInfo.email }}</p>
+                <p class="contact-protocol-value text-gray-200 group-hover/item:text-primary transition-colors text-base md:text-lg font-medium">{{ contactData.contactInfo.email }}</p>
               </div>
             </a>
 
-            <a :href="contactData.contactInfo.whatsappLink" target="_blank" class="flex items-center gap-5 group/item">
+            <a :href="contactData.contactInfo.whatsappLink" target="_blank" class="contact-protocol-item flex items-center gap-5 group/item">
               <div class="p-4 bg-primary/10 text-primary rounded-xl group-hover/item:bg-primary group-hover/item:text-black transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               </div>
-              <div>
+              <div class="contact-protocol-content">
                 <p class="text-sm text-gray-500 mb-1">WhatsApp</p>
-                <p class="text-gray-200 group-hover/item:text-primary transition-colors text-base md:text-lg font-medium">{{ contactData.contactInfo.whatsappDisplay }}</p>
+                <p class="contact-protocol-value text-gray-200 group-hover/item:text-primary transition-colors text-base md:text-lg font-medium">{{ contactData.contactInfo.whatsappDisplay }}</p>
               </div>
             </a>
           </div>

@@ -2758,6 +2758,21 @@ section[id] {
     min-height: auto;
   }
 
+  .contact-protocol-item {
+    min-width: 0;
+  }
+
+  .contact-protocol-content {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .contact-protocol-value {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
   .about-copy p,
   .certification-section .timeline-content .description {
     text-align: justify;
