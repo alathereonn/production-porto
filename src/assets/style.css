@@ -2728,6 +2728,23 @@ section[id] {
     padding-top: calc(var(--navbar-height) + 1.25rem);
   }
 
+  .hero-action {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.75rem;
+  }
+
+  .hero-action .primary-button {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 3rem;
+    padding: 0.85rem 0.9rem;
+    white-space: nowrap;
+  }
+
   .expanding-card {
     flex: 0.12;
     border-radius: 1rem;
@@ -2962,6 +2979,12 @@ section[id] {
   }
 }
 
+@media (max-width: 359px) {
+  .hero-action {
+    flex-wrap: wrap;
+  }
+}
+
 @media (min-width: 1024px) {
   .hero-copy {
     margin-left: 10rem;
@@ -2972,7 +2995,9 @@ section[id] {
   .qualification-typing-heading {
     max-width: calc(100vw - 2rem);
     font-size: clamp(1.25rem, 6vw, 1.55rem);
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .timeline {
@@ -3000,7 +3025,17 @@ section[id] {
   }
 
   .timeline-content h3 {
+    max-width: 100%;
     font-size: 1rem;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-break: normal;
+  }
+
+  .timeline-content {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .timeline-content .description {
