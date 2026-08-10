@@ -62,6 +62,8 @@
   --shadow-primary-soft: 0 12px 25px rgba(190, 24, 93, 0.4);
   --max-section-width: 80rem;
   --navbar-height: 7rem;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "Lexend", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* ========================================
@@ -130,23 +132,34 @@ body {
   background-color: var(--color-darkbg);
   overflow-x: hidden;
   line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    "Fira Sans",
-    "Droid Sans",
-    "Helvetica Neue",
-    sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.section-title,
+.hero-title,
+.about-title,
+.about-typing-title,
+.info-card-title,
+.card-title,
+.about-icon-card-heading,
+.about-music-title,
+.qualification-typing-heading,
+.timeline-content h3,
+.project-showcase__title,
+.contact-card-heading,
+.feedback-modal-title,
+.not-found-title {
+  font-family: var(--font-heading);
 }
 
 button,
