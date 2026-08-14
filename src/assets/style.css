@@ -722,11 +722,16 @@ section[id] {
   padding-block: 5rem;
 }
 
+.hero-section .section-container--narrow {
+  max-width: 76rem;
+}
+
 .hero-layout {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
-  gap: 4rem;
+  gap: 4.5rem;
 }
 
 .hero-portrait-wrap {
@@ -757,7 +762,9 @@ section[id] {
 }
 
 .hero-copy {
-  max-width: 36rem;
+  width: 100%;
+  min-width: 0;
+  max-width: 38rem;
   text-align: justify;
 }
 
@@ -773,9 +780,16 @@ section[id] {
 
 .hero-title {
   margin-top: 0.5rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 1.2em;
   font-size: 2.25rem;
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.1;
+}
+
+.hero-name-text {
+  display: inline;
 }
 
 .hero-interest {
@@ -2728,6 +2742,31 @@ section[id] {
     padding-top: calc(var(--navbar-height) + 1.25rem);
   }
 
+  .hero-layout {
+    align-items: stretch;
+  }
+
+  .hero-portrait-wrap {
+    align-self: center;
+  }
+
+  .hero-copy {
+    width: calc(100vw - 5rem);
+    max-width: calc(100vw - 5rem);
+    text-align: left;
+  }
+
+  .hero-title {
+    font-size: 1.875rem;
+  }
+
+  .hero-interest,
+  .hero-copy .body-copy {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
   .hero-action {
     width: 100%;
     flex-direction: row;
@@ -2884,7 +2923,7 @@ section[id] {
   .hero-layout {
     flex-direction: row;
     align-items: flex-start;
-    gap: 6rem;
+    gap: 6.5rem;
   }
 
   .hero-portrait-wrap {
@@ -2894,9 +2933,11 @@ section[id] {
 
   .hero-copy {
     margin-left: 1.5rem;
+    padding-right: 1rem;
   }
 
   .hero-title {
+    min-width: 17ch;
     white-space: nowrap;
     font-size: 3.75rem;
   }

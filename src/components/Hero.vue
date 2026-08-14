@@ -26,7 +26,7 @@
             class="hero-title hero-reveal hero-reveal--name"
             :class="{ 'is-visible': isHeroRevealed }"
           >
-            <span class="text-primary">{{ displayName }}</span>
+            <span class="hero-name-text text-primary">{{ displayName }}</span>
             <span class="typing-cursor">|</span>
           </h1>
 
