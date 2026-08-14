@@ -2,7 +2,7 @@
   "projects": [
     {
       "title": "Portfolio Website",
-      "description": "Personal portfolio of Zakaria Fattawari, as known as Alathereonn that is built with modern web technologies. Features smooth scroll, dynamic typing effects, and custom CSS animations.",
+      "description": "Personal portfolio of Zakaria Fattawari, as known as Alathereon that is built with modern web technologies. Features smooth scroll, dynamic typing effects, and custom CSS animations.",
       "image": "src/images/github14.png", 
       "tags": ["Vue.js", "Vite", "Tailwind CSS", "JavaScript"], 
       "github": "https://github.com/alathereonn/production-porto",
