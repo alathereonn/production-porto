@@ -2760,9 +2760,16 @@ section[id] {
     font-size: 1.875rem;
   }
 
-  .hero-interest,
+  .hero-interest {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
   .hero-copy .body-copy {
     max-width: 100%;
+    text-align: justify;
+    text-justify: inter-word;
     overflow-wrap: anywhere;
     word-break: normal;
   }
