@@ -112,7 +112,7 @@
         <div class="github-summary-grid" aria-label="Contribution summary">
           <div>
             <span>Contributions in the last year</span>
-            <strong>{{ formatNumber(activity?.totalContributions || 0) }}</strong>
+            <strong>{{ contributionTotalText }}</strong>
             <small>{{ contributionDateRange }}</small>
           </div>
           <div>
@@ -179,6 +179,7 @@ const emptyActivity = {
   currentStreak: 0,
   weeks: [],
   topLanguages: [],
+  calendarSource: 'empty',
 }
 
 const profileUrl = computed(() => activity.value?.profileUrl || emptyActivity.profileUrl)
@@ -192,6 +193,9 @@ const contributionDateRange = computed(() => {
   if (!days.length) return 'Last 12 months'
 
   return `${formatDate(days[0].date)} - ${formatDate(days[days.length - 1].date)}`
+})
+const contributionTotalText = computed(() => {
+  return hasExactCalendar.value ? formatNumber(activity.value?.totalContributions || 0) : '--'
 })
 
 const statCards = computed(() => [
@@ -226,7 +230,7 @@ const calendarWeeks = computed(() => {
 const displayCalendarWeeks = computed(() => {
   if (activity.value?.weeks?.length) return activity.value.weeks
 
-  return createPreviewCalendarWeeks()
+  return createEmptyCalendarWeeks()
 })
 
 const flatCalendarDays = computed(() => calendarWeeks.value.flat())
@@ -298,6 +302,7 @@ const loadPublicFallbackStats = async (signal) => {
 
   const user = await userResponse.json()
   const repos = await reposResponse.json()
+  const calendar = await loadPublicEventsCalendar(user.login || GITHUB_USERNAME, signal)
 
   return {
     ...emptyActivity,
@@ -306,7 +311,44 @@ const loadPublicFallbackStats = async (signal) => {
     repositories: user.public_repos || repos.length,
     stars: repos.reduce((total, repo) => total + (repo.stargazers_count || 0), 0),
     followers: user.followers || 0,
+    totalContributions: calendar.totalContributions,
+    longestStreak: calendar.longestStreak,
+    currentStreak: calendar.currentStreak,
+    weeks: calendar.weeks,
     topLanguages: getTopLanguages(repos),
+    calendarSource: calendar.calendarSource,
+  }
+}
+
+const loadPublicEventsCalendar = async (username, signal) => {
+  try {
+    const response = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/events/public?per_page=100`, {
+      headers: { Accept: 'application/vnd.github+json' },
+      signal,
+    })
+
+    if (!response.ok) throw new Error('Unable to load GitHub public events.')
+
+    const weeks = createCalendarWeeks(await response.json())
+    const streaks = calculateStreaks(weeks)
+
+    return {
+      totalContributions: weeks
+        .flatMap((week) => week.contributionDays || [])
+        .reduce((total, day) => total + (day.contributionCount || 0), 0),
+      longestStreak: streaks.longestStreak,
+      currentStreak: streaks.currentStreak,
+      weeks,
+      calendarSource: 'public_events',
+    }
+  } catch {
+    return {
+      totalContributions: 0,
+      longestStreak: 0,
+      currentStreak: 0,
+      weeks: createEmptyCalendarWeeks(),
+      calendarSource: 'empty',
+    }
   }
 }
 
@@ -348,31 +390,67 @@ const getLanguageColor = (language) => {
   return colors[language] || 'var(--color-primary)'
 }
 
-const createPreviewCalendarWeeks = () => {
+const createCalendarWeeks = (events = []) => {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
   const start = new Date(today)
   start.setDate(start.getDate() - 364)
   start.setDate(start.getDate() - start.getDay())
+  const eventCounts = events.reduce((counts, event) => {
+    if (!event.created_at) return counts
+
+    const date = event.created_at.slice(0, 10)
+    counts[date] = (counts[date] || 0) + 1
+    return counts
+  }, {})
 
   return Array.from({ length: 53 }, (_, weekIndex) => {
     const contributionDays = Array.from({ length: 7 }, (_, weekday) => {
       const date = new Date(start)
       date.setDate(start.getDate() + weekIndex * 7 + weekday)
-
-      const seed = (weekIndex * 17 + weekday * 11 + 7) % 19
-      const contributionCount = seed > 14 ? 8 : seed > 10 ? 4 : seed > 6 ? 2 : seed > 2 ? 1 : 0
+      const dateKey = date.toISOString().slice(0, 10)
 
       return {
-        date: date.toISOString().slice(0, 10),
-        contributionCount,
+        date: dateKey,
+        contributionCount: eventCounts[dateKey] || 0,
         weekday,
       }
     })
 
     return { contributionDays }
   })
+}
+
+const createEmptyCalendarWeeks = () => createCalendarWeeks()
+
+const calculateStreaks = (weeks) => {
+  const days = weeks
+    .flatMap((week) => week.contributionDays || [])
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+
+  let longestStreak = 0
+  let runningStreak = 0
+
+  for (const day of days) {
+    if (day.contributionCount > 0) {
+      runningStreak += 1
+      longestStreak = Math.max(longestStreak, runningStreak)
+    } else {
+      runningStreak = 0
+    }
+  }
+
+  let currentStreak = 0
+  for (let index = days.length - 1; index >= 0; index -= 1) {
+    if (days[index].contributionCount > 0) {
+      currentStreak += 1
+    } else if (currentStreak > 0) {
+      break
+    }
+  }
+
+  return { longestStreak, currentStreak }
 }
 
 const getContributionLevel = (count) => {

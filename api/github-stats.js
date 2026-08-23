@@ -38,6 +38,17 @@ const fetchJson = async (url, options = {}) => {
   return JSON.parse(text)
 }
 
+const fetchText = async (url, options = {}) => {
+  const response = await fetch(url, options)
+  const text = await response.text()
+
+  if (!response.ok) {
+    throw new Error(`GitHub request failed with status ${response.status}: ${text}`)
+  }
+
+  return text
+}
+
 const getTopLanguages = (repos) => {
   const languageCounts = repos.reduce((counts, repo) => {
     const language = repo.language || repo.primaryLanguage?.name
@@ -89,15 +100,176 @@ const calculateStreaks = (weeks) => {
   return { longestStreak, currentStreak }
 }
 
+const createCalendarWeeksFromCounts = (dateCounts = {}) => {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const start = new Date(today)
+  start.setDate(start.getDate() - 364)
+  start.setDate(start.getDate() - start.getDay())
+
+  return Array.from({ length: 53 }, (_, weekIndex) => {
+    const contributionDays = Array.from({ length: 7 }, (_, weekday) => {
+      const date = new Date(start)
+      date.setDate(start.getDate() + weekIndex * 7 + weekday)
+      const dateKey = date.toISOString().slice(0, 10)
+
+      return {
+        date: dateKey,
+        contributionCount: dateCounts[dateKey] || 0,
+        weekday,
+      }
+    })
+
+    return { contributionDays }
+  })
+}
+
+const createCalendarWeeks = (events = []) => {
+  const eventCounts = events.reduce((counts, event) => {
+    if (!event.created_at) return counts
+
+    const date = event.created_at.slice(0, 10)
+    counts[date] = (counts[date] || 0) + 1
+    return counts
+  }, {})
+
+  return createCalendarWeeksFromCounts(eventCounts)
+}
+
+const getDateRange = () => {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const start = new Date(today)
+  start.setDate(start.getDate() - 364)
+
+  return {
+    from: start.toISOString().slice(0, 10),
+    to: today.toISOString().slice(0, 10),
+  }
+}
+
+const getAttr = (tag, attrName) => {
+  const match = tag.match(new RegExp(`${attrName}="([^"]*)"`, 'i'))
+  return match?.[1] || ''
+}
+
+const decodeHtml = (value) => {
+  return value
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+}
+
+const parseContributionCount = (text) => {
+  const normalized = decodeHtml(text.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim()
+  if (/^no contributions/i.test(normalized)) return 0
+
+  const countMatch = normalized.match(/([\d,]+)\s+contributions?/i)
+  if (countMatch) return Number(countMatch[1].replace(/,/g, ''))
+
+  return null
+}
+
+const parseContributionHtml = (html) => {
+  const tooltipByTarget = new Map()
+  const dateCounts = {}
+
+  for (const match of html.matchAll(/<tool-tip\b[^>]*\sfor="([^"]+)"[^>]*>([\s\S]*?)<\/tool-tip>/gi)) {
+    tooltipByTarget.set(match[1], match[2])
+  }
+
+  for (const match of html.matchAll(/<(?:td|rect)\b[^>]*data-date="[^"]+"[^>]*>/gi)) {
+    const tag = match[0]
+    const date = getAttr(tag, 'data-date')
+    if (!date) continue
+
+    const id = getAttr(tag, 'id')
+    const level = Number(getAttr(tag, 'data-level') || 0)
+    const dataCount = getAttr(tag, 'data-count')
+    const tooltipCount = id ? parseContributionCount(tooltipByTarget.get(id) || '') : null
+
+    if (dataCount !== '') {
+      dateCounts[date] = Number(dataCount)
+    } else if (tooltipCount !== null) {
+      dateCounts[date] = tooltipCount
+    } else {
+      dateCounts[date] = [0, 1, 4, 8, 12][level] || 0
+    }
+  }
+
+  return dateCounts
+}
+
+const getCalendarPayload = (weeks, calendarMessage, calendarSource) => {
+  const streaks = calculateStreaks(weeks)
+
+  return {
+    totalContributions: weeks
+      .flatMap((week) => week.contributionDays || [])
+      .reduce((total, day) => total + (day.contributionCount || 0), 0),
+    longestStreak: streaks.longestStreak,
+    currentStreak: streaks.currentStreak,
+    weeks,
+    calendarMessage,
+    calendarSource,
+  }
+}
+
+const getPublicContributionCalendar = async (username, token) => {
+  try {
+    const { from, to } = getDateRange()
+    const html = await fetchText(`https://github.com/users/${encodeURIComponent(username)}/contributions?from=${from}&to=${to}`, {
+      headers: {
+        ...githubHeaders(token),
+        Accept: 'text/html',
+      },
+    })
+    const dateCounts = parseContributionHtml(html)
+
+    if (!Object.keys(dateCounts).length) {
+      throw new Error('Unable to parse GitHub public contribution graph.')
+    }
+
+    return getCalendarPayload(
+      createCalendarWeeksFromCounts(dateCounts),
+      'Showing public GitHub contribution graph.',
+      'public_contributions',
+    )
+  } catch {
+    return getPublicEventsCalendar(username, token)
+  }
+}
+
+const getPublicEventsCalendar = async (username, token) => {
+  try {
+    const events = await fetchJson(`https://api.github.com/users/${encodeURIComponent(username)}/events/public?per_page=100`, {
+      headers: githubHeaders(token),
+    })
+
+    return getCalendarPayload(
+      createCalendarWeeks(events),
+      'Showing public GitHub event activity. Add GITHUB_TOKEN for full contribution calendar.',
+      'public_events',
+    )
+  } catch {
+    const weeks = createCalendarWeeks()
+
+    return getCalendarPayload(
+      weeks,
+      'Unable to load public GitHub event activity right now.',
+      'empty',
+    )
+  }
+}
+
 const getGraphqlCalendar = async (username, token) => {
   if (!token) {
-    return {
-      totalContributions: 0,
-      longestStreak: 0,
-      currentStreak: 0,
-      weeks: [],
-      calendarMessage: 'Contribution calendar requires GitHub token configuration.',
-    }
+    return getPublicContributionCalendar(username, token)
   }
 
   const query = `
@@ -146,15 +318,10 @@ const getGraphqlCalendar = async (username, token) => {
       currentStreak: streaks.currentStreak,
       weeks,
       calendarMessage: '',
+      calendarSource: 'graphql',
     }
   } catch {
-    return {
-      totalContributions: 0,
-      longestStreak: 0,
-      currentStreak: 0,
-      weeks: [],
-      calendarMessage: 'Unable to load contribution calendar right now.',
-    }
+    return getPublicContributionCalendar(username, token)
   }
 }
 
@@ -185,6 +352,7 @@ export default async function handler(request, response) {
       weeks: calendar.weeks,
       topLanguages: getTopLanguages(repos),
       calendarMessage: calendar.calendarMessage,
+      calendarSource: calendar.calendarSource,
     })
   } catch {
     sendJson(response, 500, {
