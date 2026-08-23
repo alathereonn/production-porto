@@ -2170,12 +2170,16 @@ section[id] {
 
 .github-activity-card {
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 0.95rem;
-  background: rgba(13, 13, 18, 0.96);
+  border: 1px solid rgba(190, 24, 93, 0.28);
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(190, 24, 93, 0.12), transparent 30%),
+    radial-gradient(circle at 88% 4%, rgba(219, 39, 119, 0.1), transparent 28%),
+    rgba(13, 13, 18, 0.92);
   box-shadow:
-    0 1.5rem 3.5rem rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+    0 1.5rem 3.5rem rgba(0, 0, 0, 0.32),
+    0 0 2rem rgba(190, 24, 93, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045);
   padding: clamp(1.1rem, 2.2vw, 1.55rem);
 }
 
@@ -2191,7 +2195,7 @@ section[id] {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.94);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -2203,8 +2207,8 @@ section[id] {
   width: 0.5rem;
   height: 0.5rem;
   border-radius: 999px;
-  background: #39d353;
-  box-shadow: 0 0 0.75rem rgba(57, 211, 83, 0.56);
+  background: var(--color-primary);
+  box-shadow: 0 0 0.75rem rgba(190, 24, 93, 0.7);
 }
 
 .github-activity-legend {
@@ -2223,27 +2227,28 @@ section[id] {
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 0.1875rem;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.055);
 }
 
 .github-activity-legend-day[data-level="1"],
 .github-calendar-day[data-level="1"] {
-  background: #0e4429;
+  background: rgba(190, 24, 93, 0.28);
 }
 
 .github-activity-legend-day[data-level="2"],
 .github-calendar-day[data-level="2"] {
-  background: #006d32;
+  background: rgba(190, 24, 93, 0.5);
 }
 
 .github-activity-legend-day[data-level="3"],
 .github-calendar-day[data-level="3"] {
-  background: #26a641;
+  background: rgba(219, 39, 119, 0.74);
 }
 
 .github-activity-legend-day[data-level="4"],
 .github-calendar-day[data-level="4"] {
-  background: #39d353;
+  background: #ec4899;
+  box-shadow: 0 0 0.55rem rgba(236, 72, 153, 0.38);
 }
 
 .github-activity-status {
@@ -2268,23 +2273,37 @@ section[id] {
 }
 
 .github-stat-card {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.8rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(190, 24, 93, 0.18);
+  border-radius: 0.9rem;
   background:
-    radial-gradient(circle at 96% 0%, rgba(37, 99, 235, 0.12), transparent 38%),
-    rgba(14, 14, 19, 0.82);
+    linear-gradient(145deg, rgba(190, 24, 93, 0.1), rgba(255, 255, 255, 0.015) 48%),
+    rgba(14, 14, 20, 0.88);
   min-height: 5.5rem;
   padding: 1.2rem 1rem 0.95rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 0.75rem 1.5rem rgba(0, 0, 0, 0.16);
+}
+
+.github-stat-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(190, 24, 93, 0.65), transparent);
+  opacity: 0.55;
 }
 
 .github-stat-label {
   display: block;
-  color: rgba(229, 231, 235, 0.58);
+  color: rgba(229, 231, 235, 0.62);
   font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   line-height: 1;
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .github-stat-value {
@@ -2298,10 +2317,10 @@ section[id] {
 
 .github-calendar-panel {
   margin-top: 1.25rem;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  padding: 0;
+  border: 1px solid rgba(190, 24, 93, 0.12);
+  border-radius: 0.9rem;
+  background: rgba(7, 7, 11, 0.38);
+  padding: 0.9rem;
 }
 
 .github-calendar-scroll {
@@ -2343,7 +2362,8 @@ section[id] {
 }
 
 .github-calendar-day {
-  border: 1px solid rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
 }
 
 .github-calendar-day--empty {
@@ -2354,12 +2374,12 @@ section[id] {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
-  margin-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  margin-top: 1.15rem;
+  border-top: 1px solid rgba(190, 24, 93, 0.14);
 }
 
 .github-summary-grid div {
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(190, 24, 93, 0.12);
   padding: 0.95rem 1rem 0.25rem;
   text-align: center;
 }
@@ -2378,7 +2398,7 @@ section[id] {
 .github-summary-grid strong {
   display: block;
   margin-top: 0.3rem;
-  color: #ffffff;
+  color: var(--color-primary);
   font-size: 1.25rem;
   line-height: 1;
 }
@@ -2397,7 +2417,7 @@ section[id] {
 
 .github-language-title {
   margin-bottom: 0.75rem;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.94);
   font-size: 0.92rem;
   font-weight: 800;
 }
@@ -2412,9 +2432,9 @@ section[id] {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(190, 24, 93, 0.16);
   border-radius: 999px;
-  background: rgba(10, 10, 16, 0.66);
+  background: rgba(190, 24, 93, 0.065);
   color: rgba(229, 231, 235, 0.84);
   padding: 0.45rem 0.7rem;
   font-size: 0.78rem;
