@@ -124,6 +124,8 @@
         See More on my GitHub
       </a>
     </ScrollReveal>
+
+    <GitHubActivity />
   </section>
 </template>
 
@@ -135,6 +137,7 @@ import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import projectData from '../data/project.json'
 import { resolveImageAsset } from '../data/imageAssets.js'
+import GitHubActivity from './GitHubActivity.vue'
 import ScrollReveal from './ScrollReveal.vue'
 
 defineOptions({
