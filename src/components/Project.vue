@@ -149,17 +149,6 @@
             {{ errorMessage }}
           </p>
 
-          <div class="github-stats-grid" aria-label="GitHub statistics">
-            <div
-              v-for="stat in statCards"
-              :key="stat.label"
-              class="github-stat-card"
-            >
-              <strong class="github-stat-value">{{ stat.value }}</strong>
-              <span class="github-stat-label">{{ stat.label }}</span>
-            </div>
-          </div>
-
           <div class="github-calendar-panel">
             <div class="github-calendar-scroll">
               <div
@@ -313,25 +302,6 @@ const contributionDateRange = computed(() => {
 const contributionTotalText = computed(() => {
   return hasExactCalendar.value ? formatNumber(activity.value?.totalContributions || 0) : '--'
 })
-
-const statCards = computed(() => [
-  {
-    label: 'Repositories',
-    value: formatNumber(activity.value?.repositories || 0),
-  },
-  {
-    label: 'Stars',
-    value: formatNumber(activity.value?.stars || 0),
-  },
-  {
-    label: 'Followers',
-    value: formatNumber(activity.value?.followers || 0),
-  },
-  {
-    label: 'Contributions',
-    value: hasExactCalendar.value ? formatNumber(activity.value?.totalContributions || 0) : '--',
-  },
-])
 
 const calendarWeeks = computed(() => {
   return displayCalendarWeeks.value.map((week) => {
