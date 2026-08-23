@@ -114,42 +114,7 @@
       </Swiper>
     </ScrollReveal>
 
-    <ScrollReveal as="div" class="project-github-action" :delay="200">
-      <a
-        href="https://github.com/alathereonn"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="primary-button primary-button--compact"
-      >
-        See More on my GitHub
-      </a>
-    </ScrollReveal>
-
-    <section class="github-activity-section" aria-labelledby="github-activity-title">
-      <ScrollReveal
-        as="div"
-        class="github-activity-intro"
-        :delay="120"
-        :distance="24"
-      >
-        <p id="github-activity-title" class="github-activity-intro-text">
-          My coding activity, projects, and contributions throughout the year.
-        </p>
-
-        <a
-          class="github-activity-profile-link"
-          :href="profileUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 .5A12 12 0 0 0 8.21 23.9c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.45 11.45 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z"/>
-          </svg>
-          View GitHub
-          <span aria-hidden="true">&nearr;</span>
-        </a>
-      </ScrollReveal>
-
+    <section class="github-activity-section" aria-label="GitHub contribution activity">
       <ScrollReveal
         as="div"
         class="github-activity-card scroll-bottom-200"
@@ -276,6 +241,17 @@
         </template>
       </ScrollReveal>
     </section>
+
+    <ScrollReveal as="div" class="project-github-action" :delay="200">
+      <a
+        href="https://github.com/alathereonn"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="primary-button primary-button--compact"
+      >
+        See More on my GitHub
+      </a>
+    </ScrollReveal>
   </section>
 </template>
 
@@ -318,7 +294,6 @@ const emptyActivity = {
   calendarSource: 'empty',
 }
 
-const profileUrl = computed(() => activity.value?.profileUrl || emptyActivity.profileUrl)
 const topLanguages = computed(() => activity.value?.topLanguages || [])
 const hasExactCalendar = computed(() => Boolean(activity.value?.weeks?.length))
 const displayCalendarWeeks = computed(() => {
