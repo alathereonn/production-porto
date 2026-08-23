@@ -23,7 +23,7 @@ const githubHeaders = (token) => ({
 const sendJson = (response, statusCode, payload) => {
   response.statusCode = statusCode
   response.setHeader('Content-Type', 'application/json; charset=utf-8')
-  response.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400')
+  response.setHeader('Cache-Control', 'no-store')
   response.end(JSON.stringify(payload))
 }
 
@@ -139,14 +139,17 @@ const createCalendarWeeks = (events = []) => {
 
 const getDateRange = () => {
   const today = new Date()
-  today.setHours(0, 0, 0, 0)
+  today.setHours(23, 59, 59, 999)
 
   const start = new Date(today)
   start.setDate(start.getDate() - 364)
+  start.setHours(0, 0, 0, 0)
 
   return {
     from: start.toISOString().slice(0, 10),
     to: today.toISOString().slice(0, 10),
+    fromDateTime: start.toISOString(),
+    toDateTime: today.toISOString(),
   }
 }
 
@@ -217,6 +220,7 @@ const getCalendarPayload = (weeks, calendarMessage, calendarSource) => {
     weeks,
     calendarMessage,
     calendarSource,
+    graphqlError: '',
   }
 }
 
@@ -273,9 +277,9 @@ const getGraphqlCalendar = async (username, token) => {
   }
 
   const query = `
-    query($username: String!) {
+    query($username: String!, $from: DateTime!, $to: DateTime!) {
       user(login: $username) {
-        contributionsCollection {
+        contributionsCollection(from: $from, to: $to) {
           contributionCalendar {
             totalContributions
             weeks {
@@ -293,13 +297,21 @@ const getGraphqlCalendar = async (username, token) => {
   `
 
   try {
+    const { fromDateTime, toDateTime } = getDateRange()
     const payload = await fetchJson('https://api.github.com/graphql', {
       method: 'POST',
       headers: {
         ...githubHeaders(token),
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ query, variables: { username } }),
+      body: JSON.stringify({
+        query,
+        variables: {
+          username,
+          from: fromDateTime,
+          to: toDateTime,
+        },
+      }),
     })
 
     if (payload.errors?.length) {
@@ -319,9 +331,15 @@ const getGraphqlCalendar = async (username, token) => {
       weeks,
       calendarMessage: '',
       calendarSource: 'graphql',
+      graphqlError: '',
     }
-  } catch {
-    return getPublicContributionCalendar(username, token)
+  } catch (error) {
+    const fallback = await getPublicContributionCalendar(username, token)
+
+    return {
+      ...fallback,
+      graphqlError: error.message || 'GraphQL contribution calendar failed.',
+    }
   }
 }
 
@@ -353,6 +371,8 @@ export default async function handler(request, response) {
       topLanguages: getTopLanguages(repos),
       calendarMessage: calendar.calendarMessage,
       calendarSource: calendar.calendarSource,
+      graphqlError: calendar.graphqlError,
+      tokenConfigured: Boolean(token),
     })
   } catch {
     sendJson(response, 500, {
