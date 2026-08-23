@@ -2172,10 +2172,7 @@ section[id] {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 0.95rem;
-  background:
-    radial-gradient(circle at 18% 0%, rgba(190, 24, 93, 0.1), transparent 24%),
-    radial-gradient(circle at 82% 12%, rgba(56, 189, 248, 0.08), transparent 20%),
-    rgba(13, 13, 18, 0.94);
+  background: rgba(13, 13, 18, 0.96);
   box-shadow:
     0 1.5rem 3.5rem rgba(0, 0, 0, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.035);
@@ -2267,7 +2264,7 @@ section[id] {
 .github-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .github-stat-card {
@@ -2276,17 +2273,18 @@ section[id] {
   background:
     radial-gradient(circle at 96% 0%, rgba(37, 99, 235, 0.12), transparent 38%),
     rgba(14, 14, 19, 0.82);
-  padding: 1.15rem 1rem;
+  min-height: 5.5rem;
+  padding: 1.2rem 1rem 0.95rem;
 }
 
 .github-stat-label {
   display: block;
   color: rgba(229, 231, 235, 0.58);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0;
   line-height: 1;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .github-stat-value {
@@ -2299,26 +2297,11 @@ section[id] {
 }
 
 .github-calendar-panel {
-  margin-top: 1.45rem;
+  margin-top: 1.25rem;
   border: 0;
   border-radius: 0;
   background: transparent;
   padding: 0;
-}
-
-.github-calendar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 0.8rem;
-  color: rgba(229, 231, 235, 0.72);
-  font-size: 0.82rem;
-  font-weight: 700;
-}
-
-.github-calendar-header span:last-child {
-  color: var(--color-primary);
 }
 
 .github-calendar-scroll {
@@ -2331,7 +2314,7 @@ section[id] {
   display: grid;
   gap: 0.25rem;
   margin-left: 2.5rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.28rem;
   color: rgba(229, 231, 235, 0.48);
   font-size: 0.7rem;
   line-height: 1;
@@ -2365,15 +2348,6 @@ section[id] {
 
 .github-calendar-day--empty {
   visibility: hidden;
-}
-
-.github-calendar-empty {
-  border: 1px dashed rgba(190, 24, 93, 0.32);
-  border-radius: 0.85rem;
-  background: rgba(190, 24, 93, 0.06);
-  color: rgba(229, 231, 235, 0.68);
-  padding: 1rem;
-  font-size: 0.88rem;
 }
 
 .github-summary-grid {
@@ -2458,7 +2432,7 @@ section[id] {
 }
 
 .github-language-pill strong {
-  color: var(--color-primary);
+  color: rgba(229, 231, 235, 0.56);
   font-weight: 800;
 }
 
