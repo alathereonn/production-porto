@@ -315,7 +315,7 @@ const calendarWeeks = computed(() => {
 
 const flatCalendarDays = computed(() => calendarWeeks.value.flat())
 const calendarGridStyle = computed(() => ({
-  gridTemplateColumns: `repeat(${Math.max(calendarWeeks.value.length, 1)}, 0.75rem)`,
+  gridTemplateColumns: `repeat(${Math.max(calendarWeeks.value.length, 1)}, minmax(0.75rem, 1fr))`,
 }))
 
 const monthLabels = computed(() => {
