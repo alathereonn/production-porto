@@ -2,7 +2,7 @@
   <img src="./public/alathereonn-logo-transparent.png" alt="ALATHEREONN Logo" width="88" />
 </p>
 
-<h1 align="center">ALATHEREONN Portfolio</h1>
+<h1 align="center">Alathereon Portfolio</h1>
 
 <p align="center">
   A dark futuristic portfolio website for Zakaria Fattawari, built to showcase profile, projects, qualifications, certificates, contact channels, and a little bit of personality.
