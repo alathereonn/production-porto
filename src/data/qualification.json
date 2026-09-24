@@ -32,7 +32,7 @@
       "dates": [
         "February 20, 2025 - June 4, 2025",
         "August 23, 2025 - December 26, 2025",
-        "September 16, 2026 - Now"
+        "September 16, 2026 - Present"
       ]
     },
     {
@@ -42,7 +42,7 @@
       "institution": "Kalimantan's Institute of Technology",
       "institutionLink": "https://itk.ac.id",
       "description": "Assistant for the Introduction to Artificial Intelligence subject during the Odd Semester of 2026/2027, focusing on AI fundamentals and applications.", 
-      "dates": ["September 28, 2026 - Now"]
+      "dates": ["September 28, 2026 - Present"]
     },
     {
       "title": "Lecturer Assistant for Digital Game Programming Subject",
@@ -51,7 +51,7 @@
       "institution": "Kalimantan's Institute of Technology",
       "institutionLink": "https://itk.ac.id",
       "description": "Assistant for the Digital Game Programming subject during the Odd Semester of 2026/2027, focusing on game development principles and practices.", 
-      "dates": ["September 15, 2026 - Now"]
+      "dates": ["September 15, 2026 - Present"]
     },
     {
       "title": "Lecturer Assistant for Human Computer Interaction Subject",
@@ -78,7 +78,7 @@
       "institution": "Kalimantan's Institute of Technology",
       "institutionLink": "https://itk.ac.id",
       "description": "Proudly being part of Trainer's Family for LKMM ITK, providing training and guidance to students in leadership and management skills.",
-      "dates": ["October 27, 2024 - Now"]
+      "dates": ["October 27, 2024 - Present"]
     },
     {
       "title": "Laboratory Assistant for Basic Physics Subject",
@@ -141,6 +141,17 @@
   ],
   "education": [
     {
+      "title": "Seventh Semester",
+      "level": "Undergraduate",
+      "major": "Computer Science",
+      "majorLink": "https://if.itk.ac.id/",
+      "institution": "Kalimantan's Institute of Technology",
+      "institutionLink": "https://itk.ac.id",
+      "gpa": "-",
+      "courses": ["Capstone Project", "Computer Science Professionalism", "Final Project Proposal", "Mobile Application Development", "Practical Work" ],
+      "dates": ["August 2026 - Present"]
+    },
+    {
       "title": "Sixth Semester",
       "level": "Undergraduate",
       "major": "Computer Science",
@@ -149,7 +160,7 @@
       "institutionLink": "https://itk.ac.id",
       "gpa": "4.0",
       "courses": ["Capita Selecta", "Data Mining", "Deep Learning", "Digital Game Programming", "Machine Learning", "Web Based Application Development"],
-      "dates": ["February 2026 - Now"]
+      "dates": ["February 2026 - July 2026"]
     },
     {
       "title": "Fifth Semester",
