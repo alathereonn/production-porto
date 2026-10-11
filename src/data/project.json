@@ -3,7 +3,7 @@
     {
       "title": "Portfolio Website",
       "description": "Personal portfolio of Zakaria Fattawari, as known as Alathereon that is built with modern web technologies. Features smooth scroll, dynamic typing effects, and custom CSS animations.",
-      "image": "src/images/github14.png", 
+      "image": "src/images/github14.webp", 
       "tags": ["Vue.js", "Vite", "Tailwind CSS", "JavaScript"], 
       "github": "https://github.com/alathereonn/production-porto",
       "demo": "https://alathereon.com" 
@@ -11,7 +11,7 @@
     {
       "title": "ECHOES: The Undying Follower",
       "description": "ECHOES: The Undying Follower is a retro-inspired survival horror game set inside St. Mercy Asylum, a psychiatric hospital hidden in Eden’s Gloria, a town that was abandoned and erased from maps after its residents vanished without a trace.",
-      "image": "src/images/github4.jpg", 
+      "image": "src/images/github4.webp", 
       "tags": ["Aseprite", "Godot", "GDScript", "Pixel Art"], 
       "github": "https://github.com/alathereonn/echoes--the-undying-follower",
       "itchio": "https://alathereonn.itch.io/echoes-the-undying-follower-demo",
@@ -20,7 +20,7 @@
     {
       "title": "Final Thesis",
       "description": "'Don't get stressed out doing your final thesis, okay?' \nFinal Thesis is a tense, first-person psychological horror game that transforms the grueling reality of academic pressure into a literal nightmare.",
-      "image": "src/images/github7.png", 
+      "image": "src/images/github7.webp", 
       "tags": ["Unity", "C#", "3D Modeling", "2D Art"],
       "github": "https://github.com/RafiBaydar/Final-Thesis",
       "itchio": "https://otw-juara-1-gemastik.itch.io/final-thesis",
@@ -29,7 +29,7 @@
     {
       "title": "Layanan FRTI ITK",
       "description": "A web platform for FRTI ITK that centralizes faculty information, academic services, lecturer directories, accreditation data, news, agenda, and administrative service access.",
-      "image": "src/images/github11.png", 
+      "image": "src/images/github11.webp", 
       "tags": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Laravel", "PostgreSQL"],
       "github": "https://github.com/alathereonn/Layanan-Fakultas-Rekayasa-dan-Teknologi-Industri-ITK",
       "demo": "#" 
@@ -37,7 +37,7 @@
     {
       "title": "Digikids",
       "description": "A digital education platform that helps parents and children build healthier gadget habits through research-based articles, screen time guidance, educational videos, alternative activities, and an admin-managed content system.",
-      "image": "src/images/github15.png",
+      "image": "src/images/github15.webp",
       "tags": ["Vue.js", "TypeScript", "Vite", "Tailwind CSS", "Node.js", "Express", "Supabase", "Cloudinary"],
       "github": "https://github.com/Masdi2020/digikids",
       "demo": "#"
@@ -45,7 +45,7 @@
     {
       "title": "PDF Compressor",
       "description": "A Dockerized PDF compression app with a Rust backend and Vue.js frontend. A final project for Functional Programming subject.",
-      "image": "src/images/github13.jpeg", 
+      "image": "src/images/github13.webp", 
       "tags": ["Rust", "Axum", "Vue.js", "Vite", "Axios", "Docker"],
       "github": "https://github.com/kyogree1/Project-Multiprocessing-PF-B-_5",
       "demo": "#" 
@@ -53,7 +53,7 @@
     {
       "title": "Dashboard Kesehatan untuk Smart City - Prototype",
       "description": "Prototype for final project in Smart City Support Information System subject.",
-      "image": "src/images/github8.png", 
+      "image": "src/images/github8.webp", 
       "tags": ["TypeScript", "Tailwind CSS", "React"],
       "github": "https://github.com/alathereonn/Smart-City-Kesehatan-Terhadap-Layanan-Kesehatan",
       "demo": "#" 
@@ -61,7 +61,7 @@
     {
       "title": "Churn Prediction for Telco Customer",
       "description": "Website Customer Churn prediction for Telco Customer. A team project from Machine Learning subject.",
-      "image": "src/images/github9.png", 
+      "image": "src/images/github9.webp", 
       "tags": ["Jupyter", "Python", "Machine Learning", "Vue.js", "JavaScript"],
       "github": "https://github.com/alathereonn/Churn-Predictor",
       "demo": "#" 
@@ -69,7 +69,7 @@
         {
       "title": "AI Personal Scheduler",
       "description": "A web-based personal scheduler that utilizes AI to optimize and manage daily tasks and appointments. A team project from Web-Based Application Development subject.",
-      "image": "src/images/github10.png", 
+      "image": "src/images/github10.webp", 
       "tags": ["JavaScript", "Vue.js", "Ollama", "Supabase", "PostgreSQL"],
       "github": "https://github.com/Naufalpc11/ai-personal-scheduler",
       "demo": "#" 
@@ -77,7 +77,7 @@
     {
       "title": "Connect 4 AI Game",
       "description": "Implementation and Comparative Study of Alpha-Beta Pruning, Transposition Tables, and MTD(F) for Minimax Algorithm in a Two-Player Connect Four Game. A team project from ntroduction to Artificial Intelligence subject.",
-      "image": "src/images/github5.png", 
+      "image": "src/images/github5.webp", 
       "tags": ["React","TypeScript", "JavaScript"],
       "github": "https://github.com/NotHydra/connect-4-game",
       "demo": "https://connect-4-game-id.vercel.app/"
@@ -85,14 +85,14 @@
     {
       "title": "ECHOES: The Undying Follower WIKI",
       "description": "Echoes Wiki is a digital encyclopedia platform designed to systematically archive, organize, and manage information related to the indie game ECHOES: The Undying Follower.",
-      "image": "src/images/github1.png", 
+      "image": "src/images/github1.webp", 
       "tags": ["Vue.js", "JavaScript", "Tailwind CSS"],
       "github": "https://github.com/alathereonn/echoes-wiki-real"
     },
     {
       "title": "Distributed Sync System",
       "description": "A distributed synchronization system based on the Raft Consensus Algorithm. It simulates real-world scenarios, effectively handling multiple nodes to communicate and synchronize data consistently.",
-      "image": "src/images/github2.png", 
+      "image": "src/images/github2.webp", 
       "tags": ["Docker","Docker Compose", "Python"], 
       "github": "https://github.com/alathereonn/distributed-sync-system",
       "demo": "https://www.youtube.com/watch?v=smnjEYT1LxM&feature=youtu.be"
@@ -100,7 +100,7 @@
     {
       "title": "Pub-Sub Log Aggregator",
       "description": "A Publish–Subscribe (Pub-Sub) log aggregation service that ingests events from publishers and distributes them to idempotent consumers, ensuring each event is processed only once through built-in deduplication.",
-      "image": "src/images/github6.jpg",
+      "image": "src/images/github6.webp",
       "tags": ["Docker","Docker Compose", "Python"], 
       "github": "https://github.com/alathereonn/uts-pubsub-aggregator?tab=readme-ov-file",
       "demo": "https://www.youtube.com/watch?v=5IFNaC8BkKE&feature=youtu.be" 

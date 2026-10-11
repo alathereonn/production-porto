@@ -34,37 +34,37 @@
         {
           "title": "November Rain",
           "artist": "Guns N' Roses",
-          "thumbnailUrl": "songs/november rain.jpg",
+          "thumbnailUrl": "songs/november rain.webp",
           "embedUrl": "https://www.youtube.com/embed/y6lfK3bH4z8?autoplay=1&controls=0&modestbranding=1&rel=0"
         },
         {
           "title": "Thriller",
           "artist": "Michael Jackson",
-          "thumbnailUrl": "songs/thriller.jpg",
+          "thumbnailUrl": "songs/thriller.webp",
           "embedUrl": "https://www.youtube.com/embed/sO4vI8P88NM?autoplay=1&controls=0&modestbranding=1&rel=0"
         },
         {
           "title": "蝶の飛ぶ水槽",
           "artist": "TK from Ling tosite sigure",
-          "thumbnailUrl": "songs/chou no tobu suisou.jpg",
+          "thumbnailUrl": "songs/chou no tobu suisou.webp",
           "embedUrl": "https://www.youtube.com/embed/GNjqI-EyqiI?autoplay=1&controls=0&modestbranding=1&rel=0"
         },
         {
           "title": "Unwavering Startorch",
           "artist": "Wuthering Waves, Fleet Snowfluff, and Startorch Academy Graduates",
-          "thumbnailUrl": "songs/unwavering startorch.jpg",
+          "thumbnailUrl": "songs/unwavering startorch.webp",
           "embedUrl": "https://www.youtube.com/embed/6B41OjUekjk?autoplay=1&controls=0&modestbranding=1&rel=0"
         },
         {
           "title": "Voyaging Star's Farewell",
           "artist": "Wuthering Waves, and Tarokiki",
-          "thumbnailUrl": "songs/voyaging stars farewell.png",
+          "thumbnailUrl": "songs/voyaging stars farewell.webp",
           "embedUrl": "https://www.youtube.com/embed/0HrdRGuF2Y8?autoplay=1&controls=0&modestbranding=1&rel=0"
         },
         {
           "title": "What a Wonderful World",
           "artist": "Louis Armstrong",
-          "thumbnailUrl": "songs/what a wonderful world.png",
+          "thumbnailUrl": "songs/what a wonderful world.webp",
           "embedUrl": "https://www.youtube.com/embed/rBrd_3VMC3c?autoplay=1&controls=0&modestbranding=1&rel=0"
         }
       ]

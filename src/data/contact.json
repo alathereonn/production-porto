@@ -28,12 +28,12 @@
       {
         "name": "Moody Blues",
         "id": "PL51LO2h2cDWex4_SXzqILTqRcsOil-9lh",
-        "cover": "src/images/moodyblues.png"
+        "cover": "src/images/moodyblues.webp"
       },
       {
         "name": "Golden Experience Requiem",
         "id": "PL51LO2h2cDWfteGHVk-W9_c-wQV8p-aDZ",
-        "cover": "src/images/ger.png"
+        "cover": "src/images/ger.webp"
       }
     ]
   },

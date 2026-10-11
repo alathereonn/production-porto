@@ -8,7 +8,7 @@
         >
           <div class="hero-portrait-glow animate-pulseGlow"></div>
           <img
-            src="/profile.jpg"
+            src="/profile.webp"
             alt="Profile"
             class="hero-portrait animate-float"
           />

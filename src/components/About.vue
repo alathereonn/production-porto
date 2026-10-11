@@ -335,11 +335,11 @@ export default {
     return {
       aboutData,
       images: [
-        resolveImageAsset('1.jpeg'),
-        resolveImageAsset('2.jpeg'),
-        resolveImageAsset('3.jpeg'),
-        resolveImageAsset('4.jpeg'),
-        resolveImageAsset('5.jpeg'),
+        resolveImageAsset('1.webp'),
+        resolveImageAsset('2.webp'),
+        resolveImageAsset('3.webp'),
+        resolveImageAsset('4.webp'),
+        resolveImageAsset('5.webp'),
       ],
       activeCard: 0,
       isAboutSongPlaying: false,
