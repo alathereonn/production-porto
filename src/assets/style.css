@@ -3246,6 +3246,10 @@ section[id] {
     text-justify: inter-word;
   }
 
+  .about-copy p {
+    font-size: 0.75rem;
+  }
+
   .qualification-category--teaching .timeline-content .description,
   .qualification-category--education .timeline-content .description {
     text-align: justify;
@@ -3522,8 +3526,14 @@ section[id] {
     max-width: 100%;
   }
 
-  .timeline-content .description {
-    font-size: 0.8rem;
+  .timeline-content .heldby,
+  .timeline-content .description,
+  .course-list {
+    font-size: 0.75rem;
+  }
+
+  .timeline-content .date {
+    font-size: 0.7rem;
   }
 
   .qualification-category--tech-stack {
