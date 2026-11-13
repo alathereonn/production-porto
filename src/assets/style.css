@@ -302,7 +302,7 @@ section[id] {
 }
 
 /* ========================================
-   4. Layout Utama dan Galaxy Background
+   4. Layout Utama
 ======================================== */
 
 .app-shell {
@@ -315,37 +315,6 @@ section[id] {
 .app-content {
   position: relative;
   z-index: 10;
-}
-
-.galaxy-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  width: 100vw;
-  height: 100dvh;
-  min-height: 100svh;
-  pointer-events: none;
-}
-
-.galaxy-bg::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  display: none;
-  width: 100vw;
-  height: 100dvh;
-  min-height: 100svh;
-  pointer-events: none;
-  background-image:
-    radial-gradient(var(--color-primary) 1px, transparent 1px),
-    radial-gradient(var(--color-primary) 1px, transparent 1px);
-  background-size: 25px 25px;
-  background-position:
-    0 0,
-    12px 12px;
-  opacity: 0.7;
-  animation: twinkle 3s infinite alternate;
 }
 
 .section-container {
@@ -1587,6 +1556,33 @@ section[id] {
 .qualification-section {
   scroll-margin-top: var(--navbar-height);
   padding-top: 5rem;
+}
+
+.internship-entry {
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.internship-entry h4 {
+  font-weight: 700;
+}
+
+.internship-highlights {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.internship-highlights li + li {
+  margin-top: 0.4rem;
+}
+
+.internship-technologies {
+  margin: 1.25rem 0;
+}
+
+.internship-location {
+  margin-top: 0.5rem;
 }
 
 .timeline {
@@ -3186,6 +3182,11 @@ section[id] {
 
   .contact-extra-cards {
     display: none;
+  }
+
+  .internship-highlights,
+  .internship-technologies {
+    font-size: 0.75rem;
   }
 
   .contact-form-card {
