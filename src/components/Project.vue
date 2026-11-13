@@ -106,6 +106,12 @@
                   class="project-tech-badge__icon"
                   alt=""
                 />
+                <svg v-else-if="tech === 'OCR'" class="project-tech-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 9h10M7 12h10M7 15h6" />
+                </svg>
+                <svg v-else-if="tech === 'NLLB-200'" class="project-tech-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" />
+                </svg>
                 {{ tech }}
               </span>
             </div>
@@ -284,7 +290,7 @@ const emptyActivity = {
 }
 
 const topLanguages = computed(() => activity.value?.topLanguages || [])
-const hasExactCalendar = computed(() => Boolean(activity.value?.weeks?.length))
+const hasExactCalendar = computed(() => Boolean(activity.value?.weeks?.length) && activity.value?.calendarSource !== 'empty')
 const displayCalendarWeeks = computed(() => {
   if (activity.value?.weeks?.length) return activity.value.weeks
 
@@ -353,13 +359,20 @@ const loadGithubActivity = async () => {
     }
 
     const payload = await response.json()
-    if (!controller.signal.aborted) activity.value = payload
+    if (!controller.signal.aborted) {
+      activity.value = payload
+      if (payload.calendarSource === 'public_events' || payload.calendarSource === 'empty') {
+        errorMessage.value = payload.calendarMessage || 'Full contribution history is unavailable right now.'
+      }
+    }
   } catch {
     if (controller.signal.aborted) return
 
     try {
       activity.value = await loadPublicFallbackStats(controller.signal)
-      errorMessage.value = ''
+      errorMessage.value = activity.value.calendarSource === 'public_events'
+        ? 'Showing recent public events only; this is not the full contribution history.'
+        : 'Full contribution history is unavailable right now.'
     } catch {
       activity.value = emptyActivity
       errorMessage.value = 'Unable to load GitHub activity right now.'
@@ -594,6 +607,11 @@ const getTechConfig = (tech) => {
     "Laravel": { bg: "bg-[#FF2D20]", text: "text-white", icon: "laravel", iconColor: "white" },
     "Bootstrap": { bg: "bg-[#7952B3]", text: "text-white", icon: "bootstrap", iconColor: "white" },
     "Python": { bg: "bg-[#3776AB]", text: "text-white", icon: "python", iconColor: "white" },
+    "Kotlin": { bg: "bg-[#7F52FF]", text: "text-white", icon: "kotlin", iconColor: "white" },
+    "Jetpack Compose": { bg: "bg-[#4285F4]", text: "text-white", icon: "jetpackcompose", iconColor: "white" },
+    "FastAPI": { bg: "bg-[#009688]", text: "text-white", icon: "fastapi", iconColor: "white" },
+    "OCR": { bg: "bg-[#475569]", text: "text-white", icon: null },
+    "NLLB-200": { bg: "bg-[#475569]", text: "text-white", icon: null },
     "PHP": { bg: "bg-[#777BB4]", text: "text-white", icon: "php", iconColor: "white" },
     "Node.js": { bg: "bg-[#339933]", text: "text-white", icon: "nodedotjs", iconColor: "white" },
     "Express": { bg: "bg-[#000000]", text: "text-white", icon: "express", iconColor: "white" },

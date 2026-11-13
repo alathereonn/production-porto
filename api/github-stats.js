@@ -1,3 +1,5 @@
+import process from 'node:process'
+
 const DEFAULT_USERNAME = 'alathereonn'
 
 const languageColors = {
@@ -257,7 +259,7 @@ const getPublicEventsCalendar = async (username, token) => {
 
     return getCalendarPayload(
       createCalendarWeeks(events),
-      'Showing public GitHub event activity. Add GITHUB_TOKEN for full contribution calendar.',
+      'Showing recent public events only; this is not the full contribution history.',
       'public_events',
     )
   } catch {

@@ -27,6 +27,15 @@
       "demo": "#" 
     },
     {
+      "title": "ScanArab",
+      "description": "ScanArab is an Android app for learning Arabic vocabulary through a camera. It recognizes Arabic text using OCR, translates it into Indonesian, and provides scan history, quizzes, and learning statistics.",
+      "image": "src/images/scanarab.webp",
+      "tags": ["Kotlin", "Jetpack Compose", "Python", "FastAPI", "PostgreSQL", "Docker", "OCR", "NLLB-200"],
+      "github": "https://github.com/Luriahc86/ScanArab",
+      "itchio": "#",
+      "demo": "#"
+    },
+    {
       "title": "Layanan FRTI ITK",
       "description": "A web platform for FRTI ITK that centralizes faculty information, academic services, lecturer directories, accreditation data, news, agenda, and administrative service access.",
       "image": "src/images/github11.webp", 
