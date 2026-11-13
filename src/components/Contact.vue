@@ -11,7 +11,7 @@
         {{ contactData.header.titleStart }}<span class="text-primary">{{ contactData.header.titleHighlight }}</span>
       </h2>
       <div class="section-divider section-divider--compact"></div>
-      <p class="contact-subtitle">
+      <p v-if="contactData.header.subtitle" class="contact-subtitle">
         {{ contactData.header.subtitle }}
       </p>
     </ScrollReveal>
@@ -20,7 +20,7 @@
 
       <div class="lg:col-span-7 flex flex-col gap-6 md:gap-8">
 
-        <ScrollReveal class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-10 rounded-2xl shadow-2xl relative overflow-hidden group flex flex-col flex-1" :delay="100">
+        <ScrollReveal class="contact-form-card bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-10 rounded-2xl shadow-2xl relative overflow-hidden group flex flex-col flex-1" :delay="100">
           <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
           <h3 class="contact-card-heading contact-form-heading">{{ contactData.form.heading }}</h3>
 
@@ -75,7 +75,7 @@
 
       </div>
 
-      <div class="lg:col-span-5 flex flex-col gap-6 md:gap-8">
+      <div class="contact-extra-cards lg:col-span-5 flex flex-col gap-6 md:gap-8">
 
         <ScrollReveal class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group" :delay="140">
           <div class="absolute top-0 right-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>

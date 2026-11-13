@@ -2767,6 +2767,10 @@ section[id] {
   line-height: 1.625;
 }
 
+.contact-header .section-divider:last-child {
+  margin-bottom: 0;
+}
+
 .contact-layout {
   margin-bottom: 2.5rem;
 }
@@ -3180,6 +3184,46 @@ section[id] {
     --navbar-height: 5.25rem;
   }
 
+  .contact-extra-cards {
+    display: none;
+  }
+
+  .contact-form-card {
+    width: calc(100% - 1rem);
+    max-width: 26rem;
+    margin-inline: auto;
+    padding: 1.25rem;
+  }
+
+  .contact-form-card form,
+  .contact-form-card form > .grid {
+    gap: 1rem;
+  }
+
+  .contact-form-heading {
+    margin-bottom: 1.25rem;
+  }
+
+  .contact-form-card .contact-label {
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-form-card .contact-input {
+    padding: 0.75rem 1rem;
+  }
+
+  .contact-form-card .contact-textarea {
+    min-height: 7rem;
+    height: 7rem;
+    flex: none;
+  }
+
+  .contact-form-card .contact-submit-button {
+    min-height: 3rem;
+    margin-top: 0.25rem;
+    padding: 0.75rem 1rem;
+  }
+
   .navbar-inner {
     padding: 1.25rem 1.25rem;
   }
@@ -3489,7 +3533,7 @@ section[id] {
   }
 
   .contact-header {
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
   }
 
   .contact-subtitle {
