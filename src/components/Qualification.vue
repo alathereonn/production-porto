@@ -419,7 +419,7 @@ export default {
   data() {
     return {
       qualificationData,
-      certText: ["PROFESSIONAL CERTIFICATIONS"],
+      certText: ["CERTIFICATIONS"],
       internshipText: ["WORK EXPERIENCE"],
       teachText: ["TEACHING EXPERIENCES"],
       publicationText: ["PUBLICATION"],

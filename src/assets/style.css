@@ -1048,7 +1048,8 @@ section[id] {
   font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.55;
-  text-align: left;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .about-intro span {
