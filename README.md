@@ -23,25 +23,24 @@
 
 ## Overview
 
-This repository contains my personal portfolio website, designed around a dark galaxy-inspired visual system with magenta accents, animated interactions, responsive sections, and data-driven content.
+This repository contains my personal portfolio website, designed around a dark visual system with magenta accents, animated interactions, responsive sections, and data-driven content.
 
 The site is not just a static profile page. It works as a compact digital space for:
 
 - Introducing who I am and what I am interested in.
 - Presenting selected projects with images, tech stacks, source links, and demos.
-- Showing certifications, teaching experiences, and education history.
+- Showing certifications, work and teaching experience, publications, intellectual property registrations, and education history.
 - Providing contact links, social networks, and a working contact form.
-- Adding personal details through music, quotes, motion, and visual polish.
+- Adding personal details through quotes, motion, and visual polish.
 
 ## Features
 
 - Responsive navbar with desktop links and mobile hamburger navigation.
-- Galaxy background with animated particle canvas.
 - Hero section with dynamic typewriter text and CV link.
-- About section with image gallery, education and skill icon cards, music player, and rotating quote typing effect.
-- Qualification section with certification links, timeline cards, and GitHub call to action.
+- About section with image gallery, education and skill icon cards, portfolio highlights, and rotating quotes.
+- Qualification section with certification links, experience timelines, and a technology marquee.
 - Featured Projects showcase with swipe support, animated project switching, project media overlays, and tech stack badges.
-- Contact section with form, social network buttons, contact protocol cards, playlist carousel, and custom success modal.
+- Contact section with a form, social and contact links, and a feedback modal.
 - Custom favicon, global scrollbar theme, scroll progress bar, and custom 404 route.
 
 ## Tech Stack
@@ -127,9 +126,9 @@ npm run lint
 Most visible content is stored in JSON files so the site can be updated without digging through component markup.
 
 - `src/data/hero.json` controls hero names, interests, CV link, and intro copy.
-- `src/data/about.json` controls about paragraphs, skills, education summary, songs, and quotes.
+- `src/data/about.json` controls about paragraphs, skills, education summary, and quotes.
 - `src/data/project.json` controls project cards, descriptions, images, tech stacks, repo links, and demo links.
-- `src/data/qualification.json` controls certifications, teaching experiences, education entries, and certificate links.
+- `src/data/qualification.json` controls certifications, internships, teaching experiences, publications, intellectual property entries, education, and technology stacks.
 
 Images used by sections are stored in `src/images/`, while directly accessible public assets such as favicons, CV files, and certificate files live in `public/`.
 

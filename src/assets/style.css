@@ -152,7 +152,6 @@ h6,
 .info-card-title,
 .card-title,
 .about-icon-card-heading,
-.about-music-title,
 .qualification-typing-heading,
 .timeline-content h3,
 .project-showcase__title,
@@ -1258,267 +1257,6 @@ section[id] {
   line-height: 1.65;
 }
 
-.about-music-card {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid var(--color-border-soft);
-  border-radius: 1rem;
-  background: var(--color-card);
-  padding: 0.5rem 0.75rem;
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
-  transition:
-    border-color 0.5s ease,
-    box-shadow 0.5s ease,
-    transform 0.5s ease;
-}
-
-.about-music-card:hover {
-  border-color: rgba(190, 24, 93, 0.5);
-  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
-}
-
-.about-music-accent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0.25rem;
-  height: 100%;
-  background: transparent;
-  transition: background-color 0.5s ease;
-}
-
-.about-music-card:hover .about-music-accent {
-  background: var(--color-primary);
-}
-
-.about-music-card.is-playing .about-music-accent {
-  background: var(--color-primary);
-}
-
-.about-music-card.is-playing .about-music-cover {
-  box-shadow:
-    0 12px 28px rgba(0, 0, 0, 0.35),
-    0 0 18px rgba(190, 24, 93, 0.28);
-}
-
-.about-music-card.is-changing .about-music-title,
-.about-music-card.is-changing .about-music-artist {
-  opacity: 0;
-  transform: translateX(0.75rem);
-}
-
-.about-music-cover {
-  width: 7.75rem;
-  height: 7.75rem;
-  flex: 0 0 auto;
-  border-radius: var(--radius-md);
-  object-fit: cover;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
-  transition: box-shadow 0.3s ease;
-}
-
-.about-music-body {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.about-music-label {
-  margin-bottom: 0.35rem;
-  color: var(--color-primary);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.about-music-title {
-  max-width: 100%;
-  overflow: hidden;
-  color: #ffffff;
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1.25;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.about-music-artist {
-  margin-top: 0.3rem;
-  max-width: 100%;
-  overflow: hidden;
-  color: var(--color-muted);
-  font-size: 0.82rem;
-  font-weight: 500;
-  line-height: 1.35;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.about-music-progress {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.55rem;
-  margin-top: 0.85rem;
-  max-width: 19rem;
-}
-
-.about-music-time {
-  color: var(--color-muted);
-  font-size: 0.68rem;
-  font-weight: 600;
-  line-height: 1;
-  tabular-nums: lining-nums;
-}
-
-.about-music-slider {
-  width: 100%;
-  min-width: 0;
-  height: 1rem;
-  cursor: pointer;
-  appearance: none;
-  background: transparent;
-  --song-progress: 0%;
-}
-
-.about-music-slider:disabled {
-  cursor: not-allowed;
-  opacity: 0.55;
-}
-
-.about-music-slider::-webkit-slider-runnable-track {
-  height: 0.25rem;
-  border-radius: 999px;
-  background:
-    linear-gradient(var(--color-primary), var(--color-primary)) 0 / var(--song-progress) 100% no-repeat,
-    rgba(255, 255, 255, 0.12);
-}
-
-.about-music-slider::-webkit-slider-thumb {
-  width: 0.85rem;
-  height: 0.85rem;
-  margin-top: -0.3rem;
-  appearance: none;
-  border: 0;
-  border-radius: 999px;
-  background: var(--color-primary);
-  box-shadow: 0 0 0.65rem rgba(190, 24, 93, 0.45);
-}
-
-.about-music-slider::-moz-range-track {
-  height: 0.25rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.about-music-slider::-moz-range-progress {
-  height: 0.25rem;
-  border-radius: 999px;
-  background: var(--color-primary);
-}
-
-.about-music-slider::-moz-range-thumb {
-  width: 0.85rem;
-  height: 0.85rem;
-  border: 0;
-  border-radius: 999px;
-  background: var(--color-primary);
-  box-shadow: 0 0 0.65rem rgba(190, 24, 93, 0.45);
-}
-
-.about-music-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  color: #f8f8f8;
-}
-
-.about-music-previous,
-.about-music-play,
-.about-music-next {
-  display: inline-flex;
-  width: 3rem;
-  height: 3rem;
-  cursor: pointer;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  background: transparent;
-  color: var(--color-primary);
-  box-shadow: none;
-  transition:
-    color 180ms ease,
-    filter 180ms ease,
-    transform 180ms ease;
-}
-
-.about-music-previous,
-.about-music-next {
-  width: 2.5rem;
-  height: 2.5rem;
-  color: var(--color-primary);
-}
-
-.about-music-play svg {
-  width: 2rem;
-  height: 2rem;
-}
-
-.about-music-previous svg,
-.about-music-next svg {
-  width: 1.85rem;
-  height: 1.85rem;
-}
-
-.about-music-previous:disabled,
-.about-music-next:disabled {
-  cursor: not-allowed;
-  opacity: 0.55;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .about-music-previous:hover,
-  .about-music-play:hover,
-  .about-music-next:hover {
-    color: var(--color-primary-hover);
-    filter: drop-shadow(0 0 0.45rem rgba(190, 24, 93, 0.45));
-    transform: translateY(-0.125rem);
-  }
-}
-
-.about-music-hidden-player {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 1px;
-  height: 1px;
-  border: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.about-music-hidden-player iframe {
-  width: 1px;
-  height: 1px;
-}
-
 .about-quote-panel {
   position: relative;
   z-index: 10;
@@ -2143,52 +1881,6 @@ section[id] {
   margin: 4.25rem auto 0;
 }
 
-.github-activity-intro {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.1rem;
-}
-
-.github-activity-intro-text {
-  color: rgba(229, 231, 235, 0.66);
-  font-size: 0.88rem;
-  line-height: 1.4;
-}
-
-.github-activity-profile-link {
-  display: inline-flex;
-  min-height: 2.3rem;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  background: rgba(10, 10, 16, 0.74);
-  color: #ffffff;
-  padding: 0.55rem 0.85rem;
-  font-size: 0.78rem;
-  font-weight: 800;
-  line-height: 1;
-  text-decoration: none;
-  transition:
-    border-color 180ms ease,
-    background-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.github-activity-profile-link:hover,
-.github-activity-profile-link:focus-visible {
-  border-color: rgba(190, 24, 93, 0.7);
-  background: rgba(190, 24, 93, 0.18);
-  color: var(--color-primary);
-  box-shadow: 0 0 1.2rem rgba(190, 24, 93, 0.2);
-  transform: translateY(-0.1rem);
-}
-
 .github-activity-card {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2269,55 +1961,6 @@ section[id] {
   margin-bottom: 1.25rem;
   border-color: rgba(190, 24, 93, 0.24);
   color: rgba(229, 231, 235, 0.68);
-}
-
-.github-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
-}
-
-.github-stat-card {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(190, 24, 93, 0.18);
-  border-radius: 0.9rem;
-  background:
-    linear-gradient(145deg, rgba(190, 24, 93, 0.1), rgba(255, 255, 255, 0.015) 48%),
-    rgba(14, 14, 20, 0.88);
-  min-height: 5.5rem;
-  padding: 1.2rem 1rem 0.95rem;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.035),
-    0 0.75rem 1.5rem rgba(0, 0, 0, 0.16);
-}
-
-.github-stat-card::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(190, 24, 93, 0.65), transparent);
-  opacity: 0.55;
-}
-
-.github-stat-label {
-  display: block;
-  color: rgba(229, 231, 235, 0.62);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.github-stat-value {
-  display: block;
-  margin-bottom: 0.55rem;
-  color: #ffffff;
-  font-size: clamp(1.35rem, 2.5vw, 1.9rem);
-  font-weight: 800;
-  line-height: 1;
 }
 
 .github-calendar-panel {
@@ -2460,10 +2103,6 @@ section[id] {
 .github-language-empty {
   color: rgba(229, 231, 235, 0.58);
   font-size: 0.84rem;
-}
-
-.github-view-button {
-  flex: 0 0 auto;
 }
 
 .project-showcase .swiper-button-prev,
@@ -2660,19 +2299,6 @@ section[id] {
     justify-content: flex-start;
   }
 
-  .github-stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
-
-  .github-stat-card {
-    padding: 0.85rem;
-  }
-
-  .github-stat-label {
-    font-size: 0.62rem;
-  }
-
   .github-calendar-panel {
     padding: 0.85rem;
   }
@@ -2694,10 +2320,6 @@ section[id] {
   .github-language-row {
     align-items: stretch;
     flex-direction: column;
-  }
-
-  .github-view-button {
-    width: 100%;
   }
 
   .project-showcase .swiper-button-prev,
@@ -3270,24 +2892,6 @@ section[id] {
     text-justify: inter-word;
   }
 
-  .about-music-card {
-    gap: 1rem;
-    padding: 0.7rem;
-  }
-
-  .about-music-cover {
-    width: 5.65rem;
-    height: 5.65rem;
-  }
-
-  .about-music-title {
-    font-size: 1rem;
-  }
-
-  .about-music-progress {
-    max-width: none;
-  }
-
   .about-icon-tile.is-active {
     border-color: var(--tile-color);
     background: var(--tile-color);
@@ -3318,22 +2922,6 @@ section[id] {
   .about-skill-active-label.is-visible {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  .about-music-controls {
-    gap: 0.5rem;
-    margin-top: 0.75rem;
-  }
-
-  .about-music-play {
-    width: 2.35rem;
-    height: 2.35rem;
-  }
-
-  .about-music-previous,
-  .about-music-next {
-    width: 2rem;
-    height: 2rem;
   }
 
   .about-quote-panel {
