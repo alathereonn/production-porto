@@ -1846,8 +1846,8 @@ section[id] {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  gap: 1.35rem;
-  padding: 1.45rem 1.35rem 1.45rem 0;
+  gap: 2.75rem;
+  padding: 1.15rem 2.75rem 1.15rem 0;
 }
 
 .qualification-tech-marquee__item {
@@ -1862,11 +1862,11 @@ section[id] {
 }
 
 .qualification-tech-marquee__icon {
-  width: 1.16em;
-  height: 1.16em;
+  width: 2.25rem;
+  height: 2.25rem;
   flex: 0 0 auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 0.4rem rgba(190, 24, 93, 0.22));
+  filter: grayscale(1) sepia(1) saturate(5) hue-rotate(290deg) contrast(1.1) brightness(1.1);
 }
 
 .qualification-tech-marquee__fallback-icon {
@@ -1895,14 +1895,6 @@ section[id] {
   background: #ffffff;
   font-size: 0.56em;
   box-shadow: 0 0 0.55rem rgba(255, 255, 255, 0.18);
-}
-
-.qualification-tech-marquee__spark {
-  margin-left: 0.8rem;
-  margin-right: 0.6rem;
-  color: var(--color-primary-hover);
-  font-size: 0.75em;
-  line-height: 1;
 }
 
 .qualification-project-action {
@@ -2501,6 +2493,10 @@ section[id] {
 }
 
 @media (max-width: 767px) {
+  .qualification-category--tech-stack {
+    display: none;
+  }
+
   .github-activity-section {
     display: none;
   }
@@ -2841,21 +2837,6 @@ section[id] {
   gap: 1.25rem;
 }
 
-.playlist-header {
-  margin-bottom: 2rem;
-}
-
-.contact-playlist-card {
-  min-height: 20.5rem;
-}
-
-.playlist-iframe {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  border-radius: var(--radius-md);
-}
-
 .feedback-modal-overlay {
   position: fixed;
   inset: 0;
@@ -3153,10 +3134,6 @@ section[id] {
     --navbar-height: 5.25rem;
   }
 
-  .contact-extra-cards {
-    display: none;
-  }
-
   .contact-form-heading,
   .contact-social-heading {
     text-align: center;
@@ -3280,10 +3257,6 @@ section[id] {
 
   .expanding-card.active {
     flex: 8;
-  }
-
-  .contact-playlist-card {
-    min-height: auto;
   }
 
   .certification-section .timeline-content .description {
@@ -3527,15 +3500,13 @@ section[id] {
   }
 
   .contact-form-card,
-  .contact-social-card,
-  .contact-playlist-card {
+  .contact-social-card {
     flex: none;
     padding: 1rem 1.5rem;
   }
 
   .contact-form-heading,
-  .contact-social-heading,
-  .playlist-header {
+  .contact-social-heading {
     margin-bottom: 0.75rem;
   }
 
@@ -3546,7 +3517,7 @@ section[id] {
 
   .contact-form-card form,
   .contact-form-card form > .grid {
-    gap: 0.75rem;
+    gap: 1.25rem;
   }
 
   .contact-form-card .contact-label {
@@ -3554,12 +3525,12 @@ section[id] {
   }
 
   .contact-form-card .contact-input {
-    padding: 0.55rem 0.85rem;
+    padding: 0.85rem 1rem;
   }
 
   .contact-form-card .contact-textarea {
-    height: 4.5rem;
-    min-height: 4.5rem;
+    height: 10rem;
+    min-height: 10rem;
     flex: none;
   }
 
@@ -3588,47 +3559,6 @@ section[id] {
 
   .contact-social-list a {
     padding: 0.65rem;
-  }
-
-  .contact-playlist-card {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.75rem;
-    min-height: 0;
-  }
-
-  .contact-playlist-card .playlist-header {
-    position: relative;
-    width: 100%;
-    flex: none;
-    justify-content: center;
-    margin-bottom: 0;
-  }
-
-  .contact-playlist-card .playlist-header > div {
-    position: absolute;
-    right: 0;
-  }
-
-  .contact-playlist-slider {
-    height: 5.5rem;
-    min-width: 0;
-    flex: none;
-  }
-
-  .contact-playlist-card.is-playing .contact-playlist-slider {
-    height: 12.5rem;
-  }
-
-  .contact-playlist-title {
-    margin-bottom: 0.25rem;
-    font-size: 1rem;
-  }
-
-  .contact-playlist-play {
-    width: 2.5rem;
-    height: 2.5rem;
   }
 
   .hero-section .section-container--narrow {
@@ -3747,11 +3677,6 @@ section[id] {
   .qualification-tech-marquee__item {
     gap: 0.4rem;
     font-size: 1.08rem;
-  }
-
-  .qualification-tech-marquee__spark {
-    margin-left: 0.5rem;
-    margin-right: 0.45rem;
   }
 
   .qualification-project-action {

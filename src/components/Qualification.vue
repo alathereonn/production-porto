@@ -324,19 +324,19 @@
           v-for="copyIndex in 2"
           :key="'tech-marquee-copy-' + copyIndex"
           class="qualification-tech-marquee__group"
-          aria-hidden="true"
+          :aria-hidden="copyIndex === 2 ? 'true' : undefined"
         >
           <span
             v-for="item in flattenedTechStacks"
             :key="`${copyIndex}-${item}`"
             class="qualification-tech-marquee__item"
+            :title="item"
           >
             <img
-              v-if="getTechStackIcon(item).icon"
+              v-if="getTechStackIcon(item).icon || getTechStackIcon(item).src"
               class="qualification-tech-marquee__icon"
-              :src="`https://cdn.simpleicons.org/${getTechStackIcon(item).icon}/${getTechStackIcon(item).color}`"
-              alt=""
-              aria-hidden="true"
+              :src="getTechStackIcon(item).src || `https://cdn.simpleicons.org/${getTechStackIcon(item).icon}/${getTechStackIcon(item).color}`"
+              :alt="item"
             />
             <span
               v-else-if="getTechStackIcon(item).fallback"
@@ -348,8 +348,6 @@
             >
               {{ getTechStackIcon(item).fallback }}
             </span>
-            {{ item }}
-            <span class="qualification-tech-marquee__spark">*</span>
           </span>
         </div>
       </div>
@@ -371,7 +369,7 @@ import qualificationData from '../data/qualification.json'
 import ScrollReveal from './ScrollReveal.vue'
 
 const techStackIconMap = {
-  "Next.js": { icon: "", color: "ffffff", fallback: "N" },
+  "Next.js": { icon: "nextdotjs", color: "ffffff" },
   "React": { icon: "react", color: "DB2777" },
   "Vue.js": { icon: "vuedotjs", color: "BE185D" },
   "Tailwind CSS": { icon: "tailwindcss", color: "DB2777" },
@@ -393,18 +391,18 @@ const techStackIconMap = {
   "Jupyter": { icon: "jupyter", color: "DB2777" },
   "NumPy": { icon: "numpy", color: "BE185D" },
   "Pandas": { icon: "pandas", color: "DB2777" },
-  "Matplotlib": { icon: "", color: "BE185D", fallback: "Mpl" },
+  "Matplotlib": { src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/matplotlib/matplotlib-original.svg" },
   "Plotly": { icon: "plotly", color: "DB2777" },
   "TensorFlow": { icon: "tensorflow", color: "BE185D" },
   "Figma": { icon: "figma", color: "DB2777" },
-  "Photoshop": { icon: "", color: "BE185D", fallback: "Ps" },
+  "Photoshop": { src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg" },
   "Aseprite": { icon: "aseprite", color: "DB2777" },
   "Blender": { icon: "blender", color: "BE185D" },
-  "Canva": { icon: "", color: "DB2777", fallback: "Ca" },
+  "Canva": { src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" },
   "Unity": { icon: "unity", color: "ffffff" },
   "Godot": { icon: "godotengine", color: "BE185D" },
   "GDScript": { icon: "godotengine", color: "DB2777" },
-  "C#": { icon: "", color: "BE185D", fallback: "C#" },
+  "C#": { src: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" },
   "Git": { icon: "git", color: "DB2777" },
   "GitHub": { icon: "github", color: "ffffff" },
   "MikroTik": { icon: "mikrotik", color: "BE185D", fallback: "MT" },

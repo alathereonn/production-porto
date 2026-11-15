@@ -77,73 +77,6 @@
 
       </div>
 
-      <div class="contact-extra-cards lg:col-span-5 flex flex-col gap-6 md:gap-8">
-
-        <ScrollReveal class="contact-playlist-card bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 rounded-2xl shadow-xl relative overflow-hidden group flex flex-col p-6 md:p-8 flex-1" :class="{ 'is-playing': playingIndex !== null }" :delay="220">
-          <div class="absolute top-0 right-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500 z-10 pointer-events-none"></div>
-
-          <div class="playlist-header flex justify-between items-center">
-            <h3 class="text-xl font-bold text-primary flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-              {{ contactData.playlists.heading }}
-            </h3>
-            <div class="flex gap-2">
-              <button @click="prevPlaylist" class="p-1.5 bg-darkbg rounded-lg hover:text-primary hover:bg-white/10 transition-all border border-white/5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-              </button>
-              <button @click="nextPlaylist" class="p-1.5 bg-darkbg rounded-lg hover:text-primary hover:bg-white/10 transition-all border border-white/5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-              </button>
-            </div>
-          </div>
-
-          <div ref="playlistSliderRef" class="contact-playlist-slider flex overflow-x-auto snap-x snap-mandatory hide-scrollbar flex-1 rounded-xl scroll-smooth gap-6 md:gap-8">
-
-            <div
-              v-for="(item, index) in contactData.playlists.list"
-              :key="item.id"
-              class="w-full flex-shrink-0 snap-center relative bg-darkbg overflow-hidden border border-white/5 aspect-square md:aspect-auto rounded-xl flex flex-col"
-            >
-
-              <div
-                v-if="playingIndex !== index"
-                class="absolute inset-0 z-20 flex flex-col items-center justify-center cursor-pointer group/cover"
-                @click="playThis(index)"
-              >
-                <img
-                  :src="resolveImageAsset(item.cover)"
-                  :alt="item.name"
-                  class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover/cover:scale-105 transition-transform duration-700"
-                />
-                <div class="absolute inset-0 bg-black/40 group-hover/cover:bg-black/20 transition-colors"></div>
-
-                <p class="contact-playlist-title relative z-30 text-white font-bold text-xl mb-4 drop-shadow-md">
-                  {{ item.name }}
-                </p>
-
-                <div class="contact-playlist-play relative z-30 w-16 h-16 bg-primary text-black rounded-full flex items-center justify-center shadow-[0_0_20px_var(--color-primary)] group-hover/cover:scale-110 transition-transform">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                </div>
-              </div>
-
-              <iframe
-                v-if="playingIndex === index"
-                :src="`https://www.youtube.com/embed/videoseries?list=${item.id}&autoplay=1`"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-                class="playlist-iframe">
-              </iframe>
-
-            </div>
-
-          </div>
-        </ScrollReveal>
-
-      </div>
-
     </div>
 
     <div class="contact-footer w-full border-t border-white/5 pt-6 pb-6 text-center bg-darkbg/90 backdrop-blur-md z-20">
@@ -174,7 +107,6 @@ import { nextTick, ref } from 'vue'
 import FeedbackModal from './FeedbackModal.vue'
 import ScrollReveal from './ScrollReveal.vue'
 import contactData from '../data/contact.json'
-import { resolveImageAsset } from '../data/imageAssets.js'
 
 defineOptions({
   name: 'PortfolioContact',
@@ -262,33 +194,4 @@ const sendMessage = async (e) => {
   }
 }
 
-const playingIndex = ref(null)
-
-const playThis = (index) => {
-  playingIndex.value = index;
-}
-
-const playlistSliderRef = ref(null)
-
-const nextPlaylist = () => {
-  if (playlistSliderRef.value) {
-    const slider = playlistSliderRef.value
-    if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
-      slider.scrollTo({ left: 0, behavior: 'smooth' })
-    } else {
-      slider.scrollBy({ left: slider.clientWidth, behavior: 'smooth' })
-    }
-  }
-}
-
-const prevPlaylist = () => {
-  if (playlistSliderRef.value) {
-    const slider = playlistSliderRef.value
-    if (slider.scrollLeft <= 10) {
-      slider.scrollTo({ left: slider.scrollWidth, behavior: 'smooth' })
-    } else {
-      slider.scrollBy({ left: -slider.clientWidth, behavior: 'smooth' })
-    }
-  }
-}
 </script>
