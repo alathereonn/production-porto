@@ -2139,6 +2139,11 @@ section[id] {
 }
 
 @media (max-width: 767px) {
+  .contact-footer .contact-social-list {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+  }
+
   .about-info-card {
     padding-block: 1rem;
   }
