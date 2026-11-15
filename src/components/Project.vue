@@ -128,9 +128,9 @@
         :distance="41"
       >
         <div class="github-activity-header">
-          <p class="github-activity-kicker">
+          <h3 class="github-activity-kicker">
             Contribution activity
-          </p>
+          </h3>
 
           <div class="github-activity-legend" aria-label="Contribution intensity legend">
             <span>Less</span>
@@ -212,7 +212,7 @@
 
           <div class="github-language-row">
             <div>
-              <p class="github-language-title">Top Languages</p>
+              <h4 class="github-language-title">Top Languages</h4>
               <div v-if="topLanguages.length" class="github-language-list">
                 <span
                   v-for="language in topLanguages"
