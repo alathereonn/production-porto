@@ -129,7 +129,6 @@
       >
         <div class="github-activity-header">
           <p class="github-activity-kicker">
-            <span class="github-activity-live-dot" aria-hidden="true"></span>
             Contribution activity
           </p>
 
@@ -204,12 +203,10 @@
             <div>
               <span>Longest streak</span>
               <strong>{{ formatDays(activity?.longestStreak || 0) }}</strong>
-              <small>Rock - Hard! Man!</small>
             </div>
             <div>
               <span>Current streak</span>
               <strong>{{ formatDays(activity?.currentStreak || 0) }}</strong>
-              <small>Rock - Hard! Man!</small>
             </div>
           </div>
 

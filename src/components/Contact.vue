@@ -58,11 +58,13 @@
           </form>
         </ScrollReveal>
 
-        <ScrollReveal class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group" :delay="180">
+        <ScrollReveal class="contact-social-card bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group" :delay="180">
           <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
           <h3 class="contact-card-heading contact-social-heading">{{ contactData.socials.heading }}</h3>
 
           <div class="contact-social-list">
+            <a :href="'mailto:' + contactData.contactInfo.email" aria-label="Send email" title="Email" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-primary hover:text-white transition-all duration-300 hover:scale-105 border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></a>
+            <a :href="contactData.contactInfo.whatsappLink" target="_blank" rel="noopener noreferrer" aria-label="Contact on WhatsApp" title="WhatsApp" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#25D366] hover:text-white transition-all duration-300 hover:scale-105 border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.88 11.88 0 0 0 12.05 0C5.44 0 .06 5.38.06 11.99c0 2.11.55 4.17 1.6 5.99L0 24l6.17-1.62a11.94 11.94 0 0 0 5.87 1.5h.01c6.61 0 11.99-5.38 11.99-11.99 0-3.2-1.25-6.21-3.52-8.41ZM12.05 21.85c-1.86 0-3.68-.5-5.27-1.44l-.38-.22-3.66.96.98-3.57-.25-.37a9.94 9.94 0 0 1-1.52-5.22c0-5.55 4.52-10.07 10.08-10.07 2.69 0 5.22 1.05 7.12 2.95a10 10 0 0 1 2.95 7.13c0 5.55-4.52 10.07-10.05 10.07Zm5.52-7.53c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.08-.8.38-.27.3-1.05 1.02-1.05 2.48s1.08 2.87 1.23 3.07c.15.2 2.12 3.24 5.14 4.55.72.31 1.28.5 1.71.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg></a>
             <a :href="contactData.socials.github" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-white hover:text-black transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(190,24,93,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
             <a :href="contactData.socials.linkedin" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#0A66C2] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(10,102,194,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
             <a :href="contactData.socials.instagram" target="_blank" class="p-4 bg-darkbg rounded-xl text-gray-400 hover:bg-[#E1306C] hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(225,48,108,0.4)] border border-white/5 hover:border-transparent"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
@@ -77,34 +79,7 @@
 
       <div class="contact-extra-cards lg:col-span-5 flex flex-col gap-6 md:gap-8">
 
-        <ScrollReveal class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group" :delay="140">
-          <div class="absolute top-0 right-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
-          <h3 class="contact-card-heading contact-protocol-heading">{{ contactData.contactInfo.heading }}</h3>
-
-          <div class="contact-info-list">
-            <a :href="'mailto:' + contactData.contactInfo.email" class="contact-protocol-item flex items-center gap-5 group/item">
-              <div class="p-4 bg-primary/10 text-primary rounded-xl group-hover/item:bg-primary group-hover/item:text-black transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-              </div>
-              <div class="contact-protocol-content">
-                <p class="text-sm text-white mb-1">Email Address</p>
-                <p class="contact-protocol-value text-white group-hover/item:text-primary transition-colors text-base md:text-lg font-medium">{{ contactData.contactInfo.email }}</p>
-              </div>
-            </a>
-
-            <a :href="contactData.contactInfo.whatsappLink" target="_blank" class="contact-protocol-item flex items-center gap-5 group/item">
-              <div class="p-4 bg-primary/10 text-primary rounded-xl group-hover/item:bg-primary group-hover/item:text-black transition-colors duration-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-              </div>
-              <div class="contact-protocol-content">
-                <p class="text-sm text-white mb-1">WhatsApp</p>
-                <p class="contact-protocol-value text-white group-hover/item:text-primary transition-colors text-base md:text-lg font-medium">{{ contactData.contactInfo.whatsappDisplay }}</p>
-              </div>
-            </a>
-          </div>
-        </ScrollReveal>
-
-        <ScrollReveal class="contact-playlist-card bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 rounded-2xl shadow-xl relative overflow-hidden group flex flex-col p-6 md:p-8 flex-1" :delay="220">
+        <ScrollReveal class="contact-playlist-card bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 rounded-2xl shadow-xl relative overflow-hidden group flex flex-col p-6 md:p-8 flex-1" :class="{ 'is-playing': playingIndex !== null }" :delay="220">
           <div class="absolute top-0 right-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500 z-10 pointer-events-none"></div>
 
           <div class="playlist-header flex justify-between items-center">
@@ -122,7 +97,7 @@
             </div>
           </div>
 
-          <div ref="playlistSliderRef" class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar flex-1 rounded-xl scroll-smooth gap-6 md:gap-8">
+          <div ref="playlistSliderRef" class="contact-playlist-slider flex overflow-x-auto snap-x snap-mandatory hide-scrollbar flex-1 rounded-xl scroll-smooth gap-6 md:gap-8">
 
             <div
               v-for="(item, index) in contactData.playlists.list"
@@ -142,11 +117,11 @@
                 />
                 <div class="absolute inset-0 bg-black/40 group-hover/cover:bg-black/20 transition-colors"></div>
 
-                <p class="relative z-30 text-white font-bold text-xl mb-4 drop-shadow-md">
+                <p class="contact-playlist-title relative z-30 text-white font-bold text-xl mb-4 drop-shadow-md">
                   {{ item.name }}
                 </p>
 
-                <div class="relative z-30 w-16 h-16 bg-primary text-black rounded-full flex items-center justify-center shadow-[0_0_20px_var(--color-primary)] group-hover/cover:scale-110 transition-transform">
+                <div class="contact-playlist-play relative z-30 w-16 h-16 bg-primary text-black rounded-full flex items-center justify-center shadow-[0_0_20px_var(--color-primary)] group-hover/cover:scale-110 transition-transform">
                   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
               </div>
