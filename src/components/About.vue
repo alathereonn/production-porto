@@ -27,7 +27,7 @@
           @click="activeCard = index"
           :class="['expanding-card', { 'active': activeCard === index }]"
         >
-          <img :src="img" class="about-gallery-image" alt="Gallery Image" />
+          <img :src="img" class="about-gallery-image" alt="Gallery Image" loading="lazy" decoding="async" />
         </div>
       </div>
     </ScrollReveal>
@@ -83,6 +83,8 @@
                   :src="getAboutEducationIcon(edu, index).src"
                   :alt="edu"
                   class="about-icon-tile-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </a>
             </div>
@@ -110,6 +112,8 @@
                   :src="getAboutSkillIcon(skill).src"
                   :alt="skill"
                   class="about-icon-tile-image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </button>
             </div>

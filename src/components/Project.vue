@@ -45,6 +45,8 @@
               :src="resolveImageAsset(project.image)"
               :alt="project.title"
               class="project-showcase__image"
+              loading="lazy"
+              decoding="async"
               draggable="false"
             />
 
@@ -101,10 +103,12 @@
                 ]"
               >
                 <img
-                  v-if="getTechConfig(tech).icon"
-                  :src="`https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
+                  v-if="getTechConfig(tech).icon || getTechConfig(tech).iconSrc"
+                  :src="getTechConfig(tech).iconSrc || `https://cdn.simpleicons.org/${getTechConfig(tech).icon}/${getTechConfig(tech).iconColor}`"
                   class="project-tech-badge__icon"
                   alt=""
+                  loading="lazy"
+                  decoding="async"
                 />
                 <svg v-else-if="tech === 'OCR'" class="project-tech-badge__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 9h10M7 12h10M7 15h6" />
@@ -592,7 +596,7 @@ const getProjectLinks = (project) => {
 const techConfigs = {
   "Tailwind CSS": { bg: "bg-[#38bdf8]", text: "text-white", icon: "tailwindcss", iconColor: "white" },
   "CSS": { bg: "bg-[#1572B6]", text: "text-white", icon: "css3", iconColor: "white" },
-  "C#": { bg: "bg-[#239120]", text: "text-white", icon: "csharp", iconColor: "white" },
+  "C#": { bg: "bg-[#239120]", text: "text-white", iconSrc: "/icons/csharp.svg" },
   "React": { bg: "bg-[#20232A]", text: "text-white", icon: "react", iconColor: "61DAFB" },
   "Next.js": { bg: "bg-[#000000]", text: "text-white", icon: "nextdotjs", iconColor: "white" },
   "Vue": { bg: "bg-[#41B883]", text: "text-white", icon: "vuedotjs", iconColor: "white" },

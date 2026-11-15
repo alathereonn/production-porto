@@ -317,7 +317,7 @@
     </div>
   </section>
 
-  <section class="qualification-section qualification-category--tech-stack">
+  <section v-if="showTechMarquee" class="qualification-section qualification-category--tech-stack">
     <ScrollReveal as="div" class="qualification-tech-marquee" :delay="100">
       <div class="qualification-tech-marquee__track">
         <div
@@ -337,6 +337,8 @@
               class="qualification-tech-marquee__icon"
               :src="getTechStackIcon(item).src || `https://cdn.simpleicons.org/${getTechStackIcon(item).icon}/${getTechStackIcon(item).color}`"
               :alt="item"
+              loading="lazy"
+              decoding="async"
             />
             <span
               v-else-if="getTechStackIcon(item).fallback"
@@ -417,6 +419,8 @@ export default {
   data() {
     return {
       qualificationData,
+      showTechMarquee: false,
+      techMarqueeMediaQuery: null,
     };
   },
 
@@ -426,7 +430,20 @@ export default {
     }
   },
 
+  mounted() {
+    this.techMarqueeMediaQuery = window.matchMedia('(max-width: 767px)')
+    this.updateTechMarquee(this.techMarqueeMediaQuery)
+    this.techMarqueeMediaQuery.addEventListener('change', this.updateTechMarquee)
+  },
+
+  beforeUnmount() {
+    this.techMarqueeMediaQuery?.removeEventListener('change', this.updateTechMarquee)
+  },
+
   methods: {
+    updateTechMarquee(event) {
+      this.showTechMarquee = !event.matches
+    },
     getInternshipDates(internship) {
       const dates = Array.isArray(internship.dates)
         ? internship.dates.filter(Boolean).join(', ')
