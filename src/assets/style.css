@@ -2416,6 +2416,7 @@ section[id] {
 
 .contact-footer {
   position: relative;
+  width: calc(100% + 2rem);
   margin-top: 0;
 }
 
@@ -3127,6 +3128,10 @@ section[id] {
 
   .contact-section {
     padding: 3.5rem 2rem 0;
+  }
+
+  .contact-footer {
+    width: calc(100% + 4rem);
   }
 
   .contact-header {

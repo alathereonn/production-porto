@@ -9,7 +9,7 @@
 
     <ScrollReveal as="div" class="w-full flex justify-center mb-10" :delay="100">
       <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedCert }}</span><span class="typing-cursor">|</span>
+        <span class="text-primary">CERTIFICATIONS</span>
       </h2>
     </ScrollReveal>
 
@@ -68,7 +68,7 @@
   <section v-if="qualificationData.internships?.length" class="qualification-section qualification-category--internship">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
       <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedInternship }}</span><span class="typing-cursor">|</span>
+        <span class="text-primary">WORK EXPERIENCE</span>
       </h2>
     </ScrollReveal>
 
@@ -102,7 +102,7 @@
   <section class="qualification-section qualification-category--teaching">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
       <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedTeach }}</span><span class="typing-cursor">|</span>
+        <span class="text-primary">TEACHING EXPERIENCES</span>
       </h2>
     </ScrollReveal>
 
@@ -150,7 +150,7 @@
   <section class="qualification-section qualification-category--publication">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
       <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedPublication }}</span><span class="typing-cursor">|</span>
+        <span class="text-primary">PUBLICATION</span>
       </h2>
     </ScrollReveal>
 
@@ -198,7 +198,7 @@
   <section class="qualification-section qualification-category--ipr">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
       <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedIpr }}</span><span class="typing-cursor">|</span>
+        <span class="text-primary">INTELLECTUAL PROPERTY RIGHTS</span>
       </h2>
     </ScrollReveal>
 
@@ -233,7 +233,7 @@
   <section class="qualification-section qualification-category--education pb-24">
     <ScrollReveal as="div" class="w-full flex justify-center mt-32 mb-10">
       <h2 class="qualification-typing-heading text-3xl md:text-4xl font-bold text-center leading-tight">
-        <span class="text-primary">{{ typedEdu }}</span><span class="typing-cursor">|</span>
+        <span class="text-primary">EDUCATION</span>
       </h2>
     </ScrollReveal>
 
@@ -417,22 +417,6 @@ export default {
   data() {
     return {
       qualificationData,
-      certText: ["CERTIFICATIONS"],
-      internshipText: ["WORK EXPERIENCE"],
-      teachText: ["TEACHING EXPERIENCES"],
-      publicationText: ["PUBLICATION"],
-      iprText: ["INTELLECTUAL PROPERTY RIGHTS"],
-      eduText: ["EDUCATION"],
-      typedCert: "",
-      typedInternship: "",
-      typedTeach: "",
-      typedPublication: "",
-      typedIpr: "",
-      typedEdu: "",
-      typingSpeed: 100,
-      deletingSpeed: 50,
-      delay: 1500,
-      typingTimeouts: []
     };
   },
 
@@ -442,19 +426,6 @@ export default {
     }
   },
 
-  mounted() {
-    this.createTyping(this.certText, "typedCert");
-    this.createTyping(this.internshipText, "typedInternship");
-    this.createTyping(this.teachText, "typedTeach");
-    this.createTyping(this.publicationText, "typedPublication");
-    this.createTyping(this.iprText, "typedIpr");
-    this.createTyping(this.eduText, "typedEdu");
-  },
-
-  beforeUnmount() {
-    this.typingTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
-  },
-
   methods: {
     getInternshipDates(internship) {
       const dates = Array.isArray(internship.dates)
@@ -462,40 +433,6 @@ export default {
         : internship.dates || [internship.startDate, internship.endDate].filter(Boolean).join(' – ')
 
       return [dates, internship.duration].filter(Boolean).join(' · ')
-    },
-    scheduleTypingTimeout(callback, delay) {
-      const timeoutId = setTimeout(callback, delay);
-      this.typingTimeouts.push(timeoutId);
-      return timeoutId;
-    },
-
-    createTyping(textArray, target) {
-      let textIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-
-      const loop = () => {
-        const current = textArray[textIndex];
-
-        if (!isDeleting) {
-          this[target] = current.substring(0, charIndex++);
-          if (charIndex > current.length) {
-            this.scheduleTypingTimeout(() => {
-              isDeleting = true;
-            }, this.delay);
-          }
-        } else {
-          this[target] = current.substring(0, charIndex--);
-          if (charIndex < 0) {
-            isDeleting = false;
-            textIndex = (textIndex + 1) % textArray.length;
-          }
-        }
-
-        this.scheduleTypingTimeout(loop, isDeleting ? this.deletingSpeed : this.typingSpeed);
-      };
-
-      loop();
     },
     getTechStackIcon(item) {
       return techStackIconMap[item] || { icon: "", color: "BE185D" };
