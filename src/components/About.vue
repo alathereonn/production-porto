@@ -58,10 +58,10 @@
         </ul>
       </ScrollReveal>
 
-      <div class="flex flex-col gap-6 md:gap-8">
+      <div class="about-info-cards flex flex-col gap-6 md:gap-8">
 
         <ScrollReveal :delay="200">
-          <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+          <div class="about-info-card bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
             <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
             <h3 class="about-icon-card-heading text-xl font-bold text-primary">Education</h3>
             <div class="about-icon-tile-list" aria-label="Education">
@@ -90,7 +90,7 @@
         </ScrollReveal>
 
         <ScrollReveal :delay="260">
-          <div class="bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+          <div class="about-info-card bg-card backdrop-blur-md border border-white/5 hover:border-primary/50 transition-all duration-500 p-6 md:p-8 rounded-2xl shadow-xl relative overflow-hidden group">
             <div class="absolute top-0 left-0 w-1 h-full bg-primary/0 group-hover:bg-primary transition-all duration-500"></div>
             <h3 class="about-icon-card-heading text-xl font-bold text-primary">Interests and Skills</h3>
             <div class="about-icon-tile-list" aria-label="Interest and skills">

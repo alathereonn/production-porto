@@ -2139,8 +2139,41 @@ section[id] {
 }
 
 @media (max-width: 767px) {
+  .about-info-card {
+    padding-block: 1rem;
+  }
+
+  .about-info-card .about-icon-card-heading {
+    margin-bottom: 1rem;
+  }
+
+  .about-info-card .about-skill-active-label:not(.is-visible) {
+    display: none;
+  }
+
+  .contact-header .section-title {
+    font-size: 2.25rem;
+  }
+
+  .contact-header .section-title span {
+    display: block;
+    white-space: nowrap;
+  }
+
   .qualification-category--tech-stack {
     display: none;
+  }
+
+  .qualification-category--education {
+    padding-bottom: 0;
+  }
+
+  .education-school-timeline .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .qualification-project-action {
+    margin-top: 1.5rem;
   }
 
   .github-activity-section {
@@ -2187,7 +2220,7 @@ section[id] {
       "content";
     align-content: start;
     gap: 1rem;
-    min-height: 26.5rem;
+    min-height: 25rem;
     padding: 0;
   }
 
@@ -2282,7 +2315,7 @@ section[id] {
   }
 
   .project-github-action {
-    margin-top: 2rem;
+    margin-top: 0.75rem;
   }
 
   .github-activity-section {
@@ -2379,6 +2412,23 @@ section[id] {
 .contact-footer {
   position: relative;
   margin-top: 0;
+}
+
+.contact-footer .contact-social-heading {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.contact-footer .contact-social-list {
+  justify-content: center;
+  gap: 0.75rem;
+  max-width: 32rem;
+  margin: 0 auto 1.5rem;
+  padding-inline: 1rem;
+}
+
+.contact-footer .contact-social-list a {
+  padding: 0.65rem;
 }
 
 .contact-footer-designer {
@@ -2945,6 +2995,18 @@ section[id] {
 }
 
 @media (min-width: 768px) {
+  .about-info-cards {
+    justify-content: space-between;
+  }
+
+  .about-info-card {
+    padding-block: 1rem;
+  }
+
+  .about-info-card .about-icon-card-heading {
+    margin-bottom: 1rem;
+  }
+
   .navbar-inner {
     flex-direction: row;
     gap: 2rem;
@@ -3094,8 +3156,7 @@ section[id] {
     display: contents;
   }
 
-  .contact-form-card,
-  .contact-social-card {
+  .contact-form-card {
     flex: none;
     padding: 1rem 1.5rem;
   }
@@ -3133,27 +3194,6 @@ section[id] {
     min-height: 2.75rem;
     margin-top: 0;
     padding: 0.5rem 1rem;
-  }
-
-  .contact-social-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .contact-social-heading {
-    flex: none;
-    margin-bottom: 0;
-  }
-
-  .contact-social-list {
-    gap: 0.75rem;
-    justify-content: center;
-  }
-
-  .contact-social-list a {
-    padding: 0.65rem;
   }
 
   .hero-section .section-container--narrow {
@@ -3272,10 +3312,6 @@ section[id] {
   .qualification-tech-marquee__item {
     gap: 0.4rem;
     font-size: 1.08rem;
-  }
-
-  .qualification-project-action {
-    margin-top: 2.25rem;
   }
 
   .timeline-item.left .course-list,
